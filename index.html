@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#06080a">
 <meta name="description" content="Pente House — Barbearia & Estética. Cortes com atitude. Stay Clean.">
 <title>Pente House — Stay Clean</title>
+<link rel="preload" as="image" href="/images/pentehouse-interior.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +44,7 @@ img{max-width:100%}
   content:"";position:absolute;inset:-4%;
   background:
     linear-gradient(90deg,rgba(4,6,8,.96),rgba(4,6,8,.55) 48%,rgba(4,6,8,.9)),
-    url("https://scontent-den2-1.cdninstagram.com/v/t51.82787-15/620726248_18028793198596577_6960899563990207301_n.jpg?stp=c258.0.777.776a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=f6L02pEsym0Q7kNvwHJ0fzt&_nc_oc=Adp11Qa4Gd3N4TdvZqvc8Sk3WBxkYLMzERMzgmJZUYkEHmGtsibzznohb8SUz7SwyI8&_nc_zt=23&_nc_ht=scontent-den2-1.cdninstagram.com&_nc_gid=335S8XwtQz8nHO1oseroIg&_nc_ss=7ba8c&oh=00_AQKChiiTFSOIpLh6OZZO2_L-VmxAjF6Bima0IWEK8Lds8w") center/cover no-repeat;
+    url("/images/pentehouse-interior.jpg") center/cover no-repeat;
   filter:saturate(1.04) contrast(1.08)
 }
 .intro-word{position:relative;z-index:2;font:900 clamp(62px,14vw,175px)/.78 "Barlow Condensed",sans-serif;letter-spacing:.06em;text-shadow:0 15px 45px #000}
@@ -225,11 +226,32 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   .stripe{opacity:.35}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Official Pente House assets */
+.intro-logo{display:none!important}
+.intro-logo-real{
+  position:absolute;z-index:3;width:min(355px,78vw);max-height:78vh;
+  object-fit:contain;opacity:0;border-radius:18px;
+  filter:drop-shadow(0 20px 42px rgba(0,0,0,.65));
+}
+.footer-logo{display:none!important}
+.footer-logo-real{
+  width:158px;max-height:166px;object-fit:contain;justify-self:center;
+  border-radius:12px;filter:drop-shadow(0 12px 25px rgba(0,0,0,.48));
+}
+.hero-photo{object-position:center 50%}
+.about-photo img{object-position:center 48%}
+@media(max-width:480px){
+  .intro-logo-real{width:min(330px,82vw);max-height:72vh}
+  .footer-logo-real{width:140px;max-height:150px}
+}
+
 </style>
 </head>
 <body>
 <div class="intro" id="intro">
   <div class="intro-word">STAY CLEAN</div>
+  <img class="intro-logo-real" src="/images/pentehouse-logo.jpg" alt="Pente House Barbearia">
   <div class="brandmark intro-logo">
     <div class="brand-ring"><div class="brand-core">
       <div class="brand-crown">♛</div><div class="brand-tools">✂</div>
@@ -242,7 +264,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 
 <main>
 <section class="hero" id="inicio">
-  <img class="hero-photo" src="https://scontent-den2-1.cdninstagram.com/v/t51.82787-15/620726248_18028793198596577_6960899563990207301_n.jpg?stp=c258.0.777.776a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=f6L02pEsym0Q7kNvwHJ0fzt&_nc_oc=Adp11Qa4Gd3N4TdvZqvc8Sk3WBxkYLMzERMzgmJZUYkEHmGtsibzznohb8SUz7SwyI8&_nc_zt=23&_nc_ht=scontent-den2-1.cdninstagram.com&_nc_gid=335S8XwtQz8nHO1oseroIg&_nc_ss=7ba8c&oh=00_AQKChiiTFSOIpLh6OZZO2_L-VmxAjF6Bima0IWEK8Lds8w" alt="Interior da Pente House" referrerpolicy="no-referrer">
+  <img class="hero-photo" src="/images/pentehouse-interior.jpg" alt="Interior da Pente House" fetchpriority="high">
   <div class="hero-overlay"></div><div class="hero-tint"></div>
   <header class="topbar shell">
     <a href="#inicio" class="wordmark"><b>PENTE HOUSE</b><span>BARBEARIA / ESTÉTICA</span></a>
@@ -281,7 +303,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
       <p class="stay">STAY CLEAN.</p>
       <a class="btn" href="#galeria">CONHECER MAIS <span>›</span></a>
     </div>
-    <figure class="about-photo reveal"><img src="https://scontent-mia3-3.cdninstagram.com/v/t51.82787-15/765637113_18334638433251356_2077425686987578468_n.jpg?stp=c217.0.651.651a_dst-jpg_e35_s640x640_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=k9rg1bvEqwkQ7kNvwG4yFtU&_nc_oc=AdqtsQL5pBRahmHoCPRZeESOLVxSCl0HrYePBLZ14HJurpK62jBqhx7-84AbnIgx0jg&_nc_zt=23&_nc_ht=scontent-mia3-3.cdninstagram.com&_nc_gid=xC6zqZvU_U9XVATdsj3fWA&_nc_ss=7ba8c&oh=00_AQIscRrEQdw8-y9TKEfgn4EladoNnngkLrqo7421mjQKrA" alt="Fachada da Pente House" referrerpolicy="no-referrer"></figure>
+    <figure class="about-photo reveal"><img src="/images/pentehouse-exterior.jpg" alt="Fachada da Pente House"></figure>
     <div class="about-info reveal">
       <div class="feature"><span class="feature-icon">♛</span><div><b>AMBIENTE</b><span>DE CONFIANÇA</span></div></div>
       <div class="feature"><span class="feature-icon">♧</span><div><b>ATENDIMENTO</b><span>PERSONALIZADO</span></div></div>
@@ -301,12 +323,12 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   <div class="gallery-wrap shell reveal">
     <button class="arrow prev" id="prev" aria-label="Fotos anteriores">‹</button>
     <div class="gallery-track" id="track">
-      <figure class="gallery-card"><img src="https://scontent-lga3-1.cdninstagram.com/v/t51.82787-15/621738425_18092784415789452_4518812318308878609_n.jpg?stp=c264.0.795.794a_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2SwtCNRPKhkQ7kNvwEbzQUC&_nc_oc=Adp_l2lbO6x_cUIn_h4ZImy321zoF5GBllZ66Yh86SLh77YSuq318bnCPk60TogeAvk&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=qWyI0owZ_VD67VmJCaV72A&_nc_ss=7ba8c&oh=00_AQKfLS6YvR04kmT-j2j5BrSby2bQlTxsrvz_ie53hojkXA" alt="Corte com caracóis e degradê" referrerpolicy="no-referrer"></figure>
-      <figure class="gallery-card"><img src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/620316280_18052393916427798_4600014253452080150_n.jpg?stp=c288.0.864.864a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2tvdvQXGlxEQ7kNvwEYx-I-&_nc_oc=Ado49_NYvlW4mZHVIDYq74CJIm8Pz0SxiaZE2U5FF2tGg1t_Nztg8vs1-lY6zcIQ_qk&_nc_zt=23&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_gid=ymzFrjKG6JWTgkeausiPQw&_nc_ss=7b689&oh=00_AQJmcFstuUkt5yFVMyC7OPSdQ0Ho9-zFPXKJoy7Z9lJ8cA" alt="Corte masculino com barba" referrerpolicy="no-referrer"></figure>
-      <figure class="gallery-card"><img src="https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/624548651_18119608534579903_7175886507451604438_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=109&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=v8oLWA6Wo68Q7kNvwFV_owk&_nc_oc=Ado6PUkBktswZTFHF0mb498KPV1WbATb7vVOtZseYZdhsLpkosnT3JFNV9OYJdDGPGo&_nc_zt=23&_nc_ht=scontent-ord5-1.cdninstagram.com&_nc_gid=Yuo5TDVvIV6PBE1xC70QOA&_nc_ss=7b689&oh=00_AQIqEMjGzO5WtqCRjWygJlLKHfiD1xADLEalun3Ylu-Ttw" alt="Corte jovem com caracóis" referrerpolicy="no-referrer"></figure>
-      <figure class="gallery-card"><img src="https://scontent-sjc6-1.cdninstagram.com/v/t51.82787-15/622862302_18074209967079895_1548199957060174966_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=jbLpmMNXjCIQ7kNvwFmdKUU&_nc_oc=Adq_tEVmBiTHQM9Q9vafL8UIR3p-4HkJcsoanqbcZHxo9Pa8AiJT0zlej8G4c2pY-jw&_nc_zt=23&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_gid=Tfrgmrmzcg60S6rhbvHv_w&_nc_ss=7ba8c&oh=00_AQIbAD11WLWmImVwEkL3mc5EVB7Oj4tdiZs7x1dpPghBQg" alt="Buzz cut platinado" referrerpolicy="no-referrer"></figure>
-      <figure class="gallery-card"><img src="https://scontent-lga3-1.cdninstagram.com/v/t51.82787-15/621738425_18092784415789452_4518812318308878609_n.jpg?stp=c264.0.795.794a_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2SwtCNRPKhkQ7kNvwEbzQUC&_nc_oc=Adp_l2lbO6x_cUIn_h4ZImy321zoF5GBllZ66Yh86SLh77YSuq318bnCPk60TogeAvk&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=qWyI0owZ_VD67VmJCaV72A&_nc_ss=7ba8c&oh=00_AQKfLS6YvR04kmT-j2j5BrSby2bQlTxsrvz_ie53hojkXA" alt="Degradê com textura" referrerpolicy="no-referrer"></figure>
-      <figure class="gallery-card"><img src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/620316280_18052393916427798_4600014253452080150_n.jpg?stp=c288.0.864.864a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2tvdvQXGlxEQ7kNvwEYx-I-&_nc_oc=Ado49_NYvlW4mZHVIDYq74CJIm8Pz0SxiaZE2U5FF2tGg1t_Nztg8vs1-lY6zcIQ_qk&_nc_zt=23&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_gid=ymzFrjKG6JWTgkeausiPQw&_nc_ss=7b689&oh=00_AQJmcFstuUkt5yFVMyC7OPSdQ0Ho9-zFPXKJoy7Z9lJ8cA" alt="Barba e corte clássico" referrerpolicy="no-referrer"></figure>
+      <figure class="gallery-card"><img src="/images/cut-1.webp" alt="Corte com caracóis e degradê"></figure>
+      <figure class="gallery-card"><img src="/images/cut-2.webp" alt="Corte masculino com barba"></figure>
+      <figure class="gallery-card"><img src="/images/cut-3.webp" alt="Corte jovem com caracóis"></figure>
+      <figure class="gallery-card"><img src="/images/cut-4.webp" alt="Buzz cut platinado"></figure>
+      <figure class="gallery-card"><img src="/images/cut-1.webp" alt="Degradê Pente House"></figure>
+      <figure class="gallery-card"><img src="/images/cut-2.webp" alt="Barba e corte Pente House"></figure>
     </div>
     <button class="arrow next" id="next" aria-label="Fotos seguintes">›</button>
   </div>
@@ -321,15 +343,16 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
     </div>
   </div>
   <div class="barbers shell reveal">
-    <article class="barber"><img src="https://scontent-lga3-1.cdninstagram.com/v/t51.82787-15/621738425_18092784415789452_4518812318308878609_n.jpg?stp=c264.0.795.794a_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2SwtCNRPKhkQ7kNvwEbzQUC&_nc_oc=Adp_l2lbO6x_cUIn_h4ZImy321zoF5GBllZ66Yh86SLh77YSuq318bnCPk60TogeAvk&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=qWyI0owZ_VD67VmJCaV72A&_nc_ss=7ba8c&oh=00_AQKfLS6YvR04kmT-j2j5BrSby2bQlTxsrvz_ie53hojkXA" alt="Corte Pente House" referrerpolicy="no-referrer"><div><h3>LÉO</h3><p>CORTE, DEGRADÉS<br>E ESTILO AFRO</p><button class="btn light book" data-barber="LÉO">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/620316280_18052393916427798_4600014253452080150_n.jpg?stp=c288.0.864.864a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2tvdvQXGlxEQ7kNvwEYx-I-&_nc_oc=Ado49_NYvlW4mZHVIDYq74CJIm8Pz0SxiaZE2U5FF2tGg1t_Nztg8vs1-lY6zcIQ_qk&_nc_zt=23&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_gid=ymzFrjKG6JWTgkeausiPQw&_nc_ss=7b689&oh=00_AQJmcFstuUkt5yFVMyC7OPSdQ0Ho9-zFPXKJoy7Z9lJ8cA" alt="Corte e barba Pente House" referrerpolicy="no-referrer"><div><h3>TIAGO</h3><p>BARBA, DEGRADÉS<br>E CONSULTORIA DE ESTILO</p><button class="btn light book" data-barber="TIAGO">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="https://scontent-sjc6-1.cdninstagram.com/v/t51.82787-15/622862302_18074209967079895_1548199957060174966_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=jbLpmMNXjCIQ7kNvwFmdKUU&_nc_oc=Adq_tEVmBiTHQM9Q9vafL8UIR3p-4HkJcsoanqbcZHxo9Pa8AiJT0zlej8G4c2pY-jw&_nc_zt=23&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_gid=Tfrgmrmzcg60S6rhbvHv_w&_nc_ss=7ba8c&oh=00_AQIbAD11WLWmImVwEkL3mc5EVB7Oj4tdiZs7x1dpPghBQg" alt="Corte clássico Pente House" referrerpolicy="no-referrer"><div><h3>RAFA</h3><p>CORTES CLÁSSICOS<br>E MODERNOS</p><button class="btn light book" data-barber="RAFA">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/cut-1.webp" alt="Corte Pente House"><div><h3>LÉO</h3><p>CORTE, DEGRADÉS<br>E ESTILO AFRO</p><button class="btn light book" data-barber="LÉO">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/cut-2.webp" alt="Corte e barba Pente House"><div><h3>TIAGO</h3><p>BARBA, DEGRADÉS<br>E CONSULTORIA DE ESTILO</p><button class="btn light book" data-barber="TIAGO">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/cut-4.webp" alt="Corte clássico Pente House"><div><h3>RAFA</h3><p>CORTES CLÁSSICOS<br>E MODERNOS</p><button class="btn light book" data-barber="RAFA">AGENDAR <span>›</span></button></div></article>
   </div>
 </section>
 
 <section class="final" id="contactos">
   <div class="stripe left"></div><div class="stripe right"></div>
   <div class="final-grid shell reveal">
+    <img class="footer-logo-real" src="/images/pentehouse-logo.jpg" alt="Pente House Barbearia">
     <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2020</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
     <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
@@ -358,7 +381,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
-const galleryImages=["https://scontent-lga3-1.cdninstagram.com/v/t51.82787-15/621738425_18092784415789452_4518812318308878609_n.jpg?stp=c264.0.795.794a_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2SwtCNRPKhkQ7kNvwEbzQUC&_nc_oc=Adp_l2lbO6x_cUIn_h4ZImy321zoF5GBllZ66Yh86SLh77YSuq318bnCPk60TogeAvk&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=qWyI0owZ_VD67VmJCaV72A&_nc_ss=7ba8c&oh=00_AQKfLS6YvR04kmT-j2j5BrSby2bQlTxsrvz_ie53hojkXA","https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/620316280_18052393916427798_4600014253452080150_n.jpg?stp=c288.0.864.864a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2tvdvQXGlxEQ7kNvwEYx-I-&_nc_oc=Ado49_NYvlW4mZHVIDYq74CJIm8Pz0SxiaZE2U5FF2tGg1t_Nztg8vs1-lY6zcIQ_qk&_nc_zt=23&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_gid=ymzFrjKG6JWTgkeausiPQw&_nc_ss=7b689&oh=00_AQJmcFstuUkt5yFVMyC7OPSdQ0Ho9-zFPXKJoy7Z9lJ8cA","https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/624548651_18119608534579903_7175886507451604438_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=109&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=v8oLWA6Wo68Q7kNvwFV_owk&_nc_oc=Ado6PUkBktswZTFHF0mb498KPV1WbATb7vVOtZseYZdhsLpkosnT3JFNV9OYJdDGPGo&_nc_zt=23&_nc_ht=scontent-ord5-1.cdninstagram.com&_nc_gid=Yuo5TDVvIV6PBE1xC70QOA&_nc_ss=7b689&oh=00_AQIqEMjGzO5WtqCRjWygJlLKHfiD1xADLEalun3Ylu-Ttw","https://scontent-sjc6-1.cdninstagram.com/v/t51.82787-15/622862302_18074209967079895_1548199957060174966_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=jbLpmMNXjCIQ7kNvwFmdKUU&_nc_oc=Adq_tEVmBiTHQM9Q9vafL8UIR3p-4HkJcsoanqbcZHxo9Pa8AiJT0zlej8G4c2pY-jw&_nc_zt=23&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_gid=Tfrgmrmzcg60S6rhbvHv_w&_nc_ss=7ba8c&oh=00_AQIbAD11WLWmImVwEkL3mc5EVB7Oj4tdiZs7x1dpPghBQg","https://scontent-lga3-1.cdninstagram.com/v/t51.82787-15/621738425_18092784415789452_4518812318308878609_n.jpg?stp=c264.0.795.794a_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2SwtCNRPKhkQ7kNvwEbzQUC&_nc_oc=Adp_l2lbO6x_cUIn_h4ZImy321zoF5GBllZ66Yh86SLh77YSuq318bnCPk60TogeAvk&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=qWyI0owZ_VD67VmJCaV72A&_nc_ss=7ba8c&oh=00_AQKfLS6YvR04kmT-j2j5BrSby2bQlTxsrvz_ie53hojkXA","https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/620316280_18052393916427798_4600014253452080150_n.jpg?stp=c288.0.864.864a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2tvdvQXGlxEQ7kNvwEYx-I-&_nc_oc=Ado49_NYvlW4mZHVIDYq74CJIm8Pz0SxiaZE2U5FF2tGg1t_Nztg8vs1-lY6zcIQ_qk&_nc_zt=23&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_gid=ymzFrjKG6JWTgkeausiPQw&_nc_ss=7b689&oh=00_AQJmcFstuUkt5yFVMyC7OPSdQ0Ho9-zFPXKJoy7Z9lJ8cA","https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/624548651_18119608534579903_7175886507451604438_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=109&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=v8oLWA6Wo68Q7kNvwFV_owk&_nc_oc=Ado6PUkBktswZTFHF0mb498KPV1WbATb7vVOtZseYZdhsLpkosnT3JFNV9OYJdDGPGo&_nc_zt=23&_nc_ht=scontent-ord5-1.cdninstagram.com&_nc_gid=Yuo5TDVvIV6PBE1xC70QOA&_nc_ss=7b689&oh=00_AQIqEMjGzO5WtqCRjWygJlLKHfiD1xADLEalun3Ylu-Ttw","https://scontent-sjc6-1.cdninstagram.com/v/t51.82787-15/622862302_18074209967079895_1548199957060174966_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=jbLpmMNXjCIQ7kNvwFmdKUU&_nc_oc=Adq_tEVmBiTHQM9Q9vafL8UIR3p-4HkJcsoanqbcZHxo9Pa8AiJT0zlej8G4c2pY-jw&_nc_zt=23&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_gid=Tfrgmrmzcg60S6rhbvHv_w&_nc_ss=7ba8c&oh=00_AQIbAD11WLWmImVwEkL3mc5EVB7Oj4tdiZs7x1dpPghBQg","https://scontent-lga3-1.cdninstagram.com/v/t51.82787-15/621738425_18092784415789452_4518812318308878609_n.jpg?stp=c264.0.795.794a_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2SwtCNRPKhkQ7kNvwEbzQUC&_nc_oc=Adp_l2lbO6x_cUIn_h4ZImy321zoF5GBllZ66Yh86SLh77YSuq318bnCPk60TogeAvk&_nc_zt=23&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_gid=qWyI0owZ_VD67VmJCaV72A&_nc_ss=7ba8c&oh=00_AQKfLS6YvR04kmT-j2j5BrSby2bQlTxsrvz_ie53hojkXA","https://scontent-ord5-2.cdninstagram.com/v/t51.82787-15/620316280_18052393916427798_4600014253452080150_n.jpg?stp=c288.0.864.864a_dst-jpg_e35_s640x640_tt6&_nc_cat=100&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=2tvdvQXGlxEQ7kNvwEYx-I-&_nc_oc=Ado49_NYvlW4mZHVIDYq74CJIm8Pz0SxiaZE2U5FF2tGg1t_Nztg8vs1-lY6zcIQ_qk&_nc_zt=23&_nc_ht=scontent-ord5-2.cdninstagram.com&_nc_gid=ymzFrjKG6JWTgkeausiPQw&_nc_ss=7b689&oh=00_AQJmcFstuUkt5yFVMyC7OPSdQ0Ho9-zFPXKJoy7Z9lJ8cA","https://scontent-ord5-1.cdninstagram.com/v/t51.82787-15/624548651_18119608534579903_7175886507451604438_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=109&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=v8oLWA6Wo68Q7kNvwFV_owk&_nc_oc=Ado6PUkBktswZTFHF0mb498KPV1WbATb7vVOtZseYZdhsLpkosnT3JFNV9OYJdDGPGo&_nc_zt=23&_nc_ht=scontent-ord5-1.cdninstagram.com&_nc_gid=Yuo5TDVvIV6PBE1xC70QOA&_nc_ss=7b689&oh=00_AQIqEMjGzO5WtqCRjWygJlLKHfiD1xADLEalun3Ylu-Ttw","https://scontent-sjc6-1.cdninstagram.com/v/t51.82787-15/622862302_18074209967079895_1548199957060174966_n.jpg?stp=c180.0.540.540a_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=jbLpmMNXjCIQ7kNvwFmdKUU&_nc_oc=Adq_tEVmBiTHQM9Q9vafL8UIR3p-4HkJcsoanqbcZHxo9Pa8AiJT0zlej8G4c2pY-jw&_nc_zt=23&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_gid=Tfrgmrmzcg60S6rhbvHv_w&_nc_ss=7ba8c&oh=00_AQIbAD11WLWmImVwEkL3mc5EVB7Oj4tdiZs7x1dpPghBQg"];
+const galleryImages=["/images/cut-1.webp","/images/cut-2.webp","/images/cut-3.webp","/images/cut-4.webp","/images/cut-1.webp","/images/cut-2.webp","/images/cut-3.webp","/images/cut-4.webp"];
 
 const intro=document.getElementById("intro");
 let entered=false;
@@ -368,8 +391,8 @@ function enter(){
   entered=true;
   const tl=gsap.timeline({onComplete:()=>{intro.remove();document.documentElement.classList.remove("lock");ScrollTrigger.refresh()}});
   tl.to(".intro-word",{opacity:0,y:-13,duration:.28,ease:"power2.out"})
-    .fromTo(".intro-logo",{opacity:0,scale:.72},{opacity:1,scale:1.06,duration:.72,ease:"power3.out"},"-=.03")
-    .to(".intro-logo",{opacity:0,scale:1.18,filter:"blur(5px)",duration:.48,ease:"power2.in"},"+=.28")
+    .fromTo(".intro-logo-real",{opacity:0,scale:.72},{opacity:1,scale:1.06,duration:.72,ease:"power3.out"},"-=.03")
+    .to(".intro-logo-real",{opacity:0,scale:1.18,filter:"blur(5px)",duration:.48,ease:"power2.in"},"+=.28")
     .to("#intro",{opacity:0,duration:.4},"-=.08");
 }
 ["wheel","touchstart","keydown","click"].forEach(ev=>intro.addEventListener(ev,enter,{once:true,passive:true}));
