@@ -227,6 +227,8 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 .booking-dialog input,.booking-dialog select{height:44px;padding:0 12px;border-radius:7px;border:1px solid rgba(255,255,255,.13);background:#111419;color:#fff}
 .booking-dialog .btn{width:100%;margin-top:8px}
 .booking-dialog small{display:block;margin-top:10px;color:#92969b;line-height:1.45}
+.booking-dialog .field-error{border-color:#e03545!important;box-shadow:0 0 0 1px rgba(224,53,69,.35),-4px 0 0 #e03545!important}
+.booking-dialog .booking-status{min-height:18px;margin-top:9px;color:#f0b8bd;font-size:9px;letter-spacing:.04em}
 .reveal{opacity:0;transform:translateY(20px)}
 
 @media(max-width:900px){
@@ -668,13 +670,28 @@ video{max-width:100%}
 <dialog class="booking-dialog" id="bookingDialog">
   <button class="close" data-close="booking">×</button>
   <p class="kicker">MARCAR HORÁRIO</p><h2>RESERVA O TEU CORTE</h2>
-  <p>Barbeiro: <b id="selectedBarber">Pente House</b><br><a id="selectedPhone" class="selected-phone" href="#" hidden></a></p>
+  <p>Barbeiro: <b id="selectedBarber">Escolher</b><br><a id="selectedPhone" class="selected-phone" href="#" hidden></a></p>
   <div class="signal"><span style="font-size:26px">▰</span><div><b>50% no momento da reserva</b><span>Os restantes 50% são pagos no atendimento.</span></div></div>
-  <label>Nome<input type="text" placeholder="O teu nome"></label>
-  <label>Telemóvel<input type="tel" placeholder="9xx xxx xxx"></label>
-  <label>Serviço<select><option>Selecionar serviço</option><option>Corte</option><option>Corte + barba</option><option>Barba</option></select></label>
-  <button class="btn red" id="payBtn">CONTINUAR PARA O PAGAMENTO <span>›</span></button>
-  <small id="paymentNote">A reserva fica confirmada após o pagamento de 50% do serviço.</small>
+  <label>Barbeiro
+    <select id="bookingBarber" required>
+      <option value="">Escolher barbeiro</option>
+      <option value="Rascal">Rascal</option>
+      <option value="Grenha">Grenha</option>
+      <option value="Bruno Waya">Bruno Waya</option>
+    </select>
+  </label>
+  <label>Nome<input id="bookingName" type="text" placeholder="O teu nome" autocomplete="name" required></label>
+  <label>Telemóvel<input id="bookingPhone" type="tel" placeholder="9xx xxx xxx" autocomplete="tel" inputmode="tel" required></label>
+  <label>Serviço
+    <select id="bookingService" required>
+      <option value="">Selecionar serviço</option>
+      <option value="Corte">Corte</option>
+      <option value="Corte + barba">Corte + barba</option>
+      <option value="Barba">Barba</option>
+    </select>
+  </label>
+  <button class="btn red" id="payBtn" type="button">PEDIR RESERVA NO WHATSAPP <span>›</span></button>
+  <small id="paymentNote">O barbeiro confirma o horário e indica como fazer o sinal de 50%.</small>
 </dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -720,19 +737,89 @@ document.getElementById("aboutVideoPreview").addEventListener("click",openTourVi
 document.querySelector('[data-close="video"]').addEventListener("click",closeTourVideo);
 videoDialog.addEventListener("click",e=>{if(e.target===videoDialog)closeTourVideo()});
 
-const bookingDialog=document.getElementById("bookingDialog"),selected=document.getElementById("selectedBarber"),selectedPhone=document.getElementById("selectedPhone");
+const bookingDialog=document.getElementById("bookingDialog"),
+  selected=document.getElementById("selectedBarber"),
+  selectedPhone=document.getElementById("selectedPhone"),
+  bookingBarber=document.getElementById("bookingBarber"),
+  bookingName=document.getElementById("bookingName"),
+  bookingPhone=document.getElementById("bookingPhone"),
+  bookingService=document.getElementById("bookingService"),
+  payBtn=document.getElementById("payBtn");
+
+const barberContacts={
+  "Rascal":"+351 910 079 539",
+  "Grenha":"+351 919 779 208",
+  "Bruno Waya":"+351 916 605 673"
+};
+
+function syncSelectedBarber(name){
+  const phone=barberContacts[name]||"";
+  selected.textContent=name||"Escolher";
+  if(phone){
+    selectedPhone.textContent=phone;
+    selectedPhone.href="tel:"+phone.replace(/\D/g,"");
+    selectedPhone.hidden=false;
+  }else{
+    selectedPhone.hidden=true;
+    selectedPhone.removeAttribute("href");
+    selectedPhone.textContent="";
+  }
+}
+
+bookingBarber.addEventListener("change",()=>syncSelectedBarber(bookingBarber.value));
+
 document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{
-  const name=btn.dataset.barber||"Pente House";
-  const phone=btn.dataset.phone||"";
-  selected.textContent=name;
-  if(phone){selectedPhone.textContent=phone;selectedPhone.href="tel:"+phone.replace(/\s/g,"");selectedPhone.hidden=false}
-  else{selectedPhone.hidden=true;selectedPhone.removeAttribute("href");selectedPhone.textContent=""}
+  const name=btn.dataset.barber||"";
+  bookingBarber.value=barberContacts[name]?name:"";
+  syncSelectedBarber(bookingBarber.value);
   bookingDialog.showModal();
   if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
     gsap.fromTo(bookingDialog,{scale:.965,y:14},{scale:1,y:0,duration:.34,ease:"back.out(1.35)"});
     gsap.fromTo(bookingDialog.querySelectorAll(".signal,label,#payBtn"),{x:-10,opacity:0},{x:0,opacity:1,duration:.3,stagger:.055,ease:"power2.out"});
   }
 }));
+
+function markBookingError(el){
+  el.classList.add("field-error");
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    gsap.fromTo(el,{x:-5},{x:0,duration:.32,ease:"elastic.out(1,.35)"});
+  }
+  el.focus();
+}
+
+[bookingBarber,bookingName,bookingPhone,bookingService].forEach(el=>{
+  el.addEventListener("input",()=>el.classList.remove("field-error"));
+  el.addEventListener("change",()=>el.classList.remove("field-error"));
+});
+
+payBtn.addEventListener("click",()=>{
+  const barber=bookingBarber.value;
+  const name=bookingName.value.trim();
+  const phone=bookingPhone.value.trim();
+  const service=bookingService.value;
+
+  if(!barber){markBookingError(bookingBarber);return}
+  if(!name){markBookingError(bookingName);return}
+  if(!phone){markBookingError(bookingPhone);return}
+  if(!service){markBookingError(bookingService);return}
+
+  const barberPhone=(barberContacts[barber]||"").replace(/\D/g,"");
+  if(!barberPhone)return;
+
+  const message=[
+    "Olá "+barber+", quero marcar na Pente House.",
+    "",
+    "Nome: "+name,
+    "Telemóvel: "+phone,
+    "Serviço: "+service,
+    "",
+    "Quero confirmar disponibilidade e fazer o sinal de 50%."
+  ].join("\n");
+
+  const url="https://wa.me/"+barberPhone+"?text="+encodeURIComponent(message);
+  window.open(url,"_blank","noopener,noreferrer");
+});
+
 document.querySelector('[data-close="booking"]').addEventListener("click",()=>bookingDialog.close());
 bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)bookingDialog.close()});
 
