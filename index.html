@@ -218,7 +218,20 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 .gallery-dialog .title{font-size:48px}
 .grid-all{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .grid-all img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;background:#181b1e}
-.booking-dialog{width:min(500px,92vw);padding:28px;position:relative}
+.booking-overlay{
+  position:fixed;inset:0;z-index:12000;padding:18px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.82);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility .18s ease
+}
+.booking-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
+html.booking-open,html.booking-open body{overflow:hidden}
+.booking-dialog{
+  width:min(500px,100%);max-height:min(90dvh,760px);overflow:auto;
+  padding:28px;position:relative;border:1px solid var(--steel-low);border-radius:14px;
+  color:#fff;background:#0a0c0f;box-shadow:0 30px 90px rgba(0,0,0,.75);
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch
+}
 .booking-dialog .close{position:absolute;right:16px;top:16px}
 .booking-dialog h2{font:900 48px/.85 "Barlow Condensed",sans-serif;margin:0 0 8px}
 .signal{display:flex;gap:12px;align-items:center;margin:17px 0;padding:14px;background:#14181c;border:1px solid rgba(255,255,255,.1);border-radius:8px}
@@ -458,13 +471,13 @@ video{max-width:100%}
   50%{transform:translate(-50%,-50%) scale(1.06)}
 }
 
-.booking-dialog[open]{
+.booking-overlay.open .booking-dialog{
   animation:arcadeCabinet 3.6s ease-in-out infinite;
   overflow:auto;
   max-height:min(90vh,760px);
   overscroll-behavior:contain;
 }
-.booking-dialog[open] h2{animation:arcadeTitle 2.2s ease-in-out infinite}
+.booking-overlay.open .booking-dialog h2{animation:arcadeTitle 2.2s ease-in-out infinite}
 .booking-dialog input,
 .booking-dialog select{
   transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease,background .18s ease;
@@ -503,11 +516,12 @@ video{max-width:100%}
 @media(max-width:480px){
   .about-photo::before{inset:-18px;filter:blur(18px) saturate(.76) brightness(.48)}
   .about-photo::after{background:linear-gradient(90deg,rgba(10,12,14,.46) 0%,transparent 14%,transparent 86%,rgba(10,12,14,.46) 100%)}
-  .booking-dialog{width:min(92vw,500px);padding:24px 20px}
+  .booking-overlay{padding:12px}
+  .booking-dialog{width:100%;max-height:calc(100dvh - 24px);padding:24px 20px}
   .booking-dialog h2{font-size:44px}
 }
 @media(prefers-reduced-motion:reduce){
-  .booking-dialog[open],.booking-dialog[open] h2,
+  .booking-overlay.open .booking-dialog,.booking-overlay.open .booking-dialog h2,
   .booking-dialog input,.booking-dialog select,#payBtn,.btn span,.tour-play,.feature-icon{
     animation:none!important;
   }
@@ -637,9 +651,9 @@ video{max-width:100%}
     </div>
   </div>
   <div class="barbers shell reveal">
-    <article class="barber"><img class="profile-photo" src="/images/rascal-profile.png" alt="Rascal"><div><h3>RASCAL</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img class="profile-photo" src="/images/grenha-profile.png" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img class="profile-photo" src="/images/rascal-profile.png" alt="Rascal"><div><h3>RASCAL</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button type="button" class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img class="profile-photo" src="/images/grenha-profile.png" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button type="button" class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">AGENDAR <span>›</span></button></div></article>
   </div>
 </section>
 
@@ -647,7 +661,7 @@ video{max-width:100%}
   <div class="stripe left"></div><div class="stripe right"></div>
   <div class="final-grid shell reveal">
     <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2020</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
-    <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
+    <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
   </div>
   <footer>PENTE HOUSE <span>—</span> STAY CLEAN <span>—</span> PORTO</footer>
@@ -667,32 +681,34 @@ video{max-width:100%}
   </video>
 </dialog>
 
-<dialog class="booking-dialog" id="bookingDialog">
-  <button class="close" data-close="booking">×</button>
-  <p class="kicker">MARCAR HORÁRIO</p><h2>RESERVA O TEU CORTE</h2>
-  <p>Barbeiro: <b id="selectedBarber">Escolher</b><br><a id="selectedPhone" class="selected-phone" href="#" hidden></a></p>
-  <div class="signal"><span style="font-size:26px">▰</span><div><b>50% no momento da reserva</b><span>Os restantes 50% são pagos no atendimento.</span></div></div>
-  <label>Barbeiro
-    <select id="bookingBarber" required>
-      <option value="">Escolher barbeiro</option>
-      <option value="Rascal">Rascal</option>
-      <option value="Grenha">Grenha</option>
-      <option value="Bruno Waya">Bruno Waya</option>
-    </select>
-  </label>
-  <label>Nome<input id="bookingName" type="text" placeholder="O teu nome" autocomplete="name" required></label>
-  <label>Telemóvel<input id="bookingPhone" type="tel" placeholder="9xx xxx xxx" autocomplete="tel" inputmode="tel" required></label>
-  <label>Serviço
-    <select id="bookingService" required>
-      <option value="">Selecionar serviço</option>
-      <option value="Corte">Corte</option>
-      <option value="Corte + barba">Corte + barba</option>
-      <option value="Barba">Barba</option>
-    </select>
-  </label>
-  <button class="btn red" id="payBtn" type="button">PEDIR RESERVA NO WHATSAPP <span>›</span></button>
-  <small id="paymentNote">O barbeiro confirma o horário e indica como fazer o sinal de 50%.</small>
-</dialog>
+<div class="booking-overlay" id="bookingDialog" aria-hidden="true">
+  <section class="booking-dialog" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+    <button class="close" data-close="booking" type="button" aria-label="Fechar reserva">×</button>
+    <p class="kicker">MARCAR HORÁRIO</p><h2 id="bookingTitle">RESERVA O TEU CORTE</h2>
+    <p>Barbeiro: <b id="selectedBarber">Escolher</b><br><a id="selectedPhone" class="selected-phone" href="#" hidden></a></p>
+    <div class="signal"><span style="font-size:26px">▰</span><div><b>50% no momento da reserva</b><span>Os restantes 50% são pagos no atendimento.</span></div></div>
+    <label>Barbeiro
+      <select id="bookingBarber" required>
+        <option value="">Escolher barbeiro</option>
+        <option value="Rascal">Rascal</option>
+        <option value="Grenha">Grenha</option>
+        <option value="Bruno Waya">Bruno Waya</option>
+      </select>
+    </label>
+    <label>Nome<input id="bookingName" type="text" placeholder="O teu nome" autocomplete="name" required></label>
+    <label>Telemóvel<input id="bookingPhone" type="tel" placeholder="9xx xxx xxx" autocomplete="tel" inputmode="tel" required></label>
+    <label>Serviço
+      <select id="bookingService" required>
+        <option value="">Selecionar serviço</option>
+        <option value="Corte">Corte</option>
+        <option value="Corte + barba">Corte + barba</option>
+        <option value="Barba">Barba</option>
+      </select>
+    </label>
+    <button class="btn red" id="payBtn" type="button">PEDIR RESERVA NO WHATSAPP <span>›</span></button>
+    <small id="paymentNote">O barbeiro confirma o horário e indica como fazer o sinal de 50%.</small>
+  </section>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -772,11 +788,15 @@ document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=
   const name=btn.dataset.barber||"";
   bookingBarber.value=barberContacts[name]?name:"";
   syncSelectedBarber(bookingBarber.value);
-  bookingDialog.showModal();
+  bookingDialog.classList.add("open");
+  bookingDialog.setAttribute("aria-hidden","false");
+  document.documentElement.classList.add("booking-open");
+  const bookingPanel=bookingDialog.querySelector(".booking-dialog");
   if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-    gsap.fromTo(bookingDialog,{scale:.965,y:14},{scale:1,y:0,duration:.34,ease:"back.out(1.35)"});
-    gsap.fromTo(bookingDialog.querySelectorAll(".signal,label,#payBtn"),{x:-10,opacity:0},{x:0,opacity:1,duration:.3,stagger:.055,ease:"power2.out"});
+    gsap.fromTo(bookingPanel,{scale:.965,y:14},{scale:1,y:0,duration:.34,ease:"back.out(1.35)"});
+    gsap.fromTo(bookingPanel.querySelectorAll(".signal,label,#payBtn"),{x:-10,opacity:0},{x:0,opacity:1,duration:.3,stagger:.055,ease:"power2.out"});
   }
+  setTimeout(()=>bookingBarber.focus({preventScroll:true}),80);
 }));
 
 function markBookingError(el){
@@ -820,8 +840,14 @@ payBtn.addEventListener("click",()=>{
   window.open(url,"_blank","noopener,noreferrer");
 });
 
-document.querySelector('[data-close="booking"]').addEventListener("click",()=>bookingDialog.close());
-bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)bookingDialog.close()});
+function closeBooking(){
+  bookingDialog.classList.remove("open");
+  bookingDialog.setAttribute("aria-hidden","true");
+  document.documentElement.classList.remove("booking-open");
+}
+document.querySelector('[data-close="booking"]').addEventListener("click",closeBooking);
+bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)closeBooking()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&bookingDialog.classList.contains("open"))closeBooking()});
 
 gsap.registerPlugin(ScrollTrigger);
 document.querySelectorAll(".reveal").forEach(el=>gsap.to(el,{opacity:1,y:0,duration:.6,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 90%",once:true}}));
