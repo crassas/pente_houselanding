@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="theme-color" content="#06080a">
-<meta name="description" content="Pente House — Barbearia & Estética. Cortes com atitude. Stay Clean.">
+<meta name="description" content="Pente House — Barbearia & Estética no Porto. Cortes com atitude. Stay Clean.">
 <title>Pente House — Stay Clean</title>
 <link rel="preload" as="image" href="/images/pentehouse-interior.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -192,13 +192,20 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   .mobile-nav{position:absolute;right:17px;top:69px;z-index:30;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(-8px);transition:.2s;background:#0c0f12;border:1px solid var(--line);border-radius:9px;padding:8px}
   .mobile-nav.open{opacity:1;pointer-events:auto;transform:none}
   .mobile-nav a{padding:9px 14px;font-size:9px;letter-spacing:.14em}
-  .hero{height:auto;min-height:760px}
-  .hero-main{height:500px;display:block;padding-top:70px;position:relative}
-  .hero h1{font-size:72px}
-  .hero-copy>p.body{width:82%;font-size:11px}
+  .hero{height:auto;min-height:0}
+  .hero-photo{object-position:center 38%;filter:saturate(1.08) contrast(1.08) brightness(.72)}
+  .hero-overlay{background:linear-gradient(180deg,rgba(4,6,9,.30) 0%,rgba(4,6,9,.58) 45%,rgba(4,6,9,.88) 100%),linear-gradient(90deg,rgba(4,6,9,.82),rgba(4,6,9,.20) 72%,rgba(4,6,9,.50))}
+  .hero-main{height:auto;min-height:430px;display:block;padding-top:28px;padding-bottom:28px;position:relative}
+  .hero-copy{max-width:540px;padding-top:0}
+  .hero h1{font-size:72px;line-height:.78}
+  .hero-sub{margin:15px 0 14px}
+  .hero-copy>p.body{width:min(92%,470px);font-size:12px;line-height:1.55}
+  .hero-copy .btn{height:45px;padding:0 20px}
   .hero-aside{display:none}
-  .hero-script{position:absolute;right:3px;bottom:30px;font-size:20px}
-  .hero-features{height:auto;padding:22px 0 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .hero-script{position:absolute;right:0;bottom:30px;font-size:20px;line-height:1.02}
+  .hero-features{height:auto;padding:18px 0 24px;display:grid;grid-template-columns:1fr 1fr;gap:18px 22px;border-top:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(5,7,9,.18),rgba(5,7,9,.48))}
+  .hero-features .feature{min-width:0}
+  .hero-features .feature div{min-width:0}
   .about{height:auto}.about-grid{display:block}
   .about-copy{padding:30px 0 26px}
   .about-photo{height:300px;border-radius:8px}
@@ -215,10 +222,21 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 @media(max-width:480px){
   .intro-word{font-size:21vw}
   .wordmark b{font-size:25px}
-  .hero-main{padding-top:58px}
-  .hero h1{font-size:68px}
-  .hero-sub{font-size:8px}
-  .hero-copy>p.body{width:93%}
+  .topbar{height:64px}
+  .wordmark b{font-size:24px}
+  .wordmark span{font-size:6px}
+  .menu{width:40px;height:40px}
+  .hero-main{min-height:410px;padding-top:24px;padding-bottom:24px}
+  .hero h1{font-size:60px;line-height:.79}
+  .hero-sub{font-size:8px;letter-spacing:.24em}
+  .hero-copy>p.body{width:94%;font-size:12px}
+  .hero-copy .stay{margin-bottom:17px}
+  .hero-copy .btn{width:auto;min-width:215px;height:43px}
+  .hero-script{font-size:18px;right:2px;bottom:24px}
+  .hero-features{padding:18px 0 22px;gap:18px 10px}
+  .feature{gap:9px}
+  .feature-icon{font-size:20px;width:23px}
+  .feature b,.feature span{font-size:7px}
   .about-copy .title,.gallery-head .title,.booking-head .title{font-size:45px}
   .payment-rule{display:grid;grid-template-columns:1fr;gap:10px}.payment-rule i{display:none}
   .barber{grid-template-columns:100px 1fr}.barber img{width:100px;height:119px}.barber .btn{width:100%;min-width:0}
@@ -255,7 +273,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   <img class="hero-photo" src="/images/pentehouse-interior.jpg" alt="Interior da Pente House" fetchpriority="high">
   <div class="hero-overlay"></div><div class="hero-tint"></div>
   <header class="topbar shell">
-    <a href="#inicio" class="wordmark"><b>PENTE HOUSE</b><span>BARBEARIA / ESTÉTICA</span></a>
+    <a href="#inicio" class="wordmark"><b>PENTE HOUSE</b><span>BARBEARIA / ESTÉTICA · PORTO</span></a>
     <nav class="nav">
       <a class="active" href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#servicos">SERVIÇOS</a><a href="#galeria">GALERIA</a><a href="#contactos">CONTACTOS</a>
     </nav>
@@ -266,7 +284,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   <div class="hero-main shell">
     <div class="hero-copy">
       <h1>CORTES<br>COM ATITUDE</h1>
-      <p class="hero-sub">BARBEARIA / ESTÉTICA — LISBOA</p>
+      <p class="hero-sub">BARBEARIA / ESTÉTICA — PORTO</p>
       <p class="body">Mais que um corte, na <b>PENTE HOUSE</b> encontras um espaço de confiança, estilo e respeito por quem tu és.</p>
       <p class="stay">STAY CLEAN.</p>
       <a class="btn light" href="#marcar">▣ MARCAR HORÁRIO <span>›</span></a>
@@ -279,7 +297,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
     <div class="feature"><span class="feature-icon">✂</span><div><b>BARBEARIA</b><span>PROFISSIONAL</span></div></div>
     <div class="feature"><span class="feature-icon">♙</span><div><b>ESTÉTICA</b><span>MASCULINA</span></div></div>
     <div class="feature"><span class="feature-icon">◇</span><div><b>QUALIDADE</b><span>SEMPRE</span></div></div>
-    <div class="feature"><span class="feature-icon">⌖</span><div><b>LISBOA</b><span>6B</span></div></div>
+    <div class="feature"><span class="feature-icon">⌖</span><div><b>PORTO</b><span>6B</span></div></div>
   </div>
 </section>
 
@@ -296,7 +314,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
       <div class="feature"><span class="feature-icon">♛</span><div><b>AMBIENTE</b><span>DE CONFIANÇA</span></div></div>
       <div class="feature"><span class="feature-icon">♧</span><div><b>ATENDIMENTO</b><span>PERSONALIZADO</span></div></div>
       <div class="feature"><span class="feature-icon">◇</span><div><b>PRODUTOS</b><span>DE QUALIDADE</span></div></div>
-      <div class="feature"><span class="feature-icon">⌖</span><div><b>NO CORAÇÃO</b><span>DE LISBOA</span></div></div>
+      <div class="feature"><span class="feature-icon">⌖</span><div><b>NO CORAÇÃO</b><span>DO PORTO</span></div></div>
       <span class="about-note">Mais<br>que um corte<br>é atitude</span>
     </div>
   </div>
