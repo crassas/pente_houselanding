@@ -394,6 +394,123 @@ video{max-width:100%}
   .tour-media img{object-position:center 44%}
 }
 
+/* Motion + seamless vertical video */
+.about-photo{
+  isolation:isolate;
+  background:
+    linear-gradient(90deg,rgba(7,9,11,.76) 0%,rgba(7,9,11,.20) 25%,rgba(7,9,11,.20) 75%,rgba(7,9,11,.76) 100%),
+    url("/images/pentehouse-tour-poster.jpg") center/cover no-repeat;
+}
+.about-photo::before{
+  content:"";
+  position:absolute;
+  inset:-28px;
+  z-index:0;
+  background:url("/images/pentehouse-tour-poster.jpg") center/cover no-repeat;
+  filter:blur(22px) saturate(.78) brightness(.52);
+  transform:scale(1.14);
+  opacity:.88;
+  pointer-events:none;
+}
+.about-photo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:linear-gradient(90deg,rgba(10,12,14,.58) 0%,transparent 20%,transparent 80%,rgba(10,12,14,.58) 100%);
+  pointer-events:none;
+}
+.about-photo .about-video{
+  position:relative;
+  z-index:1;
+  background:transparent!important;
+}
+
+@keyframes arcadeCabinet{
+  0%,100%{box-shadow:0 30px 90px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.04)}
+  50%{box-shadow:0 34px 96px rgba(0,0,0,.82),0 0 0 1px rgba(215,218,221,.18),inset 0 1px 0 rgba(255,255,255,.08)}
+}
+@keyframes arcadeTitle{
+  0%,100%{transform:translate3d(0,0,0);letter-spacing:0}
+  50%{transform:translate3d(3px,0,0);letter-spacing:.012em}
+}
+@keyframes arcadeField{
+  0%,18%,100%{transform:translateX(0);border-color:rgba(255,255,255,.13);box-shadow:none}
+  5%,12%{transform:translateX(4px);border-color:var(--steel-hi);box-shadow:-4px 0 0 rgba(224,53,69,.9)}
+}
+@keyframes arcadeReady{
+  0%,70%,100%{transform:translateY(0) scale(1);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.42)}
+  78%{transform:translateY(-2px) scale(1.012);box-shadow:0 8px 20px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.26)}
+  86%{transform:translateY(0) scale(1)}
+}
+@keyframes arrowNudge{
+  0%,100%{transform:translateX(0)}
+  50%{transform:translateX(4px)}
+}
+@keyframes iconIdle{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-2px)}
+}
+@keyframes playIdle{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,-50%) scale(1.06)}
+}
+
+.booking-dialog[open]{
+  animation:arcadeCabinet 3.6s ease-in-out infinite;
+  overflow:auto;
+  max-height:min(90vh,760px);
+  overscroll-behavior:contain;
+}
+.booking-dialog[open] h2{animation:arcadeTitle 2.2s ease-in-out infinite}
+.booking-dialog input,
+.booking-dialog select{
+  transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.booking-dialog label:nth-of-type(1) input{animation:arcadeField 6.4s ease-in-out 0s infinite}
+.booking-dialog label:nth-of-type(2) input{animation:arcadeField 6.4s ease-in-out 1.55s infinite}
+.booking-dialog label:nth-of-type(3) select{animation:arcadeField 6.4s ease-in-out 3.1s infinite}
+.booking-dialog input:focus,
+.booking-dialog select:focus{
+  outline:none;
+  transform:translateX(4px);
+  border-color:var(--steel-hi);
+  box-shadow:-4px 0 0 var(--red);
+  background:#15191d;
+}
+.booking-dialog:focus-within input,
+.booking-dialog:focus-within select{animation-play-state:paused}
+#payBtn{position:relative;overflow:hidden;animation:arcadeReady 4.8s ease-in-out 3.9s infinite}
+#payBtn span{display:inline-block;animation:arrowNudge 1.15s ease-in-out infinite}
+.btn span{display:inline-block;animation:arrowNudge 1.55s ease-in-out infinite}
+.btn:active{transform:scale(.975)}
+.tour-play{animation:playIdle 2.2s ease-in-out infinite}
+.feature-icon{animation:iconIdle 3.8s ease-in-out infinite}
+.feature:nth-child(2) .feature-icon{animation-delay:.45s}
+.feature:nth-child(3) .feature-icon{animation-delay:.9s}
+.feature:nth-child(4) .feature-icon{animation-delay:1.35s}
+.barber{
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.barber:hover,.barber:focus-within{
+  transform:translateY(-3px);
+  border-color:var(--steel-mid);
+  box-shadow:0 10px 24px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.09);
+}
+
+@media(max-width:480px){
+  .about-photo::before{inset:-18px;filter:blur(18px) saturate(.76) brightness(.48)}
+  .about-photo::after{background:linear-gradient(90deg,rgba(10,12,14,.46) 0%,transparent 14%,transparent 86%,rgba(10,12,14,.46) 100%)}
+  .booking-dialog{width:min(92vw,500px);padding:24px 20px}
+  .booking-dialog h2{font-size:44px}
+}
+@media(prefers-reduced-motion:reduce){
+  .booking-dialog[open],.booking-dialog[open] h2,
+  .booking-dialog input,.booking-dialog select,#payBtn,.btn span,.tour-play,.feature-icon{
+    animation:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -604,7 +721,18 @@ document.querySelector('[data-close="video"]').addEventListener("click",closeTou
 videoDialog.addEventListener("click",e=>{if(e.target===videoDialog)closeTourVideo()});
 
 const bookingDialog=document.getElementById("bookingDialog"),selected=document.getElementById("selectedBarber"),selectedPhone=document.getElementById("selectedPhone");
-document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{const name=btn.dataset.barber||"Pente House";const phone=btn.dataset.phone||"";selected.textContent=name;if(phone){selectedPhone.textContent=phone;selectedPhone.href="tel:"+phone.replace(/\s/g,"");selectedPhone.hidden=false}else{selectedPhone.hidden=true;selectedPhone.removeAttribute("href");selectedPhone.textContent=""}bookingDialog.showModal()}));
+document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{
+  const name=btn.dataset.barber||"Pente House";
+  const phone=btn.dataset.phone||"";
+  selected.textContent=name;
+  if(phone){selectedPhone.textContent=phone;selectedPhone.href="tel:"+phone.replace(/\s/g,"");selectedPhone.hidden=false}
+  else{selectedPhone.hidden=true;selectedPhone.removeAttribute("href");selectedPhone.textContent=""}
+  bookingDialog.showModal();
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    gsap.fromTo(bookingDialog,{scale:.965,y:14},{scale:1,y:0,duration:.34,ease:"back.out(1.35)"});
+    gsap.fromTo(bookingDialog.querySelectorAll(".signal,label,#payBtn"),{x:-10,opacity:0},{x:0,opacity:1,duration:.3,stagger:.055,ease:"power2.out"});
+  }
+}));
 document.querySelector('[data-close="booking"]').addEventListener("click",()=>bookingDialog.close());
 bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)bookingDialog.close()});
 
