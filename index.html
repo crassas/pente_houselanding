@@ -303,6 +303,97 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   .about-photo{height:390px}
 }
 
+/* Targeted brushed-steel finish */
+:root{
+  --steel-hi:#d7dadd;
+  --steel-mid:#9da3a8;
+  --steel-low:#60666b;
+}
+.btn{
+  border-color:var(--steel-mid);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -1px 0 rgba(0,0,0,.42);
+}
+.btn.light{
+  border-color:var(--steel-hi);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.52),
+    inset 0 -1px 0 rgba(62,66,70,.30);
+}
+.btn.red{border-color:var(--steel-mid)}
+.menu,.close,.arrow,.tour-play{
+  border-color:var(--steel-mid);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.44);
+}
+.intro-logo .brand-ring{
+  background:
+    repeating-conic-gradient(
+      from 4deg,
+      #e2e5e7 0 6deg,
+      #aab0b4 6deg 12deg,
+      #6d7479 12deg 13deg,
+      #c8cdd0 13deg 19deg,
+      #8c9398 19deg 20deg
+    );
+  box-shadow:
+    0 0 0 2px #d2d5d7,
+    0 0 0 5px #555b60,
+    0 16px 46px rgba(0,0,0,.65);
+}
+.intro-logo .brand-core{border-color:#c9cdd0}
+.about-grid>*{min-width:0}
+.about-title{white-space:nowrap}
+.about-title .about-red{color:#ee3a49}
+.about-title .about-white{color:#f4f4f2}
+.about-photo{
+  border:1px solid var(--steel-mid);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 -1px 0 rgba(0,0,0,.45);
+}
+.about-photo .about-video{
+  width:100%;
+  height:100%;
+  max-width:100%;
+  object-fit:contain;
+  object-position:center;
+  background:#000;
+}
+.tour-card,.barber,.gallery-card{
+  border-color:var(--steel-low);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.42);
+}
+.tour-media{border-left:1px solid rgba(157,163,168,.58)}
+.tour-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 46%;
+}
+dialog{border-color:var(--steel-low)}
+video{max-width:100%}
+
+@media(max-width:900px){
+  .about-photo{overflow:hidden}
+  .about-photo .about-video{object-fit:contain}
+  .tour-card,.tour-copy,.tour-media{min-width:0}
+}
+@media(max-width:480px){
+  .about-title{white-space:normal}
+  .about-photo{
+    width:100%;
+    height:min(390px,108vw);
+    min-height:330px;
+  }
+  .tour-card{width:100%;max-width:100%}
+  .tour-media img{object-position:center 44%}
+}
+
 </style>
 </head>
 <body>
@@ -354,7 +445,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 <section class="about" id="sobre">
   <div class="about-grid shell">
     <div class="about-copy reveal">
-      <p class="kicker">SOBRE NÓS</p><h2 class="title">A NOSSA CASA</h2>
+      <h2 class="title about-title"><span class="about-red">SOBRE</span> <span class="about-white">NÓS</span></h2>
       <p class="body">A PENTE HOUSE é mais do que uma barbearia. É um espaço onde o estilo, a boa energia e o respeito se encontram. Aqui acreditamos que um bom corte vai muito além da aparência — é confiança, identidade e atitude.</p>
       <p class="stay">STAY CLEAN.</p>
       <a class="btn" href="#galeria">CONHECER MAIS <span>›</span></a>
@@ -378,7 +469,6 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 <section class="house-tour" aria-label="Vídeo de apresentação da Pente House">
   <div class="tour-card shell reveal">
     <div class="tour-copy">
-      <p class="kicker">POR DENTRO DA CASA</p>
       <h2 class="title">CONHECE A PENTE HOUSE</h2>
       <p>Um olhar rápido sobre o espaço, o ambiente e a casa onde acontece o trabalho.</p>
       <button class="btn tour-btn" id="openTour">VER VÍDEO <span>›</span></button>
