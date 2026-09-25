@@ -142,7 +142,7 @@ img{max-width:100%}
 .barber{height:125px;padding:7px;border:1px solid rgba(255,255,255,.10);border-radius:7px;background:linear-gradient(145deg,#15181b,#0d0f11);display:grid;grid-template-columns:103px 1fr;gap:13px;align-items:center}
 .barber img{width:103px;height:109px;border-radius:6px;object-fit:cover}
 .barber h3{margin:0 0 3px;font:900 29px/.84 "Barlow Condensed",sans-serif}
-.barber p{margin:0 0 10px;color:#c8cacf;font-size:6.7px;line-height:1.4;letter-spacing:.10em}
+.barber p{margin:0 0 10px;color:#c8cacf;font-size:6.7px;line-height:1.4;letter-spacing:.10em}.barber-phone{color:#f4f4f2;font-weight:700;letter-spacing:.06em}.barber-phone:hover{text-decoration:underline}.selected-phone{display:inline-block;margin-top:5px;color:#fff;font-weight:700;text-decoration:underline}
 .barber .btn{height:35px;min-width:145px;font-size:8px}
 
 /* FINAL CTA */
@@ -357,9 +357,9 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
     </div>
   </div>
   <div class="barbers shell reveal">
-    <article class="barber"><img src="/images/gallery-02.webp" alt="Corte Pente House"><div><h3>LÉO</h3><p>CORTE, DEGRADÉS<br>E ESTILO AFRO</p><button class="btn light book" data-barber="LÉO">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="/images/gallery-03.webp" alt="Corte e barba Pente House"><div><h3>TIAGO</h3><p>BARBA, DEGRADÉS<br>E CONSULTORIA DE ESTILO</p><button class="btn light book" data-barber="TIAGO">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>RAFA</h3><p>CORTES CLÁSSICOS<br>E MODERNOS</p><button class="btn light book" data-barber="RAFA">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-02.webp" alt="Corte Pente House"><div><h3>RASCAL</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-03.webp" alt="Corte e barba Pente House"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">AGENDAR <span>›</span></button></div></article>
   </div>
 </section>
 
@@ -382,7 +382,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 <dialog class="booking-dialog" id="bookingDialog">
   <button class="close" data-close="booking">×</button>
   <p class="kicker">MARCAR HORÁRIO</p><h2>RESERVA O TEU CORTE</h2>
-  <p>Barbeiro: <b id="selectedBarber">Pente House</b></p>
+  <p>Barbeiro: <b id="selectedBarber">Pente House</b><br><a id="selectedPhone" class="selected-phone" href="#" hidden></a></p>
   <div class="signal"><span style="font-size:26px">▰</span><div><b>50% no momento da reserva</b><span>Os restantes 50% são pagos no atendimento.</span></div></div>
   <label>Nome<input type="text" placeholder="O teu nome"></label>
   <label>Telemóvel<input type="tel" placeholder="9xx xxx xxx"></label>
@@ -424,8 +424,8 @@ document.getElementById("allPhotos").addEventListener("click",()=>galleryDialog.
 document.querySelector('[data-close="gallery"]').addEventListener("click",()=>galleryDialog.close());
 galleryDialog.addEventListener("click",e=>{if(e.target===galleryDialog)galleryDialog.close()});
 
-const bookingDialog=document.getElementById("bookingDialog"),selected=document.getElementById("selectedBarber");
-document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{selected.textContent=btn.dataset.barber||"Pente House";bookingDialog.showModal()}));
+const bookingDialog=document.getElementById("bookingDialog"),selected=document.getElementById("selectedBarber"),selectedPhone=document.getElementById("selectedPhone");
+document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{const name=btn.dataset.barber||"Pente House";const phone=btn.dataset.phone||"";selected.textContent=name;if(phone){selectedPhone.textContent=phone;selectedPhone.href="tel:"+phone.replace(/\s/g,"");selectedPhone.hidden=false}else{selectedPhone.hidden=true;selectedPhone.removeAttribute("href");selectedPhone.textContent=""}bookingDialog.showModal()}));
 document.querySelector('[data-close="booking"]').addEventListener("click",()=>bookingDialog.close());
 bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)bookingDialog.close()});
 
