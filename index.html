@@ -114,6 +114,49 @@ img{max-width:100%}
 .about-info .feature-icon{font-size:26px}
 .about-note{position:absolute;right:4px;bottom:30px;font:italic 700 16px/1.07 "Barlow Condensed",sans-serif;color:rgba(255,255,255,.37);transform:rotate(-8deg)}
 
+
+/* HOUSE TOUR — compact strategic video placement */
+.house-tour{padding:14px 0;background:#080a0c;border-bottom:1px solid var(--line)}
+.tour-card{
+  min-height:156px;display:grid;grid-template-columns:1fr 112px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.10);border-radius:10px;
+  background:
+    radial-gradient(circle at 20% 50%,rgba(39,78,154,.16),transparent 34%),
+    linear-gradient(135deg,#101317,#090b0e);
+  box-shadow:0 16px 40px rgba(0,0,0,.24)
+}
+.tour-copy{padding:22px 28px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.tour-copy .title{font-size:41px;margin:0 0 8px}
+.tour-copy p:not(.kicker){max-width:540px;margin:0 0 13px;color:#c6c9cd;font-size:9px;line-height:1.55}
+.tour-btn{height:35px;padding:0 17px;font-size:8px}
+.tour-media{position:relative;margin:0;background:#020304;overflow:hidden;cursor:pointer}
+.tour-media video{display:block;width:100%;height:100%;object-fit:cover;object-position:center 34%;filter:saturate(.95) contrast(1.04)}
+.tour-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,9,.4),transparent 45%),linear-gradient(0deg,rgba(5,7,9,.32),transparent 48%);pointer-events:none}
+.tour-play{
+  position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.85);background:rgba(7,9,11,.52);
+  backdrop-filter:blur(5px);font-size:14px;padding-left:2px
+}
+.tour-time{position:absolute;z-index:2;right:9px;bottom:8px;font-size:7px;letter-spacing:.12em;color:#fff}
+.video-dialog{width:min(430px,94vw);max-height:92vh;padding:0;border-radius:14px;overflow:hidden;background:#050607}
+.video-dialog .close{position:absolute;z-index:5;right:11px;top:11px;background:rgba(8,10,12,.72)}
+.video-dialog video{display:block;width:100%;max-height:90vh;object-fit:contain;background:#000}
+@media(max-width:900px){
+  .house-tour{padding:11px 0}
+  .tour-card{min-height:154px;grid-template-columns:1fr 102px}
+  .tour-copy{padding:18px 20px}
+  .tour-copy .title{font-size:36px}
+}
+@media(max-width:480px){
+  .tour-card{min-height:160px;grid-template-columns:1fr 94px;border-radius:8px}
+  .tour-copy{padding:17px 16px}
+  .tour-copy .title{font-size:32px;line-height:.86}
+  .tour-copy p:not(.kicker){font-size:8px;line-height:1.45;margin-bottom:11px}
+  .tour-btn{height:33px;padding:0 14px}
+  .tour-play{width:39px;height:39px}
+}
+
 /* GALLERY */
 .gallery{height:275px;padding:18px 0 17px;background:#07090b;border-bottom:1px solid var(--line)}
 .gallery-head{height:65px;display:grid;grid-template-columns:1fr 260px 180px;gap:28px;align-items:end}
@@ -320,6 +363,25 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   </div>
 </section>
 
+
+<section class="house-tour" aria-label="Vídeo de apresentação da Pente House">
+  <div class="tour-card shell reveal">
+    <div class="tour-copy">
+      <p class="kicker">POR DENTRO DA CASA</p>
+      <h2 class="title">CONHECE A PENTE HOUSE</h2>
+      <p>Um olhar rápido sobre o espaço, o ambiente e a casa onde acontece o trabalho.</p>
+      <button class="btn tour-btn" id="openTour">VER VÍDEO <span>›</span></button>
+    </div>
+    <figure class="tour-media" id="tourPreview" aria-label="Abrir vídeo da Pente House">
+      <video muted autoplay loop playsinline preload="metadata" poster="/images/pentehouse-tour-poster.jpg">
+        <source src="/media/pentehouse-tour.mp4" type="video/mp4">
+      </video>
+      <span class="tour-play">▶</span>
+      <span class="tour-time">00:34</span>
+    </figure>
+  </div>
+</section>
+
 <section class="gallery" id="galeria">
   <div class="gallery-head shell reveal">
     <div><p class="kicker">GALERIA</p><h2 class="title">O NOSSO TRABALHO</h2></div>
@@ -370,13 +432,21 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
     <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
   </div>
-  <footer>PENTE HOUSE <span>—</span> STAY CLEAN <span>—</span> LISBOA</footer>
+  <footer>PENTE HOUSE <span>—</span> STAY CLEAN <span>—</span> PORTO</footer>
 </section>
 </main>
 
 <dialog class="gallery-dialog" id="galleryDialog">
   <div class="dialog-head"><div><p class="kicker">GALERIA</p><h2 class="title">O NOSSO TRABALHO</h2></div><button class="close" data-close="gallery">×</button></div>
   <div class="grid-all" id="allGrid"></div>
+</dialog>
+
+
+<dialog class="video-dialog" id="videoDialog">
+  <button class="close" data-close="video" aria-label="Fechar vídeo">×</button>
+  <video id="tourFull" controls playsinline preload="metadata" poster="/images/pentehouse-tour-poster.jpg">
+    <source src="/media/pentehouse-tour.mp4" type="video/mp4">
+  </video>
 </dialog>
 
 <dialog class="booking-dialog" id="bookingDialog">
@@ -423,6 +493,15 @@ allGrid.innerHTML=galleryImages.map(src=>'<img src="'+src+'" alt="Trabalho Pente
 document.getElementById("allPhotos").addEventListener("click",()=>galleryDialog.showModal());
 document.querySelector('[data-close="gallery"]').addEventListener("click",()=>galleryDialog.close());
 galleryDialog.addEventListener("click",e=>{if(e.target===galleryDialog)galleryDialog.close()});
+
+
+const videoDialog=document.getElementById("videoDialog"),tourFull=document.getElementById("tourFull"),tourPreviewVideo=document.querySelector("#tourPreview video");
+function openTourVideo(){if(tourPreviewVideo)tourPreviewVideo.pause();videoDialog.showModal();tourFull.currentTime=0;tourFull.play().catch(()=>{})}
+function closeTourVideo(){tourFull.pause();videoDialog.close();if(tourPreviewVideo)tourPreviewVideo.play().catch(()=>{})}
+document.getElementById("openTour").addEventListener("click",openTourVideo);
+document.getElementById("tourPreview").addEventListener("click",openTourVideo);
+document.querySelector('[data-close="video"]').addEventListener("click",closeTourVideo);
+videoDialog.addEventListener("click",e=>{if(e.target===videoDialog)closeTourVideo()});
 
 const bookingDialog=document.getElementById("bookingDialog"),selected=document.getElementById("selectedBarber"),selectedPhone=document.getElementById("selectedPhone");
 document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{const name=btn.dataset.barber||"Pente House";const phone=btn.dataset.phone||"";selected.textContent=name;if(phone){selectedPhone.textContent=phone;selectedPhone.href="tel:"+phone.replace(/\s/g,"");selectedPhone.hidden=false}else{selectedPhone.hidden=true;selectedPhone.removeAttribute("href");selectedPhone.textContent=""}bookingDialog.showModal()}));
