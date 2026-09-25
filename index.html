@@ -1,175 +1,402 @@
 <!doctype html>
 <html lang="pt-PT">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#080a0d">
-  <meta name="description" content="Pente House — Barbearia & Estética. Cortes com atitude. Stay Clean.">
-  <title>Pente House — Stay Clean</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#07090b;--panel:#0d1013;--paper:#f3f2ef;--muted:#b8bbc0;--red:#d72d3c;--blue:#1749a4;--line:rgba(255,255,255,.14);--shell:min(1420px,calc(100vw - 80px));color:#fff;background:#07090b;font-family:Inter,Arial,sans-serif}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;background:#07090b}html.lock,html.lock body{overflow:hidden}body{margin:0;background:#07090b;color:#fff;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{color:inherit}.shell{width:var(--shell);margin:auto}.site{background:#07090b;overflow:hidden}.kicker{margin:0 0 5px;color:#f13c4c;font-weight:800;font-size:12px;letter-spacing:.24em}.stay{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.3em}
-    .btn{height:47px;padding:0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.72);display:inline-flex;align-items:center;justify-content:center;gap:10px;background:rgba(8,10,12,.2);color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;cursor:pointer;transition:.25s}.btn:hover{transform:translateY(-2px)}.btn.light{background:#f4f3ef;color:#111316;border-color:#f4f3ef}.btn.red{background:linear-gradient(#d93645,#b91e2c);border-color:#e34c5a;min-width:250px}.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .intro{position:fixed;inset:0;z-index:999;background:#05070a;display:grid;place-items:center;overflow:hidden}.intro-bg{position:absolute;inset:-3%;background:linear-gradient(90deg,rgba(3,5,8,.96),rgba(3,5,8,.55),rgba(3,5,8,.92)),url("https://www.instagram.com/p/CUqQjKmIIIo/media/?size=l") center/cover no-repeat;filter:saturate(.9) contrast(1.06)}.intro-title{position:relative;z-index:2;font:900 clamp(64px,13vw,180px)/.78 "Barlow Condensed",sans-serif;letter-spacing:.08em;text-shadow:0 14px 46px #000}.intro-logo{position:absolute;z-index:3;width:min(390px,72vw);opacity:0}.intro-hint{position:absolute;bottom:36px;z-index:3;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#d0d2d4}
-    .brandmark{aspect-ratio:1;border-radius:50%;display:grid;place-items:center}.brand-ring{width:100%;height:100%;padding:12px;border-radius:50%;background:repeating-conic-gradient(from 9deg,#f1eee8 0 7deg,#174ba6 7deg 14deg,#f1eee8 14deg 21deg,#d32837 21deg 28deg);box-shadow:0 0 0 4px #cfd0d1,0 0 0 7px #1d2024,0 18px 45px rgba(0,0,0,.55)}.brand-core{width:100%;height:100%;border-radius:50%;border:3px solid #d8d8d7;background:radial-gradient(circle at 50% 25%,#25292f,#101216 48%,#050607 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}.brand-core:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.08),transparent 32%,rgba(255,255,255,.03) 58%,transparent);pointer-events:none}.brand-crown{font-size:27px;line-height:1}.brand-scissors{font-size:37px;transform:rotate(-7deg);margin:-1px 0 2px}.brand-meta{position:absolute;top:34%;width:72%;display:flex;justify-content:space-between;font-size:8px;letter-spacing:.22em}.brand-core strong{font:900 clamp(28px,4vw,53px)/.9 "Barlow Condensed",sans-serif;text-shadow:0 3px 0 #30343a,0 7px 20px #000}.brand-core em{font-style:normal;margin-top:8px;padding:6px 23px;border-top:1px solid rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.7);font-size:8px;letter-spacing:.34em}.mini-pole{width:13px;height:29px;margin-top:9px;border-radius:3px;border:1px solid #ddd;background:repeating-linear-gradient(135deg,#f4f1eb 0 5px,#d62a38 5px 10px,#f4f1eb 10px 15px,#164aa4 15px 20px)}
-    .hero{position:relative;min-height:655px;isolation:isolate;border-bottom:1px solid var(--line)}.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;filter:saturate(1.05) contrast(1.08)}.hero-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(4,6,9,.95) 0,rgba(4,6,9,.71) 31%,rgba(4,6,9,.18) 65%,rgba(4,6,9,.68) 100%),linear-gradient(0deg,rgba(3,5,7,.72),transparent 47%)}.hero-glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 75% 25%,rgba(37,83,165,.19),transparent 35%),radial-gradient(circle at 10% 45%,rgba(150,24,38,.13),transparent 28%);mix-blend-mode:screen}
-    .topbar{height:92px;display:grid;grid-template-columns:245px 1fr auto;gap:28px;align-items:center;position:relative;z-index:10}.wordmark{display:flex;flex-direction:column}.wordmark b{font:800 30px/.9 "Barlow Condensed",sans-serif;letter-spacing:.04em}.wordmark span{margin-top:5px;font-size:8px;letter-spacing:.34em;color:#d5d7da}.nav{display:flex;justify-content:center;gap:39px}.nav a{position:relative;padding:12px 2px;font-size:9px;font-weight:700;letter-spacing:.19em}.nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:4px;height:2px;background:#fff}.menu{display:none}.mobile-nav{display:none}
-    .hero-content{min-height:430px;display:grid;grid-template-columns:minmax(430px,575px) 1fr 150px;gap:35px;align-items:center}.hero-copy{max-width:560px}.eyebrow{margin:0 0 13px;font-size:11px;letter-spacing:.31em;color:#d7d9dc}.hero h1{margin:0;font:900 clamp(75px,7.5vw,116px)/.76 "Barlow Condensed",sans-serif;letter-spacing:-.02em;text-shadow:0 9px 32px rgba(0,0,0,.35)}.hero-text{width:72%;margin:22px 0 14px;color:#e0e1e3;font-size:14px;line-height:1.58}.hero-copy .stay{font-size:13px;margin:0 0 20px}.hero-side{justify-self:end;align-self:start;margin-top:64px;border-left:1px solid rgba(255,255,255,.58);padding-left:15px;font-size:10px;line-height:1.47;letter-spacing:.18em;color:#d1d3d6}.hero-script{align-self:end;margin-bottom:77px;font:italic 700 23px/1.05 "Barlow Condensed",sans-serif;color:rgba(255,255,255,.68);transform:rotate(-6deg)}
-    .features{min-height:122px;display:flex;align-items:center;gap:60px}.feature{display:flex;align-items:center;gap:13px}.feature .ico{width:28px;height:28px}.feature div{display:flex;flex-direction:column;gap:3px}.feature b,.feature span{font-size:8px;letter-spacing:.12em}.feature span{color:#b9bdc2}
-    .about{background:#0a0c0e;border-bottom:1px solid var(--line)}.about-grid{min-height:348px;display:grid;grid-template-columns:31% 42% 27%}.about-copy{padding:33px 50px 30px 0}.about h2,.gallery h2,.booking h2,.gallery-dialog h2,.booking-dialog h2{margin:0 0 16px;font:900 clamp(43px,4vw,65px)/.87 "Barlow Condensed",sans-serif}.about-copy>p:not(.kicker):not(.stay){font-size:12px;line-height:1.64;color:#d9dbde}.about-copy .stay{font-size:12px}.about-photo{margin:0;overflow:hidden;min-height:348px}.about-photo img{display:block;width:100%;height:100%;object-fit:cover}.about-features{position:relative;padding:37px 0 34px 50px;display:flex;flex-direction:column;justify-content:center;gap:25px;background:radial-gradient(circle at 88% 55%,rgba(255,255,255,.07),transparent 47%)}.about-note{position:absolute;right:9px;bottom:24px;font:italic 700 18px/1.1 "Barlow Condensed",sans-serif;color:rgba(255,255,255,.4);transform:rotate(-7deg)}
-    .gallery{padding:24px 0 34px;background:#07090b;border-bottom:1px solid var(--line)}.gallery-head{display:grid;grid-template-columns:1.25fr .75fr auto;gap:38px;align-items:end}.gallery-head h2{margin:0}.gallery-head>p{margin:0 0 5px;font-size:11px;line-height:1.55;color:#cdd0d3}.gallery-wrap{position:relative;margin-top:18px}.gallery-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 54px)/4);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 2px}.gallery-track::-webkit-scrollbar{display:none}.gallery-card{height:210px;margin:0;border-radius:9px;overflow:hidden;scroll-snap-align:start;background:#15181c}.gallery-card img{display:block;width:100%;height:100%;object-fit:cover;transition:.4s}.gallery-card:hover img{transform:scale(1.035)}.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:#090b0e;display:grid;place-items:center;cursor:pointer}.arrow.prev{left:-24px}.arrow.next{right:-24px}
-    .booking{padding:24px 0 33px;background:linear-gradient(#0b0d10,#080a0d);border-bottom:1px solid var(--line)}.booking-head{display:flex;align-items:flex-end;justify-content:space-between;gap:35px}.booking-head h2{margin:0}.payment-rule{display:flex;align-items:center;gap:24px;margin-bottom:6px}.payment-rule>div{display:flex;align-items:center;gap:12px}.payment-rule .ico{width:30px;height:30px}.payment-rule span{font-size:8px;letter-spacing:.08em;line-height:1.45}.payment-rule b{color:#ff3144}.payment-rule i{width:1px;height:43px;background:var(--line)}.barbers{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:17px}.barber{min-height:158px;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:9px;background:linear-gradient(145deg,#15181b,#0d0f11);display:grid;grid-template-columns:126px 1fr;gap:19px;align-items:center}.barber img{width:126px;height:136px;border-radius:7px;object-fit:cover}.barber h3{margin:0 0 6px;font:900 35px/.85 "Barlow Condensed",sans-serif}.barber p{margin:0 0 14px;color:#c6c8cc;font-size:8px;line-height:1.4;letter-spacing:.12em}.barber .btn{height:42px;min-width:165px}
-    .final{position:relative;min-height:210px;background:radial-gradient(circle at 48% 0,rgba(255,255,255,.035),transparent 35%),#080a0b;overflow:hidden}.final-grid{min-height:210px;display:grid;grid-template-columns:210px 1fr 145px;gap:38px;align-items:center;position:relative;z-index:2}.footer-logo{width:170px}.footer-logo .brand-ring{padding:7px}.footer-logo .brand-core strong{font-size:23px}.footer-logo .brand-meta{font-size:6px}.footer-logo .brand-crown{font-size:15px}.footer-logo .brand-scissors{font-size:21px}.footer-logo .brand-core em{font-size:5px;padding:3px 10px;margin-top:4px}.footer-logo .mini-pole{width:8px;height:17px;margin-top:4px}.final-copy{text-align:center}.final-copy h2{margin:0 0 17px;font:italic 700 clamp(39px,5vw,68px)/.9 "Barlow Condensed",sans-serif;transform:rotate(-1.5deg)}.values{border-left:1px solid var(--line);padding-left:20px;font-size:10px;line-height:2;letter-spacing:.15em;color:#b8bbc0}.stripe{position:absolute;bottom:-125px;width:300px;height:300px;background:repeating-linear-gradient(135deg,#f0eee9 0 22px,#1749a4 22px 44px,#f0eee9 44px 66px,#cc2635 66px 88px);opacity:.62}.stripe.left{left:-170px;transform:rotate(14deg)}.stripe.right{right:-170px;transform:rotate(-14deg)}footer{height:60px;display:flex;align-items:center;justify-content:center;gap:14px;border-top:1px solid rgba(255,255,255,.08);font-size:7px;letter-spacing:.38em;color:#9da1a6}
-    dialog{color:#fff;background:#0a0c0f;border:1px solid rgba(255,255,255,.16);border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.72)}dialog::backdrop{background:rgba(0,0,0,.8);backdrop-filter:blur(8px)}.gallery-dialog{width:min(1180px,94vw);max-height:90vh;padding:22px}.dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.dialog-head h2{margin:0}.close{width:43px;height:43px;border-radius:50%;border:1px solid var(--line);background:#111419;cursor:pointer;font-size:24px}.grid-all{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.grid-all img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;background:#181b1e}.booking-dialog{width:min(515px,92vw);padding:30px;position:relative}.booking-dialog h2{margin:0 0 8px}.booking-dialog .close{position:absolute;right:18px;top:18px}.signal{display:flex;gap:13px;align-items:center;margin:18px 0;padding:15px;background:#14181c;border:1px solid rgba(255,255,255,.1);border-radius:9px}.signal b{display:block}.signal span{font-size:11px;color:#b8bbc0}.booking-dialog label{display:flex;flex-direction:column;gap:6px;margin:12px 0;color:#c9ccd0;font-size:10px;letter-spacing:.08em}.booking-dialog input,.booking-dialog select{height:46px;padding:0 13px;border-radius:8px;border:1px solid rgba(255,255,255,.13);background:#111419;color:#fff}.booking-dialog .btn{width:100%;margin-top:8px}.booking-dialog small{display:block;margin-top:10px;color:#92969b;line-height:1.45}
-    .reveal{opacity:0;transform:translateY(30px)}
-    @media(max-width:1050px){:root{--shell:min(900px,calc(100vw - 38px))}.nav,.top-cta{display:none}.topbar{grid-template-columns:1fr auto;height:78px}.menu{display:flex;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.25);align-items:center;justify-content:center;font-size:24px}.mobile-nav{position:absolute;right:19px;top:75px;z-index:20;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(-8px);transition:.25s;background:#0c0f12;border:1px solid var(--line);border-radius:10px;padding:10px}.mobile-nav.open{opacity:1;pointer-events:auto;transform:none}.mobile-nav a{padding:10px 17px;font-size:10px;letter-spacing:.15em}.hero-content{grid-template-columns:1fr 120px}.hero-side{display:none}.hero .features{gap:28px;justify-content:space-between}.about-grid{grid-template-columns:1fr 1.15fr}.about-features{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);padding:24px 0}.about-note{display:none}.gallery-head{grid-template-columns:1fr auto}.gallery-head>p{display:none}.gallery-track{grid-auto-columns:calc((100% - 36px)/3)}.booking-head{align-items:flex-start;flex-direction:column}.barbers{grid-template-columns:1fr}.barber{grid-template-columns:160px 1fr}.barber img{width:160px}.final-grid{grid-template-columns:150px 1fr}.footer-logo{width:140px}.values{display:none}}
-    @media(max-width:680px){:root{--shell:calc(100vw - 30px)}.intro-title{font-size:22vw}.hero{min-height:760px}.wordmark b{font-size:25px}.hero-content{display:block;min-height:505px;padding-top:83px}.hero h1{font-size:72px}.hero-text{width:93%;font-size:13px}.hero-script{position:absolute;right:19px;bottom:135px;font-size:20px}.hero .features{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding-bottom:28px}.hero .features .feature:nth-child(n+3){display:none}.about-grid{display:block}.about-copy{padding:32px 0}.about-photo{min-height:280px;border-radius:9px}.about-features{grid-template-columns:1fr 1fr;gap:22px}.gallery-head{display:flex;align-items:flex-start;flex-direction:column;gap:12px}.gallery-head .btn{width:100%}.gallery-track{grid-auto-columns:78%;gap:12px}.gallery-card{height:265px}.arrow{display:none}.booking-head h2{font-size:48px}.payment-rule{display:grid;grid-template-columns:1fr;gap:11px}.payment-rule i{display:none}.barber{grid-template-columns:108px 1fr;gap:13px}.barber img{width:108px;height:132px}.barber h3{font-size:30px}.barber .btn{width:100%;min-width:0}.final-grid{display:flex;flex-direction:column;justify-content:center;gap:17px;padding:30px 0}.footer-logo{width:128px}.final-copy h2{font-size:44px}.grid-all{grid-template-columns:repeat(2,1fr)}footer{font-size:6px;letter-spacing:.22em}.stripe{opacity:.36}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#06080a">
+<meta name="description" content="Pente House — Barbearia & Estética. Cortes com atitude. Stay Clean.">
+<title>Pente House — Stay Clean</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090b;--bg2:#0b0d10;--line:rgba(255,255,255,.14);--text:#f4f4f2;
+  --muted:#b8bbc0;--red:#e03545;--red2:#b92130;--blue:#17469e;
+  --shell:min(1125px,calc(100vw - 70px));
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#06080a;color:var(--text);font-family:Inter,Arial,sans-serif}
+html{scroll-behavior:smooth}
+html.lock,html.lock body{overflow:hidden}
+body{overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{color:inherit}
+img{max-width:100%}
+.shell{width:var(--shell);margin:0 auto}
+.kicker{margin:0 0 7px;color:#ee3a49;font-size:10px;font-weight:800;letter-spacing:.29em}
+.title{margin:0;font:900 50px/.82 "Barlow Condensed",sans-serif;letter-spacing:-.015em}
+.btn{
+  height:42px;border:1px solid rgba(255,255,255,.76);border-radius:999px;padding:0 22px;
+  background:rgba(5,7,9,.2);display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  font-size:10px;font-weight:800;letter-spacing:.09em;cursor:pointer;transition:.2s ease
+}
+.btn:hover{transform:translateY(-1px)}
+.btn.light{background:#f6f4ef;color:#111315;border-color:#f6f4ef}
+.btn.red{background:linear-gradient(180deg,#d83a49,#af202d);border-color:#e45561;min-width:248px;height:50px}
+.stay{font:700 12px/1 "Barlow Condensed",sans-serif;letter-spacing:.31em}
+
+/* INTRO */
+.intro{position:fixed;inset:0;z-index:9999;background:#06080a;display:grid;place-items:center;overflow:hidden}
+.intro:before{
+  content:"";position:absolute;inset:-4%;
+  background:
+    linear-gradient(90deg,rgba(4,6,8,.96),rgba(4,6,8,.55) 48%,rgba(4,6,8,.9)),
+    url("https://www.instagram.com/p/CUqQjKmIIIo/media/?size=l") center/cover no-repeat;
+  filter:saturate(1.04) contrast(1.08)
+}
+.intro-word{position:relative;z-index:2;font:900 clamp(62px,14vw,175px)/.78 "Barlow Condensed",sans-serif;letter-spacing:.06em;text-shadow:0 15px 45px #000}
+.intro-logo{position:absolute;z-index:3;width:min(365px,74vw);opacity:0}
+.intro-hint{position:absolute;bottom:31px;z-index:4;font-size:8px;letter-spacing:.28em;color:#d4d5d7;text-transform:uppercase}
+
+/* LOGO */
+.brandmark{aspect-ratio:1;border-radius:50%;display:grid;place-items:center}
+.brand-ring{
+  width:100%;height:100%;padding:9px;border-radius:50%;
+  background:repeating-conic-gradient(from 8deg,#f0eee8 0 8deg,#174ba5 8deg 16deg,#f0eee8 16deg 24deg,#d32b3a 24deg 32deg);
+  box-shadow:0 0 0 3px #bfc2c5,0 0 0 6px #20242a,0 16px 46px rgba(0,0,0,.65)
+}
+.brand-core{
+  position:relative;width:100%;height:100%;overflow:hidden;border-radius:50%;border:2px solid #e2e2e0;
+  background:radial-gradient(circle at 48% 24%,#24282e,#111418 46%,#050607 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center
+}
+.brand-core:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.08),transparent 31%,rgba(255,255,255,.025) 60%,transparent)}
+.brand-crown{font-size:24px;line-height:1;margin-bottom:-4px}
+.brand-tools{font-size:31px;line-height:1;transform:rotate(-8deg)}
+.brand-meta{position:absolute;top:34%;left:14%;right:14%;display:flex;justify-content:space-between;font-size:7px;letter-spacing:.22em}
+.brand-core strong{font:900 clamp(24px,3.7vw,47px)/.86 "Barlow Condensed",sans-serif;text-shadow:0 2px 0 #30343a,0 6px 14px #000;z-index:1}
+.brand-core em{z-index:1;font-style:normal;margin-top:7px;padding:4px 17px;border-top:1px solid rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.75);font-size:7px;letter-spacing:.33em}
+.mini-pole{z-index:1;width:10px;height:23px;margin-top:7px;border-radius:2px;border:1px solid #ddd;background:repeating-linear-gradient(135deg,#f3f0ea 0 4px,#d62a39 4px 8px,#f3f0ea 8px 12px,#164aa4 12px 16px)}
+
+/* HERO - exact visual proportions of approved reference */
+.hero{position:relative;height:504px;isolation:isolate;border-bottom:1px solid rgba(255,255,255,.11)}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;z-index:-4;filter:saturate(1.13) contrast(1.11) brightness(.84)}
+.hero-overlay{position:absolute;inset:0;z-index:-3;background:linear-gradient(90deg,rgba(3,5,7,.94) 0%,rgba(3,5,7,.71) 27%,rgba(3,5,7,.18) 63%,rgba(3,5,7,.55) 100%),linear-gradient(0deg,rgba(3,5,7,.61),transparent 54%)}
+.hero-tint{position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 73% 22%,rgba(26,68,150,.21),transparent 39%),radial-gradient(circle at 6% 41%,rgba(156,21,38,.13),transparent 30%);mix-blend-mode:screen}
+.topbar{height:67px;display:grid;grid-template-columns:210px 1fr 195px;align-items:center;gap:20px}
+.wordmark{display:flex;flex-direction:column}
+.wordmark b{font:800 27px/.88 "Barlow Condensed",sans-serif;letter-spacing:.04em}
+.wordmark span{margin-top:4px;font-size:6.8px;letter-spacing:.34em;color:#d3d5d8}
+.nav{display:flex;justify-content:center;gap:35px}
+.nav a{position:relative;padding:9px 0;font-size:8px;font-weight:700;letter-spacing:.2em}
+.nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:#f3f3f1}
+.top-cta{justify-self:end;height:40px;min-width:185px}
+.menu,.mobile-nav{display:none}
+.hero-main{height:337px;display:grid;grid-template-columns:490px 1fr 113px;gap:22px;align-items:center}
+.hero-copy{align-self:center;padding-top:3px}
+.hero h1{margin:0;font:900 77px/.77 "Barlow Condensed",sans-serif;letter-spacing:-.018em;text-shadow:0 9px 28px rgba(0,0,0,.38)}
+.hero-sub{margin:17px 0 15px;font-size:9px;font-weight:700;letter-spacing:.30em;color:#e0e2e4}
+.hero-copy>p.body{width:265px;margin:0 0 14px;font-size:10px;line-height:1.53;color:#e0e1e3}
+.hero-copy .stay{margin:0 0 18px}
+.hero-aside{justify-self:end;align-self:start;margin-top:34px;border-left:1px solid rgba(255,255,255,.58);padding-left:13px;font-size:8px;line-height:1.47;letter-spacing:.18em;color:#d1d3d6}
+.hero-script{align-self:end;margin-bottom:26px;font:italic 700 18px/1.05 "Barlow Condensed",sans-serif;color:rgba(255,255,255,.62);transform:rotate(-7deg)}
+.hero-features{height:100px;display:flex;align-items:center;gap:54px}
+.feature{display:flex;align-items:center;gap:12px}
+.feature-icon{font-size:24px;line-height:1;width:27px;text-align:center;color:#f0f0ee}
+.feature div{display:flex;flex-direction:column;gap:4px}
+.feature b,.feature span{font-size:7px;letter-spacing:.11em}
+.feature span{color:#bdc0c4}
+
+/* ABOUT */
+.about{height:292px;background:#0a0c0e;border-bottom:1px solid var(--line)}
+.about-grid{height:100%;display:grid;grid-template-columns:30% 46% 24%}
+.about-copy{padding:27px 32px 24px 0}
+.about-copy .title{font-size:47px;margin-bottom:14px}
+.about-copy .body{margin:0 0 12px;font-size:9px;line-height:1.58;color:#dadcdf}
+.about-copy .stay{margin:0 0 14px}
+.about-copy .btn{height:36px;padding:0 18px;font-size:8px}
+.about-photo{margin:0;height:100%;overflow:hidden}
+.about-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.about-info{position:relative;padding:34px 0 26px 39px;display:flex;flex-direction:column;justify-content:center;gap:22px;background:radial-gradient(circle at 84% 50%,rgba(255,255,255,.055),transparent 55%)}
+.about-info .feature-icon{font-size:26px}
+.about-note{position:absolute;right:4px;bottom:30px;font:italic 700 16px/1.07 "Barlow Condensed",sans-serif;color:rgba(255,255,255,.37);transform:rotate(-8deg)}
+
+/* GALLERY */
+.gallery{height:275px;padding:18px 0 17px;background:#07090b;border-bottom:1px solid var(--line)}
+.gallery-head{height:65px;display:grid;grid-template-columns:1fr 260px 180px;gap:28px;align-items:end}
+.gallery-head .title{font-size:47px}
+.gallery-head .copy{margin:0 0 7px;font-size:8px;line-height:1.55;color:#cdd0d3}
+.gallery-head .btn{height:36px;font-size:8px}
+.gallery-wrap{position:relative;margin-top:12px}
+.gallery-track{height:162px;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 36px)/4);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gallery-track::-webkit-scrollbar{display:none}
+.gallery-card{height:162px;margin:0;border-radius:7px;overflow:hidden;scroll-snap-align:start;background:#15181b}
+.gallery-card img{display:block;width:100%;height:100%;object-fit:cover}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.75);background:#080a0d;display:grid;place-items:center;font-size:23px;cursor:pointer}
+.arrow.prev{left:-22px}.arrow.next{right:-22px}
+
+/* BOOKING */
+.booking{height:226px;padding:16px 0 18px;background:linear-gradient(#0b0d0f,#080a0c);border-bottom:1px solid var(--line)}
+.booking-head{height:67px;display:grid;grid-template-columns:1fr auto;align-items:end}
+.booking-head .title{font-size:46px}
+.payment-rule{display:flex;align-items:center;gap:19px;margin-bottom:4px}
+.payment-rule>div{display:flex;align-items:center;gap:10px}
+.payment-rule .pi{font-size:23px}
+.payment-rule span{font-size:7px;letter-spacing:.08em;line-height:1.43}
+.payment-rule b{color:#ff3548}
+.payment-rule i{width:1px;height:34px;background:var(--line)}
+.barbers{height:125px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:11px}
+.barber{height:125px;padding:7px;border:1px solid rgba(255,255,255,.10);border-radius:7px;background:linear-gradient(145deg,#15181b,#0d0f11);display:grid;grid-template-columns:103px 1fr;gap:13px;align-items:center}
+.barber img{width:103px;height:109px;border-radius:6px;object-fit:cover}
+.barber h3{margin:0 0 3px;font:900 29px/.84 "Barlow Condensed",sans-serif}
+.barber p{margin:0 0 10px;color:#c8cacf;font-size:6.7px;line-height:1.4;letter-spacing:.10em}
+.barber .btn{height:35px;min-width:145px;font-size:8px}
+
+/* FINAL CTA */
+.final{position:relative;height:207px;background:radial-gradient(circle at 48% 0,rgba(255,255,255,.035),transparent 34%),#080a0b;overflow:hidden}
+.final-grid{height:174px;display:grid;grid-template-columns:210px 1fr 150px;gap:30px;align-items:center;position:relative;z-index:2}
+.footer-logo{width:156px;justify-self:center}
+.footer-logo .brand-ring{padding:6px}
+.footer-logo .brand-core strong{font-size:22px}
+.footer-logo .brand-meta{font-size:5px}
+.footer-logo .brand-crown{font-size:14px}
+.footer-logo .brand-tools{font-size:19px}
+.footer-logo .brand-core em{font-size:5px;padding:3px 8px;margin-top:4px}
+.footer-logo .mini-pole{width:7px;height:15px;margin-top:3px}
+.final-copy{text-align:center}
+.final-copy h2{margin:0 0 15px;font:italic 800 49px/.85 "Barlow Condensed",sans-serif;transform:rotate(-1.5deg);text-shadow:0 6px 18px rgba(0,0,0,.4)}
+.values{border-left:1px solid var(--line);padding-left:20px;font-size:8px;line-height:2.05;letter-spacing:.15em;color:#b8bbc0}
+.stripe{position:absolute;bottom:-124px;width:285px;height:285px;background:repeating-linear-gradient(135deg,#f0eee9 0 21px,#1749a4 21px 42px,#f0eee9 42px 63px,#cc2635 63px 84px);opacity:.62}
+.stripe.left{left:-161px;transform:rotate(14deg)}
+.stripe.right{right:-161px;transform:rotate(-14deg)}
+footer{height:33px;display:flex;align-items:center;justify-content:center;gap:13px;border-top:1px solid rgba(255,255,255,.08);font-size:6px;letter-spacing:.38em;color:#9da1a6}
+
+/* DIALOGS */
+dialog{color:#fff;background:#0a0c0f;border:1px solid rgba(255,255,255,.16);border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.75)}
+dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
+.dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.close{width:41px;height:41px;border-radius:50%;border:1px solid var(--line);background:#111419;cursor:pointer;font-size:23px}
+.gallery-dialog{width:min(1120px,94vw);max-height:90vh;padding:22px}
+.gallery-dialog .title{font-size:48px}
+.grid-all{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.grid-all img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;background:#181b1e}
+.booking-dialog{width:min(500px,92vw);padding:28px;position:relative}
+.booking-dialog .close{position:absolute;right:16px;top:16px}
+.booking-dialog h2{font:900 48px/.85 "Barlow Condensed",sans-serif;margin:0 0 8px}
+.signal{display:flex;gap:12px;align-items:center;margin:17px 0;padding:14px;background:#14181c;border:1px solid rgba(255,255,255,.1);border-radius:8px}
+.signal b{display:block}.signal span{font-size:10px;color:#b8bbc0}
+.booking-dialog label{display:flex;flex-direction:column;gap:6px;margin:11px 0;color:#c9ccd0;font-size:9px;letter-spacing:.08em}
+.booking-dialog input,.booking-dialog select{height:44px;padding:0 12px;border-radius:7px;border:1px solid rgba(255,255,255,.13);background:#111419;color:#fff}
+.booking-dialog .btn{width:100%;margin-top:8px}
+.booking-dialog small{display:block;margin-top:10px;color:#92969b;line-height:1.45}
+.reveal{opacity:0;transform:translateY(20px)}
+
+@media(max-width:900px){
+  :root{--shell:calc(100vw - 34px)}
+  .topbar{grid-template-columns:1fr auto;height:72px}
+  .nav,.top-cta{display:none}
+  .menu{display:flex;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.22);align-items:center;justify-content:center;font-size:21px}
+  .mobile-nav{position:absolute;right:17px;top:69px;z-index:30;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(-8px);transition:.2s;background:#0c0f12;border:1px solid var(--line);border-radius:9px;padding:8px}
+  .mobile-nav.open{opacity:1;pointer-events:auto;transform:none}
+  .mobile-nav a{padding:9px 14px;font-size:9px;letter-spacing:.14em}
+  .hero{height:auto;min-height:760px}
+  .hero-main{height:500px;display:block;padding-top:70px;position:relative}
+  .hero h1{font-size:72px}
+  .hero-copy>p.body{width:82%;font-size:11px}
+  .hero-aside{display:none}
+  .hero-script{position:absolute;right:3px;bottom:30px;font-size:20px}
+  .hero-features{height:auto;padding:22px 0 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .about{height:auto}.about-grid{display:block}
+  .about-copy{padding:30px 0 26px}
+  .about-photo{height:300px;border-radius:8px}
+  .about-info{padding:27px 0;display:grid;grid-template-columns:1fr 1fr;gap:22px}.about-note{display:none}
+  .gallery{height:auto;padding:22px 0 30px}
+  .gallery-head{height:auto;display:flex;flex-direction:column;align-items:flex-start;gap:9px}.gallery-head .copy{display:none}.gallery-head .btn{width:100%}
+  .gallery-track{height:245px;grid-auto-columns:77%;gap:12px;margin-top:15px}.gallery-card{height:245px}.arrow{display:none}
+  .booking{height:auto;padding:22px 0 28px}
+  .booking-head{height:auto;display:flex;flex-direction:column;align-items:flex-start;gap:16px}.payment-rule{align-self:stretch;justify-content:space-between}
+  .barbers{height:auto;grid-template-columns:1fr;margin-top:17px}.barber{height:135px;grid-template-columns:110px 1fr}.barber img{width:110px;height:119px}
+  .final{height:auto}.final-grid{height:auto;min-height:335px;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:28px 0}.values{display:none}.footer-logo{width:145px}.final-copy h2{font-size:46px}
+  footer{height:48px}
+}
+@media(max-width:480px){
+  .intro-word{font-size:21vw}
+  .wordmark b{font-size:25px}
+  .hero-main{padding-top:58px}
+  .hero h1{font-size:68px}
+  .hero-sub{font-size:8px}
+  .hero-copy>p.body{width:93%}
+  .about-copy .title,.gallery-head .title,.booking-head .title{font-size:45px}
+  .payment-rule{display:grid;grid-template-columns:1fr;gap:10px}.payment-rule i{display:none}
+  .barber{grid-template-columns:100px 1fr}.barber img{width:100px;height:119px}.barber .btn{width:100%;min-width:0}
+  .grid-all{grid-template-columns:repeat(2,1fr)}
+  .stripe{opacity:.35}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
-  <div class="intro" id="intro">
-    <div class="intro-bg"></div>
-    <div class="intro-title">STAY CLEAN</div>
-    <div class="brandmark intro-logo">
-      <div class="brand-ring"><div class="brand-core">
-        <div class="brand-crown">♛</div><div class="brand-scissors">✂</div>
-        <div class="brand-meta"><span>EST.</span><span>2020</span></div>
-        <strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span>
-      </div></div>
-    </div>
-    <div class="intro-hint">Scroll para entrar</div>
+<div class="intro" id="intro">
+  <div class="intro-word">STAY CLEAN</div>
+  <div class="brandmark intro-logo">
+    <div class="brand-ring"><div class="brand-core">
+      <div class="brand-crown">♛</div><div class="brand-tools">✂</div>
+      <div class="brand-meta"><span>EST.</span><span>2020</span></div>
+      <strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span>
+    </div></div>
   </div>
+  <div class="intro-hint">Scroll para entrar</div>
+</div>
 
-  <main class="site">
-    <section class="hero" id="inicio">
-      <img class="hero-photo" src="https://www.instagram.com/p/CUqQjKmIIIo/media/?size=l" alt="Interior da Pente House" referrerpolicy="no-referrer">
-      <div class="hero-shade"></div><div class="hero-glow"></div>
-      <header class="topbar shell">
-        <a class="wordmark" href="#inicio"><b>PENTE HOUSE</b><span>BARBEARIA / ESTÉTICA</span></a>
-        <nav class="nav"><a class="active" href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#servicos">SERVIÇOS</a><a href="#galeria">GALERIA</a><a href="#contactos">CONTACTOS</a></nav>
-        <a class="btn top-cta" href="#marcar"><span>▣</span> MARCAR HORÁRIO</a>
-        <button class="menu" id="menu" aria-label="Abrir menu">☰</button>
-      </header>
-      <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#servicos">SERVIÇOS</a><a href="#galeria">GALERIA</a><a href="#marcar">MARCAR</a></nav>
-      <div class="hero-content shell">
-        <div class="hero-copy">
-          <p class="eyebrow">BARBEARIA / ESTÉTICA — LISBOA</p>
-          <h1>CORTES<br>COM ATITUDE</h1>
-          <p class="hero-text">Mais que um corte, na <b>PENTE HOUSE</b> encontras um espaço de confiança, estilo e respeito por quem tu és.</p>
-          <p class="stay">STAY CLEAN.</p>
-          <a class="btn light" href="#marcar">▣ MARCAR HORÁRIO <span>→</span></a>
-        </div>
-        <p class="hero-side">MAIS<br>QUE UM<br>CORTE<br><b>É ATITUDE</b></p>
-        <p class="hero-script">Disciplina<br>também<br>é estilo</p>
-      </div>
-      <div class="features shell" id="servicos">
-        <div class="feature"><span style="font-size:28px">✂</span><div><b>BARBEARIA</b><span>PROFISSIONAL</span></div></div>
-        <div class="feature"><span style="font-size:28px">♙</span><div><b>ESTÉTICA</b><span>MASCULINA</span></div></div>
-        <div class="feature"><span style="font-size:27px">◇</span><div><b>QUALIDADE</b><span>SEMPRE</span></div></div>
-        <div class="feature"><span style="font-size:27px">⌖</span><div><b>LISBOA</b><span>6B</span></div></div>
-      </div>
-    </section>
+<main>
+<section class="hero" id="inicio">
+  <img class="hero-photo" src="https://www.instagram.com/p/CUqQjKmIIIo/media/?size=l" alt="Interior da Pente House" referrerpolicy="no-referrer">
+  <div class="hero-overlay"></div><div class="hero-tint"></div>
+  <header class="topbar shell">
+    <a href="#inicio" class="wordmark"><b>PENTE HOUSE</b><span>BARBEARIA / ESTÉTICA</span></a>
+    <nav class="nav">
+      <a class="active" href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#servicos">SERVIÇOS</a><a href="#galeria">GALERIA</a><a href="#contactos">CONTACTOS</a>
+    </nav>
+    <a class="btn top-cta" href="#marcar">▣ MARCAR HORÁRIO</a>
+    <button class="menu" id="menu" aria-label="Abrir menu">☰</button>
+  </header>
+  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#servicos">SERVIÇOS</a><a href="#galeria">GALERIA</a><a href="#marcar">MARCAR</a></nav>
+  <div class="hero-main shell">
+    <div class="hero-copy">
+      <h1>CORTES<br>COM ATITUDE</h1>
+      <p class="hero-sub">BARBEARIA / ESTÉTICA — LISBOA</p>
+      <p class="body">Mais que um corte, na <b>PENTE HOUSE</b> encontras um espaço de confiança, estilo e respeito por quem tu és.</p>
+      <p class="stay">STAY CLEAN.</p>
+      <a class="btn light" href="#marcar">▣ MARCAR HORÁRIO <span>›</span></a>
+    </div>
+    <div></div>
+    <p class="hero-aside">MAIS<br>QUE UM<br>CORTE<br><b>É ATITUDE</b></p>
+    <p class="hero-script">Disciplina<br>também<br>é estilo</p>
+  </div>
+  <div class="hero-features shell" id="servicos">
+    <div class="feature"><span class="feature-icon">✂</span><div><b>BARBEARIA</b><span>PROFISSIONAL</span></div></div>
+    <div class="feature"><span class="feature-icon">♙</span><div><b>ESTÉTICA</b><span>MASCULINA</span></div></div>
+    <div class="feature"><span class="feature-icon">◇</span><div><b>QUALIDADE</b><span>SEMPRE</span></div></div>
+    <div class="feature"><span class="feature-icon">⌖</span><div><b>LISBOA</b><span>6B</span></div></div>
+  </div>
+</section>
 
-    <section class="about" id="sobre">
-      <div class="about-grid shell">
-        <div class="about-copy reveal">
-          <p class="kicker">SOBRE NÓS</p><h2>A NOSSA CASA</h2>
-          <p>A PENTE HOUSE é mais do que uma barbearia. É um espaço onde o estilo, a boa energia e o respeito se encontram. Aqui acreditamos que um bom corte vai muito além da aparência — é confiança, identidade e atitude.</p>
-          <p class="stay">STAY CLEAN.</p><a class="btn" href="#galeria">CONHECER MAIS →</a>
-        </div>
-        <figure class="about-photo reveal"><img src="https://www.instagram.com/p/DbpxjZNKkTh/media/?size=l" alt="Fachada da Pente House" referrerpolicy="no-referrer"></figure>
-        <div class="about-features reveal">
-          <div class="feature"><span style="font-size:28px">♛</span><div><b>AMBIENTE</b><span>DE CONFIANÇA</span></div></div>
-          <div class="feature"><span style="font-size:27px">♧</span><div><b>ATENDIMENTO</b><span>PERSONALIZADO</span></div></div>
-          <div class="feature"><span style="font-size:27px">◇</span><div><b>PRODUTOS</b><span>DE QUALIDADE</span></div></div>
-          <div class="feature"><span style="font-size:27px">⌖</span><div><b>NO CORAÇÃO</b><span>DE LISBOA</span></div></div>
-          <span class="about-note">Mais<br>que um corte<br>é atitude</span>
-        </div>
-      </div>
-    </section>
+<section class="about" id="sobre">
+  <div class="about-grid shell">
+    <div class="about-copy reveal">
+      <p class="kicker">SOBRE NÓS</p><h2 class="title">A NOSSA CASA</h2>
+      <p class="body">A PENTE HOUSE é mais do que uma barbearia. É um espaço onde o estilo, a boa energia e o respeito se encontram. Aqui acreditamos que um bom corte vai muito além da aparência — é confiança, identidade e atitude.</p>
+      <p class="stay">STAY CLEAN.</p>
+      <a class="btn" href="#galeria">CONHECER MAIS <span>›</span></a>
+    </div>
+    <figure class="about-photo reveal"><img src="https://www.instagram.com/p/DbpxjZNKkTh/media/?size=l" alt="Fachada da Pente House" referrerpolicy="no-referrer"></figure>
+    <div class="about-info reveal">
+      <div class="feature"><span class="feature-icon">♛</span><div><b>AMBIENTE</b><span>DE CONFIANÇA</span></div></div>
+      <div class="feature"><span class="feature-icon">♧</span><div><b>ATENDIMENTO</b><span>PERSONALIZADO</span></div></div>
+      <div class="feature"><span class="feature-icon">◇</span><div><b>PRODUTOS</b><span>DE QUALIDADE</span></div></div>
+      <div class="feature"><span class="feature-icon">⌖</span><div><b>NO CORAÇÃO</b><span>DE LISBOA</span></div></div>
+      <span class="about-note">Mais<br>que um corte<br>é atitude</span>
+    </div>
+  </div>
+</section>
 
-    <section class="gallery" id="galeria">
-      <div class="gallery-head shell reveal">
-        <div><p class="kicker">GALERIA</p><h2>O NOSSO TRABALHO</h2></div>
-        <p>Cada corte é uma história. Aqui mostramos um pouco do que fazemos todos os dias.</p>
-        <button class="btn" id="allPhotos">VER TODAS AS FOTOS →</button>
-      </div>
-      <div class="gallery-wrap shell reveal">
-        <button class="arrow prev" id="prev" aria-label="Fotos anteriores">‹</button>
-        <div class="gallery-track" id="track">
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/CE4ZYekAjid/media/?size=l" alt="Corte com caracóis e degradê" referrerpolicy="no-referrer"></figure>
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/CJGjzweH4hH/media/?size=l" alt="Corte masculino com barba" referrerpolicy="no-referrer"></figure>
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/CNFTX6gH1g2/media/?size=l" alt="Corte jovem com caracóis" referrerpolicy="no-referrer"></figure>
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/CPdx4j9nnCM/media/?size=l" alt="Buzz cut platinado" referrerpolicy="no-referrer"></figure>
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/CEufujnnVRi/media/?size=l" alt="Degradê com textura" referrerpolicy="no-referrer"></figure>
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/CEje5eCAprI/media/?size=l" alt="Barba e corte clássico" referrerpolicy="no-referrer"></figure>
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/CN252suHrII/media/?size=l" alt="Tranças e degradê" referrerpolicy="no-referrer"></figure>
-          <figure class="gallery-card"><img src="https://www.instagram.com/p/Cc6GUbAofAh/media/?size=l" alt="Barba cheia e degradê" referrerpolicy="no-referrer"></figure>
-        </div>
-        <button class="arrow next" id="next" aria-label="Fotos seguintes">›</button>
-      </div>
-    </section>
+<section class="gallery" id="galeria">
+  <div class="gallery-head shell reveal">
+    <div><p class="kicker">GALERIA</p><h2 class="title">O NOSSO TRABALHO</h2></div>
+    <p class="copy">Cada corte é uma história. Aqui mostramos um pouco do que fazemos todos os dias.</p>
+    <button class="btn" id="allPhotos">VER TODAS AS FOTOS <span>›</span></button>
+  </div>
+  <div class="gallery-wrap shell reveal">
+    <button class="arrow prev" id="prev" aria-label="Fotos anteriores">‹</button>
+    <div class="gallery-track" id="track">
+      <figure class="gallery-card"><img src="https://www.instagram.com/p/CE4ZYekAjid/media/?size=l" alt="Corte com caracóis e degradê" referrerpolicy="no-referrer"></figure>
+      <figure class="gallery-card"><img src="https://www.instagram.com/p/CJGjzweH4hH/media/?size=l" alt="Corte masculino com barba" referrerpolicy="no-referrer"></figure>
+      <figure class="gallery-card"><img src="https://www.instagram.com/p/CNFTX6gH1g2/media/?size=l" alt="Corte jovem com caracóis" referrerpolicy="no-referrer"></figure>
+      <figure class="gallery-card"><img src="https://www.instagram.com/p/CPdx4j9nnCM/media/?size=l" alt="Buzz cut platinado" referrerpolicy="no-referrer"></figure>
+      <figure class="gallery-card"><img src="https://www.instagram.com/p/CEufujnnVRi/media/?size=l" alt="Degradê com textura" referrerpolicy="no-referrer"></figure>
+      <figure class="gallery-card"><img src="https://www.instagram.com/p/CEje5eCAprI/media/?size=l" alt="Barba e corte clássico" referrerpolicy="no-referrer"></figure>
+    </div>
+    <button class="arrow next" id="next" aria-label="Fotos seguintes">›</button>
+  </div>
+</section>
 
-    <section class="booking" id="marcar">
-      <div class="booking-head shell reveal">
-        <div><p class="kicker">MARCAR HORÁRIO</p><h2>ESCOLHE O TEU BARBEIRO</h2></div>
-        <div class="payment-rule">
-          <div><span style="font-size:26px">▣</span><span>RESERVA COM<br><b>50%</b> DE SINAL</span></div><i></i>
-          <div><span style="font-size:27px">▰</span><span>OS RESTANTES <b>50%</b><br>SÃO PAGOS NO ATENDIMENTO</span></div>
-        </div>
-      </div>
-      <div class="barbers shell reveal">
-        <article class="barber"><img src="https://www.instagram.com/p/CE4ZYekAjid/media/?size=l" alt="Corte Pente House" referrerpolicy="no-referrer"><div><h3>LÉO</h3><p>CORTE, DEGRADÉS<br>E ESTILO AFRO</p><button class="btn light book" data-barber="LÉO">AGENDAR →</button></div></article>
-        <article class="barber"><img src="https://www.instagram.com/p/CJGjzweH4hH/media/?size=l" alt="Corte e barba Pente House" referrerpolicy="no-referrer"><div><h3>TIAGO</h3><p>BARBA, DEGRADÉS<br>E CONSULTORIA DE ESTILO</p><button class="btn light book" data-barber="TIAGO">AGENDAR →</button></div></article>
-        <article class="barber"><img src="https://www.instagram.com/p/CPdx4j9nnCM/media/?size=l" alt="Corte clássico Pente House" referrerpolicy="no-referrer"><div><h3>RAFA</h3><p>CORTES CLÁSSICOS<br>E MODERNOS</p><button class="btn light book" data-barber="RAFA">AGENDAR →</button></div></article>
-      </div>
-    </section>
+<section class="booking" id="marcar">
+  <div class="booking-head shell reveal">
+    <div><p class="kicker">MARCAR HORÁRIO</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2></div>
+    <div class="payment-rule">
+      <div><span class="pi">▣</span><span>RESERVA COM<br><b>50%</b> DE SINAL</span></div><i></i>
+      <div><span class="pi">▰</span><span>OS RESTANTES <b>50%</b><br>SÃO PAGOS NO ATENDIMENTO</span></div>
+    </div>
+  </div>
+  <div class="barbers shell reveal">
+    <article class="barber"><img src="https://www.instagram.com/p/CE4ZYekAjid/media/?size=l" alt="Corte Pente House" referrerpolicy="no-referrer"><div><h3>LÉO</h3><p>CORTE, DEGRADÉS<br>E ESTILO AFRO</p><button class="btn light book" data-barber="LÉO">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="https://www.instagram.com/p/CJGjzweH4hH/media/?size=l" alt="Corte e barba Pente House" referrerpolicy="no-referrer"><div><h3>TIAGO</h3><p>BARBA, DEGRADÉS<br>E CONSULTORIA DE ESTILO</p><button class="btn light book" data-barber="TIAGO">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="https://www.instagram.com/p/CPdx4j9nnCM/media/?size=l" alt="Corte clássico Pente House" referrerpolicy="no-referrer"><div><h3>RAFA</h3><p>CORTES CLÁSSICOS<br>E MODERNOS</p><button class="btn light book" data-barber="RAFA">AGENDAR <span>›</span></button></div></article>
+  </div>
+</section>
 
-    <section class="final" id="contactos">
-      <div class="stripe left"></div><div class="stripe right"></div>
-      <div class="final-grid shell reveal">
-        <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-scissors">✂</div><div class="brand-meta"><span>EST.</span><span>2020</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
-        <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button class="btn red book" data-barber="">▣ MARCAR AGORA →</button></div>
-        <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
-      </div>
-    </section>
-    <footer>PENTE HOUSE <span>—</span> STAY CLEAN <span>—</span> LISBOA</footer>
-  </main>
+<section class="final" id="contactos">
+  <div class="stripe left"></div><div class="stripe right"></div>
+  <div class="final-grid shell reveal">
+    <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2020</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
+    <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
+    <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
+  </div>
+  <footer>PENTE HOUSE <span>—</span> STAY CLEAN <span>—</span> LISBOA</footer>
+</section>
+</main>
 
-  <dialog class="gallery-dialog" id="galleryDialog">
-    <div class="dialog-head"><div><p class="kicker">GALERIA</p><h2>O NOSSO TRABALHO</h2></div><button class="close" data-close="gallery">×</button></div>
-    <div class="grid-all" id="allGrid"></div>
-  </dialog>
+<dialog class="gallery-dialog" id="galleryDialog">
+  <div class="dialog-head"><div><p class="kicker">GALERIA</p><h2 class="title">O NOSSO TRABALHO</h2></div><button class="close" data-close="gallery">×</button></div>
+  <div class="grid-all" id="allGrid"></div>
+</dialog>
 
-  <dialog class="booking-dialog" id="bookingDialog">
-    <button class="close" data-close="booking">×</button>
-    <p class="kicker">MARCAR HORÁRIO</p><h2>RESERVA O TEU CORTE</h2>
-    <p>Barbeiro: <b id="selectedBarber">Pente House</b></p>
-    <div class="signal"><span style="font-size:27px">▰</span><div><b>50% no momento da reserva</b><span>Os restantes 50% são pagos no atendimento.</span></div></div>
-    <label>Nome<input type="text" placeholder="O teu nome"></label>
-    <label>Telemóvel<input type="tel" placeholder="9xx xxx xxx"></label>
-    <label>Serviço<select><option>Selecionar serviço</option><option>Corte</option><option>Corte + barba</option><option>Barba</option></select></label>
-    <button class="btn red" id="payBtn">CONTINUAR PARA O PAGAMENTO →</button>
-    <small id="paymentNote">A estrutura dos 50% já está preparada. Falta apenas ligar os preços e o método de pagamento definitivo.</small>
-  </dialog>
+<dialog class="booking-dialog" id="bookingDialog">
+  <button class="close" data-close="booking">×</button>
+  <p class="kicker">MARCAR HORÁRIO</p><h2>RESERVA O TEU CORTE</h2>
+  <p>Barbeiro: <b id="selectedBarber">Pente House</b></p>
+  <div class="signal"><span style="font-size:26px">▰</span><div><b>50% no momento da reserva</b><span>Os restantes 50% são pagos no atendimento.</span></div></div>
+  <label>Nome<input type="text" placeholder="O teu nome"></label>
+  <label>Telemóvel<input type="tel" placeholder="9xx xxx xxx"></label>
+  <label>Serviço<select><option>Selecionar serviço</option><option>Corte</option><option>Corte + barba</option><option>Barba</option></select></label>
+  <button class="btn red" id="payBtn">CONTINUAR PARA O PAGAMENTO <span>›</span></button>
+  <small id="paymentNote">A reserva fica confirmada após o pagamento de 50% do serviço.</small>
+</dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script>
-    var photoCodes=["CE4ZYekAjid","CJGjzweH4hH","CNFTX6gH1g2","CPdx4j9nnCM","CEufujnnVRi","CEje5eCAprI","CErMl_jgcR5","CEsOqnFgas9","CHyU62NHOdI","CN252suHrII","CRjZmEwMDxm","CSj51Anoo5h","CUKfZQvoXcw","Cc6GUbAofAh","CdsuXRSo07t","CnH6Tf9IVQj","Bm048W3n3qi","Bkk96vJnF3t","CUqQjKmIIIo","DbpxjZNKkTh"];
-    var ig=function(code){return "https://www.instagram.com/p/"+code+"/media/?size=l"};
-    var intro=document.getElementById("intro");var entered=false;document.documentElement.classList.add("lock");
-    function enter(){if(entered)return;entered=true;var tl=gsap.timeline({onComplete:function(){intro.remove();document.documentElement.classList.remove("lock");ScrollTrigger.refresh()}});tl.to(".intro-title",{opacity:0,y:-18,duration:.35,ease:"power2.out"}).fromTo(".intro-logo",{opacity:0,scale:.72},{opacity:1,scale:1.08,duration:.72,ease:"power3.out"},"-=.07").to(".intro-logo",{opacity:0,scale:1.21,filter:"blur(6px)",duration:.55,ease:"power2.in"},"+=.30").to("#intro",{opacity:0,duration:.52},"-=.12")}
-    ["wheel","touchstart","keydown","click"].forEach(function(ev){intro.addEventListener(ev,enter,{once:true,passive:true})});
-    var menu=document.getElementById("menu"),mobileNav=document.getElementById("mobileNav");menu.addEventListener("click",function(e){e.stopPropagation();mobileNav.classList.toggle("open")});mobileNav.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){mobileNav.classList.remove("open")})});
-    var track=document.getElementById("track");document.getElementById("prev").addEventListener("click",function(){track.scrollBy({left:-Math.min(track.clientWidth*.82,760),behavior:"smooth"})});document.getElementById("next").addEventListener("click",function(){track.scrollBy({left:Math.min(track.clientWidth*.82,760),behavior:"smooth"})});
-    var galleryDialog=document.getElementById("galleryDialog"),allGrid=document.getElementById("allGrid");allGrid.innerHTML=photoCodes.map(function(c){return '<img src="'+ig(c)+'" alt="Trabalho Pente House" loading="lazy" referrerpolicy="no-referrer">'}).join("");document.getElementById("allPhotos").addEventListener("click",function(){galleryDialog.showModal()});document.querySelector('[data-close="gallery"]').addEventListener("click",function(){galleryDialog.close()});galleryDialog.addEventListener("click",function(e){if(e.target===galleryDialog)galleryDialog.close()});
-    var bookingDialog=document.getElementById("bookingDialog"),selected=document.getElementById("selectedBarber");document.querySelectorAll(".book").forEach(function(btn){btn.addEventListener("click",function(){selected.textContent=btn.dataset.barber||"Pente House";bookingDialog.showModal()})});document.querySelector('[data-close="booking"]').addEventListener("click",function(){bookingDialog.close()});bookingDialog.addEventListener("click",function(e){if(e.target===bookingDialog)bookingDialog.close()});document.getElementById("payBtn").addEventListener("click",function(){document.getElementById("paymentNote").textContent="Falta ligar o método de pagamento e os preços dos serviços para cobrar exatamente 50%."});
-    gsap.registerPlugin(ScrollTrigger);document.querySelectorAll(".reveal").forEach(function(el){gsap.to(el,{opacity:1,y:0,duration:.8,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 88%",once:true}})});gsap.to(".hero-photo",{scale:1.06,yPercent:4,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+const photoCodes=["CE4ZYekAjid","CJGjzweH4hH","CNFTX6gH1g2","CPdx4j9nnCM","CEufujnnVRi","CEje5eCAprI","CErMl_jgcR5","CEsOqnFgas9","CHyU62NHOdI","CN252suHrII","CRjZmEwMDxm","CSj51Anoo5h","CUKfZQvoXcw","Cc6GUbAofAh","CdsuXRSo07t","CnH6Tf9IVQj","Bm048W3n3qi","Bkk96vJnF3t","CUqQjKmIIIo","DbpxjZNKkTh"];
+const ig=c=>"https://www.instagram.com/p/"+c+"/media/?size=l";
+
+const intro=document.getElementById("intro");
+let entered=false;
+document.documentElement.classList.add("lock");
+function enter(){
+  if(entered)return;
+  entered=true;
+  const tl=gsap.timeline({onComplete:()=>{intro.remove();document.documentElement.classList.remove("lock");ScrollTrigger.refresh()}});
+  tl.to(".intro-word",{opacity:0,y:-13,duration:.28,ease:"power2.out"})
+    .fromTo(".intro-logo",{opacity:0,scale:.72},{opacity:1,scale:1.06,duration:.72,ease:"power3.out"},"-=.03")
+    .to(".intro-logo",{opacity:0,scale:1.18,filter:"blur(5px)",duration:.48,ease:"power2.in"},"+=.28")
+    .to("#intro",{opacity:0,duration:.4},"-=.08");
+}
+["wheel","touchstart","keydown","click"].forEach(ev=>intro.addEventListener(ev,enter,{once:true,passive:true}));
+
+const menu=document.getElementById("menu"),mobileNav=document.getElementById("mobileNav");
+menu.addEventListener("click",e=>{e.stopPropagation();mobileNav.classList.toggle("open")});
+mobileNav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>mobileNav.classList.remove("open")));
+
+const track=document.getElementById("track");
+document.getElementById("prev").addEventListener("click",()=>track.scrollBy({left:-Math.min(track.clientWidth*.78,700),behavior:"smooth"}));
+document.getElementById("next").addEventListener("click",()=>track.scrollBy({left:Math.min(track.clientWidth*.78,700),behavior:"smooth"}));
+
+const galleryDialog=document.getElementById("galleryDialog"),allGrid=document.getElementById("allGrid");
+allGrid.innerHTML=photoCodes.map(c=>'<img src="'+ig(c)+'" alt="Trabalho Pente House" loading="lazy" referrerpolicy="no-referrer">').join("");
+document.getElementById("allPhotos").addEventListener("click",()=>galleryDialog.showModal());
+document.querySelector('[data-close="gallery"]').addEventListener("click",()=>galleryDialog.close());
+galleryDialog.addEventListener("click",e=>{if(e.target===galleryDialog)galleryDialog.close()});
+
+const bookingDialog=document.getElementById("bookingDialog"),selected=document.getElementById("selectedBarber");
+document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{selected.textContent=btn.dataset.barber||"Pente House";bookingDialog.showModal()}));
+document.querySelector('[data-close="booking"]').addEventListener("click",()=>bookingDialog.close());
+bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)bookingDialog.close()});
+
+gsap.registerPlugin(ScrollTrigger);
+document.querySelectorAll(".reveal").forEach(el=>gsap.to(el,{opacity:1,y:0,duration:.6,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 90%",once:true}}));
+gsap.to(".hero-photo",{scale:1.035,yPercent:2.5,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+</script>
 </body>
 </html>
