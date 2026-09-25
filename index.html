@@ -140,7 +140,7 @@ img{max-width:100%}
 .payment-rule i{width:1px;height:34px;background:var(--line)}
 .barbers{height:125px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:11px}
 .barber{height:125px;padding:7px;border:1px solid rgba(255,255,255,.10);border-radius:7px;background:linear-gradient(145deg,#15181b,#0d0f11);display:grid;grid-template-columns:103px 1fr;gap:13px;align-items:center}
-.barber img{width:103px;height:109px;border-radius:6px;object-fit:cover}
+.barber img{width:103px;height:109px;border-radius:6px;object-fit:cover}.barber img.profile-photo{width:103px;height:103px;border-radius:50%;object-fit:contain;clip-path:circle(50% at 50% 50%);background:transparent;box-shadow:none}
 .barber h3{margin:0 0 3px;font:900 29px/.84 "Barlow Condensed",sans-serif}
 .barber p{margin:0 0 10px;color:#c8cacf;font-size:6.7px;line-height:1.4;letter-spacing:.10em}.barber-phone{color:#f4f4f2;font-weight:700;letter-spacing:.06em}.barber-phone:hover{text-decoration:underline}.selected-phone{display:inline-block;margin-top:5px;color:#fff;font-weight:700;text-decoration:underline}
 .barber .btn{height:35px;min-width:145px;font-size:8px}
@@ -215,7 +215,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   .gallery-track{height:245px;grid-auto-columns:77%;gap:12px;margin-top:15px}.gallery-card{height:245px}.arrow{display:none}
   .booking{height:auto;padding:22px 0 28px}
   .booking-head{height:auto;display:flex;flex-direction:column;align-items:flex-start;gap:16px}.payment-rule{align-self:stretch;justify-content:space-between}
-  .barbers{height:auto;grid-template-columns:1fr;margin-top:17px}.barber{height:135px;grid-template-columns:110px 1fr}.barber img{width:110px;height:119px}
+  .barbers{height:auto;grid-template-columns:1fr;margin-top:17px}.barber{height:135px;grid-template-columns:110px 1fr}.barber img{width:110px;height:119px}.barber img.profile-photo{width:110px;height:110px}
   .final{height:auto}.final-grid{height:auto;min-height:335px;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:28px 0}.values{display:none}.footer-logo{width:145px}.final-copy h2{font-size:46px}
   footer{height:48px}
 }
@@ -239,7 +239,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   .feature b,.feature span{font-size:7px}
   .about-copy .title,.gallery-head .title,.booking-head .title{font-size:45px}
   .payment-rule{display:grid;grid-template-columns:1fr;gap:10px}.payment-rule i{display:none}
-  .barber{grid-template-columns:100px 1fr}.barber img{width:100px;height:119px}.barber .btn{width:100%;min-width:0}
+  .barber{grid-template-columns:100px 1fr}.barber img{width:100px;height:119px}.barber img.profile-photo{width:100px;height:100px}.barber .btn{width:100%;min-width:0}
   .grid-all{grid-template-columns:repeat(2,1fr)}
   .stripe{opacity:.35}
 }
@@ -357,8 +357,8 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
     </div>
   </div>
   <div class="barbers shell reveal">
-    <article class="barber"><img src="/images/gallery-02.webp" alt="Corte Pente House"><div><h3>RASCAL</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="/images/gallery-03.webp" alt="Corte e barba Pente House"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img class="profile-photo" src="/images/rascal-profile.png" alt="Rascal"><div><h3>RASCAL</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img class="profile-photo" src="/images/grenha-profile.png" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">AGENDAR <span>›</span></button></div></article>
     <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">AGENDAR <span>›</span></button></div></article>
   </div>
 </section>
