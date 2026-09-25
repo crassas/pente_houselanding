@@ -108,8 +108,9 @@ img{max-width:100%}
 .about-copy .body{margin:0 0 12px;font-size:9px;line-height:1.58;color:#dadcdf}
 .about-copy .stay{margin:0 0 14px}
 .about-copy .btn{height:36px;padding:0 18px;font-size:8px}
-.about-photo{margin:0;height:100%;overflow:hidden}
-.about-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.about-photo{margin:0;height:100%;overflow:hidden;position:relative;background:#020304}
+.about-photo img,.about-photo video{display:block;width:100%;height:100%}
+.about-photo .about-video{object-fit:contain;background:#000;cursor:pointer}
 .about-info{position:relative;padding:34px 0 26px 39px;display:flex;flex-direction:column;justify-content:center;gap:22px;background:radial-gradient(circle at 84% 50%,rgba(255,255,255,.055),transparent 55%)}
 .about-info .feature-icon{font-size:26px}
 .about-note{position:absolute;right:4px;bottom:30px;font:italic 700 16px/1.07 "Barlow Condensed",sans-serif;color:rgba(255,255,255,.37);transform:rotate(-8deg)}
@@ -130,7 +131,8 @@ img{max-width:100%}
 .tour-copy p:not(.kicker){max-width:540px;margin:0 0 13px;color:#c6c9cd;font-size:9px;line-height:1.55}
 .tour-btn{height:35px;padding:0 17px;font-size:8px}
 .tour-media{position:relative;margin:0;background:#020304;overflow:hidden;cursor:pointer}
-.tour-media video{display:block;width:100%;height:100%;object-fit:cover;object-position:center 34%;filter:saturate(.95) contrast(1.04)}
+.tour-media video,.tour-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 34%;filter:saturate(.95) contrast(1.04)}
+.tour-media img{object-position:center 50%;filter:saturate(1.02) contrast(1.04)}
 .tour-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,9,.4),transparent 45%),linear-gradient(0deg,rgba(5,7,9,.32),transparent 48%);pointer-events:none}
 .tour-play{
   position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);
@@ -293,8 +295,13 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 
 .hero-photo{object-position:center 50%}
 .about-photo img{object-position:center 48%}
+@media(max-width:900px){
+  .about-photo{height:360px}
+  .about-photo .about-video{object-fit:contain}
+}
 @media(max-width:480px){
-    }
+  .about-photo{height:390px}
+}
 
 </style>
 </head>
@@ -340,7 +347,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
     <div class="feature"><span class="feature-icon">✂</span><div><b>BARBEARIA</b><span>PROFISSIONAL</span></div></div>
     <div class="feature"><span class="feature-icon">♙</span><div><b>ESTÉTICA</b><span>MASCULINA</span></div></div>
     <div class="feature"><span class="feature-icon">◇</span><div><b>QUALIDADE</b><span>SEMPRE</span></div></div>
-    <div class="feature"><span class="feature-icon">⌖</span><div><b>PORTO</b><span>6B</span></div></div>
+    <a class="feature" href="https://www.google.com/maps/dir/?api=1&destination=Rua+da+Constitui%C3%A7%C3%A3o+19%2C+4200-194+Porto%2C+Portugal" target="_blank" rel="noopener noreferrer" aria-label="Direções para a Pente House, Rua da Constituição 19, Porto"><span class="feature-icon">⌖</span><div><b>R. CONSTITUIÇÃO</b><span>N.º 19 · PORTO</span></div></a>
   </div>
 </section>
 
@@ -352,7 +359,11 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
       <p class="stay">STAY CLEAN.</p>
       <a class="btn" href="#galeria">CONHECER MAIS <span>›</span></a>
     </div>
-    <figure class="about-photo reveal"><img src="/images/pentehouse-exterior.jpg" alt="Fachada da Pente House"></figure>
+    <figure class="about-photo reveal" aria-label="Vídeo de apresentação da Pente House">
+      <video class="about-video" id="aboutVideoPreview" muted autoplay loop playsinline preload="metadata" poster="/images/pentehouse-tour-poster.jpg">
+        <source src="/media/pentehouse-tour.mp4" type="video/mp4">
+      </video>
+    </figure>
     <div class="about-info reveal">
       <div class="feature"><span class="feature-icon">♛</span><div><b>AMBIENTE</b><span>DE CONFIANÇA</span></div></div>
       <div class="feature"><span class="feature-icon">♧</span><div><b>ATENDIMENTO</b><span>PERSONALIZADO</span></div></div>
@@ -372,10 +383,8 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
       <p>Um olhar rápido sobre o espaço, o ambiente e a casa onde acontece o trabalho.</p>
       <button class="btn tour-btn" id="openTour">VER VÍDEO <span>›</span></button>
     </div>
-    <figure class="tour-media" id="tourPreview" aria-label="Abrir vídeo da Pente House">
-      <video muted autoplay loop playsinline preload="metadata" poster="/images/pentehouse-tour-poster.jpg">
-        <source src="/media/pentehouse-tour.mp4" type="video/mp4">
-      </video>
+    <figure class="tour-media" id="tourPreview" aria-label="Entrada da Pente House; tocar para abrir o vídeo">
+      <img src="/images/pentehouse-exterior.jpg" alt="Entrada da Pente House, Rua da Constituição 19, Porto">
       <span class="tour-play">▶</span>
       <span class="tour-time">00:34</span>
     </figure>
@@ -495,11 +504,12 @@ document.querySelector('[data-close="gallery"]').addEventListener("click",()=>ga
 galleryDialog.addEventListener("click",e=>{if(e.target===galleryDialog)galleryDialog.close()});
 
 
-const videoDialog=document.getElementById("videoDialog"),tourFull=document.getElementById("tourFull"),tourPreviewVideo=document.querySelector("#tourPreview video");
+const videoDialog=document.getElementById("videoDialog"),tourFull=document.getElementById("tourFull"),tourPreviewVideo=document.getElementById("aboutVideoPreview");
 function openTourVideo(){if(tourPreviewVideo)tourPreviewVideo.pause();videoDialog.showModal();tourFull.currentTime=0;tourFull.play().catch(()=>{})}
 function closeTourVideo(){tourFull.pause();videoDialog.close();if(tourPreviewVideo)tourPreviewVideo.play().catch(()=>{})}
 document.getElementById("openTour").addEventListener("click",openTourVideo);
 document.getElementById("tourPreview").addEventListener("click",openTourVideo);
+document.getElementById("aboutVideoPreview").addEventListener("click",openTourVideo);
 document.querySelector('[data-close="video"]').addEventListener("click",closeTourVideo);
 videoDialog.addEventListener("click",e=>{if(e.target===videoDialog)closeTourVideo()});
 
