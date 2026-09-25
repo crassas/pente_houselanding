@@ -124,7 +124,7 @@ img{max-width:100%}
 .gallery-track{height:162px;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 36px)/4);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .gallery-track::-webkit-scrollbar{display:none}
 .gallery-card{height:162px;margin:0;border-radius:7px;overflow:hidden;scroll-snap-align:start;background:#15181b}
-.gallery-card img{display:block;width:100%;height:100%;object-fit:cover}
+.gallery-card img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 34%}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.75);background:#080a0d;display:grid;place-items:center;font-size:23px;cursor:pointer}
 .arrow.prev{left:-22px}.arrow.next{right:-22px}
 
@@ -228,30 +228,18 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
 /* Official Pente House assets */
-.intro-logo{display:none!important}
-.intro-logo-real{
-  position:absolute;z-index:3;width:min(355px,78vw);max-height:78vh;
-  object-fit:contain;opacity:0;border-radius:18px;
-  filter:drop-shadow(0 20px 42px rgba(0,0,0,.65));
-}
-.footer-logo{display:none!important}
-.footer-logo-real{
-  width:158px;max-height:166px;object-fit:contain;justify-self:center;
-  border-radius:12px;filter:drop-shadow(0 12px 25px rgba(0,0,0,.48));
-}
+
+
 .hero-photo{object-position:center 50%}
 .about-photo img{object-position:center 48%}
 @media(max-width:480px){
-  .intro-logo-real{width:min(330px,82vw);max-height:72vh}
-  .footer-logo-real{width:140px;max-height:150px}
-}
+    }
 
 </style>
 </head>
 <body>
 <div class="intro" id="intro">
   <div class="intro-word">STAY CLEAN</div>
-  <img class="intro-logo-real" src="/images/pentehouse-logo.jpg" alt="Pente House Barbearia">
   <div class="brandmark intro-logo">
     <div class="brand-ring"><div class="brand-core">
       <div class="brand-crown">♛</div><div class="brand-tools">✂</div>
@@ -323,12 +311,20 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
   <div class="gallery-wrap shell reveal">
     <button class="arrow prev" id="prev" aria-label="Fotos anteriores">‹</button>
     <div class="gallery-track" id="track">
-      <figure class="gallery-card"><img src="/images/cut-1.webp" alt="Corte com caracóis e degradê"></figure>
-      <figure class="gallery-card"><img src="/images/cut-2.webp" alt="Corte masculino com barba"></figure>
-      <figure class="gallery-card"><img src="/images/cut-3.webp" alt="Corte jovem com caracóis"></figure>
-      <figure class="gallery-card"><img src="/images/cut-4.webp" alt="Buzz cut platinado"></figure>
-      <figure class="gallery-card"><img src="/images/cut-1.webp" alt="Degradê Pente House"></figure>
-      <figure class="gallery-card"><img src="/images/cut-2.webp" alt="Barba e corte Pente House"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-01.webp" alt="Trabalho Pente House 1"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-02.webp" alt="Trabalho Pente House 2"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-03.webp" alt="Trabalho Pente House 3"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-04.webp" alt="Trabalho Pente House 4"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-05.webp" alt="Trabalho Pente House 5" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-06.webp" alt="Trabalho Pente House 6" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-07.webp" alt="Trabalho Pente House 7" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-08.webp" alt="Trabalho Pente House 8" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-09.webp" alt="Trabalho Pente House 9" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-10.webp" alt="Trabalho Pente House 10" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-11.webp" alt="Trabalho Pente House 11" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-12.webp" alt="Trabalho Pente House 12" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-13.webp" alt="Trabalho Pente House 13" loading="lazy"></figure>
+      <figure class="gallery-card"><img src="/images/gallery-14.webp" alt="Trabalho Pente House 14" loading="lazy"></figure>
     </div>
     <button class="arrow next" id="next" aria-label="Fotos seguintes">›</button>
   </div>
@@ -343,16 +339,15 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
     </div>
   </div>
   <div class="barbers shell reveal">
-    <article class="barber"><img src="/images/cut-1.webp" alt="Corte Pente House"><div><h3>LÉO</h3><p>CORTE, DEGRADÉS<br>E ESTILO AFRO</p><button class="btn light book" data-barber="LÉO">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="/images/cut-2.webp" alt="Corte e barba Pente House"><div><h3>TIAGO</h3><p>BARBA, DEGRADÉS<br>E CONSULTORIA DE ESTILO</p><button class="btn light book" data-barber="TIAGO">AGENDAR <span>›</span></button></div></article>
-    <article class="barber"><img src="/images/cut-4.webp" alt="Corte clássico Pente House"><div><h3>RAFA</h3><p>CORTES CLÁSSICOS<br>E MODERNOS</p><button class="btn light book" data-barber="RAFA">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-02.webp" alt="Corte Pente House"><div><h3>LÉO</h3><p>CORTE, DEGRADÉS<br>E ESTILO AFRO</p><button class="btn light book" data-barber="LÉO">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-03.webp" alt="Corte e barba Pente House"><div><h3>TIAGO</h3><p>BARBA, DEGRADÉS<br>E CONSULTORIA DE ESTILO</p><button class="btn light book" data-barber="TIAGO">AGENDAR <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>RAFA</h3><p>CORTES CLÁSSICOS<br>E MODERNOS</p><button class="btn light book" data-barber="RAFA">AGENDAR <span>›</span></button></div></article>
   </div>
 </section>
 
 <section class="final" id="contactos">
   <div class="stripe left"></div><div class="stripe right"></div>
   <div class="final-grid shell reveal">
-    <img class="footer-logo-real" src="/images/pentehouse-logo.jpg" alt="Pente House Barbearia">
     <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2020</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
     <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
@@ -381,7 +376,7 @@ dialog::backdrop{background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
-const galleryImages=["/images/cut-1.webp","/images/cut-2.webp","/images/cut-3.webp","/images/cut-4.webp","/images/cut-1.webp","/images/cut-2.webp","/images/cut-3.webp","/images/cut-4.webp"];
+const galleryImages=["/images/gallery-01.webp","/images/gallery-02.webp","/images/gallery-03.webp","/images/gallery-04.webp","/images/gallery-05.webp","/images/gallery-06.webp","/images/gallery-07.webp","/images/gallery-08.webp","/images/gallery-09.webp","/images/gallery-10.webp","/images/gallery-11.webp","/images/gallery-12.webp","/images/gallery-13.webp","/images/gallery-14.webp"];
 
 const intro=document.getElementById("intro");
 let entered=false;
@@ -391,8 +386,8 @@ function enter(){
   entered=true;
   const tl=gsap.timeline({onComplete:()=>{intro.remove();document.documentElement.classList.remove("lock");ScrollTrigger.refresh()}});
   tl.to(".intro-word",{opacity:0,y:-13,duration:.28,ease:"power2.out"})
-    .fromTo(".intro-logo-real",{opacity:0,scale:.72},{opacity:1,scale:1.06,duration:.72,ease:"power3.out"},"-=.03")
-    .to(".intro-logo-real",{opacity:0,scale:1.18,filter:"blur(5px)",duration:.48,ease:"power2.in"},"+=.28")
+    .fromTo(".intro-logo",{opacity:0,scale:.72},{opacity:1,scale:1.06,duration:.72,ease:"power3.out"},"-=.03")
+    .to(".intro-logo",{opacity:0,scale:1.18,filter:"blur(5px)",duration:.48,ease:"power2.in"},"+=.28")
     .to("#intro",{opacity:0,duration:.4},"-=.08");
 }
 ["wheel","touchstart","keydown","click"].forEach(ev=>intro.addEventListener(ev,enter,{once:true,passive:true}));
