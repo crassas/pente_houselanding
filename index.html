@@ -459,6 +459,8 @@ img{max-width:100%}
 .entity-answer strong{color:#fff}
 .local-points{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
 .local-pill{padding:7px 9px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:#0c0f12;font-size:7px;font-weight:800;letter-spacing:.09em;color:#d7d9dc}
+a.local-pill{transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease}
+a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);box-shadow:inset 2px 0 0 rgba(23,70,158,.95)}
 .local-searchline{display:block;margin-top:9px;color:#8f949a;font-size:7px;letter-spacing:.16em;text-transform:uppercase}
 .local-grid{display:grid;grid-template-columns:1.35fr .8fr .8fr;gap:10px}
 .local-card{min-height:112px;padding:18px;border:1px solid rgba(255,255,255,.11);border-radius:8px;background:linear-gradient(145deg,#121519,#0b0d10)}
@@ -1230,12 +1232,12 @@ section{overflow-x:clip}
       <span class="local-searchline">BARBER NEAR MARQUÊS METRO · PORTO</span>
     </div>
     <div class="local-points" aria-label="Referências próximas da Pente House">
-      <span class="local-pill">METRO MARQUÊS</span>
+      <a class="local-pill" href="/barbeiro-metro-marques/">METRO MARQUÊS</a>
       <span class="local-pill">PRAÇA DO MARQUÊS</span>
-      <span class="local-pill">RUA DA CONSTITUIÇÃO</span>
+      <a class="local-pill" href="/barbearia-rua-constituicao/">RUA DA CONSTITUIÇÃO</a>
       <span class="local-pill">WALL STREET ENGLISH</span>
       <span class="local-pill">CELESTE · MARQUÊS</span>
-      <span class="local-pill">COMÉRCIO LOCAL</span>
+      <a class="local-pill" href="/todos-os-caminhos-pente-house/">TODOS OS CAMINHOS</a>
     </div>
   </div>
   <div class="local-grid shell reveal">
