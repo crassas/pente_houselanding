@@ -200,16 +200,35 @@ img{max-width:100%}
 .brand-core em{z-index:1;font-style:normal;margin-top:7px;padding:4px 17px;border-top:1px solid rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.75);font-size:7px;letter-spacing:.33em}
 .mini-pole{z-index:1;width:10px;height:23px;margin-top:7px;border-radius:2px;border:1px solid #ddd;background:repeating-linear-gradient(135deg,#f3f0ea 0 4px,#d62a39 4px 8px,#f3f0ea 8px 12px,#164aa4 12px 16px)}
 
-/* HERO TITLE — stretch + melt text cycle */
+/* HERO TITLE — smooth per-letter dissolve + subtle 3D depth */
 .arcade-title{
   display:flex;flex-direction:column;align-items:flex-start;
-  min-height:1.55em;overflow:visible
+  min-height:1.55em;overflow:visible;
+  perspective:760px
 }
 .arcade-title .arcade-line{
-  position:relative;display:block;
+  position:relative;
+  display:grid;
+  width:max-content;
+  max-width:100%;
   transform-origin:left center;
-  will-change:transform,filter,opacity,letter-spacing;
+  transform-style:preserve-3d;
   text-wrap:balance
+}
+.arcade-title .hero-word-layer{
+  grid-area:1/1;
+  display:block;
+  width:max-content;
+  max-width:100%;
+  transform-style:preserve-3d;
+  backface-visibility:hidden
+}
+.arcade-title .hero-letter{
+  display:inline-block;
+  transform-origin:50% 58%;
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  will-change:transform,filter,opacity
 }
 .arcade-title.is-message .arcade-line{letter-spacing:-.01em}
 .arcade-status{
@@ -1493,62 +1512,127 @@ function startHeroTitleCycle(){
   ];
   let state=0;
 
-  const setWords=(words)=>{
-    lines[0].textContent=words[0];
-    lines[1].textContent=words[1];
-    title.classList.toggle("is-message",words!==original);
+  const charsFor=word=>[...word].map((char,index)=>{
+    const span=document.createElement("span");
+    span.className="hero-letter";
+    span.textContent=char===" "?"\u00A0":char;
+    span.dataset.i=String(index);
+    return span;
+  });
+
+  const makeLayer=(word,className)=>{
+    const layer=document.createElement("span");
+    layer.className="hero-word-layer "+className;
+    charsFor(word).forEach(char=>layer.appendChild(char));
+    return layer;
   };
 
-  const stretch=()=>gsap.timeline()
-    .to(lines,{
-      scaleX:1.10,scaleY:.93,letterSpacing:".012em",
-      duration:.34,stagger:.045,ease:"power2.inOut"
-    })
-    .to(lines,{
-      scaleX:1,scaleY:1,letterSpacing:"0em",
-      duration:.48,stagger:.045,ease:"back.out(2)"
+  const renderStatic=(words)=>{
+    lines.forEach((line,i)=>{
+      line.replaceChildren(makeLayer(words[i],"hero-word-current"));
+    });
+    title.classList.toggle("is-message",words!==original);
+    title.setAttribute("aria-label",words.join(" "));
+  };
+
+  const stretch=()=>{
+    const layers=lines.map(line=>line.querySelector(".hero-word-current")).filter(Boolean);
+    return gsap.timeline()
+      .to(layers,{
+        scaleX:1.075,scaleY:.955,
+        duration:.28,stagger:.035,ease:"power2.inOut"
+      })
+      .to(layers,{
+        scaleX:1,scaleY:1,
+        duration:.38,stagger:.035,ease:"back.out(1.7)"
+      });
+  };
+
+  const transitionTo=(words)=>{
+    const tl=gsap.timeline();
+    title.classList.toggle("is-message",words!==original);
+    title.setAttribute("aria-label",words.join(" "));
+
+    lines.forEach((line,i)=>{
+      const current=line.querySelector(".hero-word-current");
+      const next=makeLayer(words[i],"hero-word-next");
+      line.appendChild(next);
+
+      const oldLetters=[...current.querySelectorAll(".hero-letter")];
+      const newLetters=[...next.querySelectorAll(".hero-letter")];
+
+      gsap.set(newLetters,{
+        opacity:0,
+        y:-5,
+        z:-8,
+        rotateX:-9,
+        rotateY:5,
+        scale:.985,
+        filter:"blur(5px)"
+      });
+
+      tl.to(oldLetters,{
+        opacity:0,
+        y:6,
+        z:-10,
+        rotateX:10,
+        rotateY:-6,
+        scale:.985,
+        filter:"blur(5px)",
+        duration:.24,
+        stagger:{each:.012,from:"start"},
+        ease:"power2.in"
+      },i*.018);
+
+      tl.to(newLetters,{
+        opacity:1,
+        y:0,
+        z:0,
+        rotateX:0,
+        rotateY:0,
+        scale:1,
+        filter:"blur(0px)",
+        duration:.30,
+        stagger:{each:.012,from:"start"},
+        ease:"power2.out"
+      },.085+i*.018);
+
+      tl.call(()=>{
+        current.remove();
+        next.classList.remove("hero-word-next");
+        next.classList.add("hero-word-current");
+        gsap.set(next.querySelectorAll(".hero-letter"),{clearProps:"all"});
+      },null,">-.015");
     });
 
-  const meltOut=()=>gsap.to(lines,{
-    scaleY:.34,scaleX:1.07,y:20,skewX:-7,
-    filter:"blur(8px)",opacity:0,
-    duration:.48,stagger:.055,ease:"power2.in",
-    transformOrigin:"50% 100%"
-  });
-
-  const meltIn=()=>gsap.fromTo(lines,{
-    scaleY:.38,scaleX:1.05,y:-15,skewX:6,
-    filter:"blur(8px)",opacity:0
-  },{
-    scaleY:1,scaleX:1,y:0,skewX:0,
-    filter:"blur(0px)",opacity:1,
-    duration:.58,stagger:.065,ease:"power3.out",
-    transformOrigin:"50% 100%"
-  });
-
-  const next=()=>{
-    const current=sequence[state%sequence.length];
-    setWords(current);
-
-    const hold=current===original?4.6:3.3;
-    const tl=gsap.timeline({delay:.7,onComplete:()=>setTimeout(next,hold*1000)});
-
-    if(current===original){
-      tl.add(stretch()).to({}, {duration:1.0});
-    }else{
-      tl.to({}, {duration:.7});
-    }
-
-    tl.add(meltOut())
-      .call(()=>{
-        state=(state+1)%sequence.length;
-        setWords(sequence[state]);
-      })
-      .add(meltIn());
+    return tl;
   };
 
-  setWords(original);
-  setTimeout(next,1800);
+  const continueCycle=()=>{
+    const current=sequence[state];
+    const isOriginal=current===original;
+    const tl=gsap.timeline({
+      delay:isOriginal?.36:.22,
+      onComplete:()=>{
+        state=(state+1)%sequence.length;
+        setTimeout(continueCycle,isOriginal?1350:1050);
+      }
+    });
+
+    if(isOriginal)tl.add(stretch());
+    tl.add(transitionTo(sequence[(state+1)%sequence.length]),isOriginal?">+.14":">+.04");
+  };
+
+  renderStatic(original);
+
+  /* Main message first; after that, the rotation becomes quicker. */
+  gsap.delayedCall(.55,()=>stretch());
+  setTimeout(()=>{
+    transitionTo(sequence[1]).eventCallback("onComplete",()=>{
+      state=1;
+      setTimeout(continueCycle,1050);
+    });
+  },1950);
 }
 
 const heroFeatureItems=[...document.querySelectorAll(".hero-features .feature")];
