@@ -554,30 +554,36 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .video-play{position:absolute;inset:0;display:grid;place-items:center}
 .video-play span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.62);background:rgba(4,6,8,.72);font-size:14px;color:#fff;backdrop-filter:blur(5px)}
 .video-teaser small{position:absolute;left:9px;bottom:8px;font-size:6px;font-weight:900;letter-spacing:.12em;color:#fff}
-.video-modal{position:fixed;inset:0;z-index:1400;display:none;background:rgba(3,5,7,.96);backdrop-filter:blur(12px)}
+.video-modal{position:fixed;inset:0;z-index:1400;display:none;background:rgba(3,5,7,.97);backdrop-filter:blur(12px);overflow:hidden}
 .video-modal.open{display:block}
-.video-modal-shell{width:min(1080px,calc(100% - 28px));height:100%;margin:auto;display:grid;grid-template-columns:280px 1fr;gap:18px;padding:20px 0}
+.video-modal-shell{width:min(1080px,calc(100% - 28px));height:100dvh;margin:auto;display:flex;flex-direction:column;padding:18px 0}
+.video-modal-top{display:flex;justify-content:space-between;align-items:center;flex:0 0 auto;margin-bottom:12px}
+.video-modal-top h2{margin:0;font:900 32px/.9 "Barlow Condensed",sans-serif}
+.video-modal-body{min-height:0;flex:1;display:grid;grid-template-columns:280px 1fr;gap:18px}
 .video-library{min-height:0;display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.11);padding-right:14px}
-.video-library-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.video-library-head h2{margin:0;font:900 32px/.9 "Barlow Condensed",sans-serif}
-.video-close{width:36px;height:36px;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:#101317;color:#fff;font-size:20px;cursor:pointer}
+.video-close{width:40px;height:40px;flex:0 0 40px;border:1px solid rgba(255,255,255,.26);border-radius:50%;background:#101317;color:#fff;font-size:22px;cursor:pointer;position:relative;z-index:4}
 .video-list{display:grid;gap:6px;overflow:auto;padding-right:3px;scrollbar-width:thin}
 .video-item{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:9px;min-height:48px;padding:7px 8px;border:1px solid rgba(255,255,255,.09);border-radius:7px;background:#0d1013;color:#fff;text-align:left;cursor:pointer}
 .video-item:hover,.video-item.active{border-color:rgba(76,122,206,.65);box-shadow:inset 3px 0 0 #17469e}
 .video-item b{font:900 17px/.9 "Barlow Condensed",sans-serif}.video-item span{font-size:7px;color:#aeb2b7;letter-spacing:.08em}.video-item i{font-style:normal;font-size:13px}
-.video-stage{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}
-.video-stage-inner{width:min(430px,100%);aspect-ratio:9/16;max-height:calc(100vh - 72px);border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:#050607;box-shadow:0 30px 70px rgba(0,0,0,.5)}
-.video-stage iframe{width:100%;height:100%;border:0;background:#050607}
+.video-stage{min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;overflow:auto}
+.video-stage-inner{position:relative;width:min(430px,100%);aspect-ratio:9/16;max-height:calc(100dvh - 86px);border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:#050607;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.video-stage-inner:before{content:"A CARREGAR VÍDEO";position:absolute;inset:0;display:grid;place-items:center;color:#858b91;font-size:7px;font-weight:900;letter-spacing:.14em;z-index:0}
+.video-stage iframe{position:relative;z-index:1;width:100%;height:100%;border:0;background:transparent}
 .video-stage-empty{height:100%;display:grid;place-items:center;text-align:center;padding:30px;color:#aeb2b7;font-size:9px;line-height:1.6}
 .video-origin-link{font-size:7px;font-weight:900;letter-spacing:.12em;color:#d9dcdf;border-bottom:1px solid rgba(255,255,255,.38);padding-bottom:3px}
 @media(max-width:760px){
   .video-reel-inner{grid-template-columns:1fr}.video-teasers{grid-template-columns:repeat(3,1fr)}
-  .video-teaser{height:105px}.video-modal-shell{grid-template-columns:1fr;height:100%;padding:12px 0;gap:10px}
-  .video-library{border-right:0;border-bottom:1px solid rgba(255,255,255,.11);padding:0 0 10px;min-height:0}
-  .video-library-head{margin-bottom:7px}.video-library-head h2{font-size:27px}
-  .video-list{display:flex;overflow-x:auto;overflow-y:hidden;gap:6px;padding-bottom:4px}
-  .video-item{flex:0 0 142px;grid-template-columns:28px 1fr;min-height:43px}.video-item i{display:none}
-  .video-stage{min-height:0}.video-stage-inner{width:min(330px,86vw);max-height:calc(100vh - 150px)}
+  .video-teaser{height:105px}
+  .video-modal-shell{width:calc(100% - 24px);height:100dvh;padding:10px 0 12px}
+  .video-modal-top{margin-bottom:8px;padding:0 2px}.video-modal-top h2{font-size:28px}
+  .video-modal-body{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+  .video-stage{order:1;flex:1 1 auto;justify-content:flex-start;overflow:auto;padding-top:2px}
+  .video-stage-inner{width:min(340px,88vw);max-width:100%;height:auto;max-height:none;aspect-ratio:9/16;flex:0 0 auto}
+  .video-origin-link{margin:1px 0 4px;font-size:7px}
+  .video-library{order:2;flex:0 0 auto;border-right:0;border-top:1px solid rgba(255,255,255,.11);padding:9px 0 0;min-height:0}
+  .video-list{display:flex;overflow-x:auto;overflow-y:hidden;gap:6px;padding:0 1px 4px;scroll-snap-type:x proximity}
+  .video-item{flex:0 0 142px;grid-template-columns:28px 1fr;min-height:48px;scroll-snap-align:start}.video-item i{display:none}
 }
 
 /* GALLERY */
@@ -1326,13 +1332,15 @@ section{overflow-x:clip}
 
 <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galeria de vídeos Pente House">
   <div class="video-modal-shell">
-    <aside class="video-library">
-      <div class="video-library-head"><div><p class="kicker">15 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
-      <div class="video-list" id="videoList"></div>
-    </aside>
-    <div class="video-stage">
-      <div class="video-stage-inner" id="videoStage"><div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div></div>
-      <a class="video-origin-link" id="videoOriginLink" href="#" target="_blank" rel="noopener noreferrer" hidden>ABRIR NO INSTAGRAM ↗</a>
+    <div class="video-modal-top"><div><p class="kicker">15 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
+    <div class="video-modal-body">
+      <aside class="video-library">
+        <div class="video-list" id="videoList"></div>
+      </aside>
+      <div class="video-stage">
+        <div class="video-stage-inner" id="videoStage"><div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div></div>
+        <a class="video-origin-link" id="videoOriginLink" href="#" target="_blank" rel="noopener noreferrer">ABRIR NO INSTAGRAM ↗</a>
+      </div>
     </div>
   </div>
 </div>
@@ -1593,9 +1601,10 @@ videoLibrary.forEach((item,index)=>{
 function playLibraryVideo(index){
   const item=videoLibrary[index];
   [...videoList.children].forEach((el,i)=>el.classList.toggle("active",i===index));
-  videoStage.innerHTML='<iframe src="https://www.instagram.com/p/'+item.code+'/embed/" title="'+item.label+' — '+item.source+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
-  videoOriginLink.href='https://www.instagram.com/p/'+item.code+'/';
+  videoStage.innerHTML='<iframe src="https://www.instagram.com/reel/'+item.code+'/embed/" title="'+item.label+' — '+item.source+'" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  videoOriginLink.href='https://www.instagram.com/reel/'+item.code+'/';
   videoOriginLink.hidden=false;
+  videoStage.closest(".video-stage")?.scrollTo({top:0,behavior:"auto"});
 }
 function openVideoLibrary(index){
   videoModal.classList.add("open");
@@ -1607,8 +1616,8 @@ function closeVideoLibrary(){
   videoModal.classList.remove("open");
   videoModal.setAttribute("aria-hidden","true");
   videoStage.innerHTML='<div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div>';
-  videoOriginLink.hidden=true;
-  videoOriginLink.removeAttribute("href");
+  videoOriginLink.hidden=false;
+  videoOriginLink.href="#";
   document.documentElement.classList.remove("lock");
 }
 openVideos?.addEventListener("click",()=>openVideoLibrary(0));
