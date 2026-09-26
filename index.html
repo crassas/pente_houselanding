@@ -819,6 +819,221 @@ video{max-width:100%}
   }
 }
 
+
+/* PRODUCTION RESPONSIVE + MOTION PASS */
+html,body,main{width:100%;max-width:100%;overflow-x:clip}
+main,section,header,nav,footer{max-width:100%}
+section{overflow-x:clip}
+.shell{width:min(1160px,calc(100% - 48px))}
+.hero-main>*,.about-grid>*,.prices-head>*,.price-grid>*,.gallery-head>*,
+.local-intro>*,.local-grid>*,.booking-head>*,.barbers>*{min-width:0}
+.wordmark,.hero-copy,.about-copy,.price-copy,.local-card,.barber>div{min-width:0}
+.price-copy strong,.local-card h3,.barber h3{overflow-wrap:anywhere}
+.gallery-track{overscroll-behavior-inline:contain;scroll-behavior:smooth}
+.gallery-card img{will-change:transform}
+.hero-tint{will-change:transform,opacity;animation:heroAmbient 9s ease-in-out infinite}
+.hero-copy>.btn,.top-cta,.final-copy>.btn{animation:ctaIdle 4.4s ease-in-out infinite}
+.local-pill{animation:localFloat 5.2s ease-in-out infinite}
+.local-pill:nth-child(2){animation-delay:.55s}
+.local-pill:nth-child(3){animation-delay:1.1s}
+.local-pill:nth-child(4){animation-delay:1.65s}
+.local-pill:nth-child(5){animation-delay:2.2s}
+.price-item.motion-active,.local-card.motion-active{
+  transform:translateY(-4px);
+  border-color:rgba(215,218,221,.42);
+  box-shadow:0 14px 30px rgba(0,0,0,.30),inset 3px 0 0 rgba(224,53,69,.75)
+}
+.gallery-card.motion-active img{
+  transform:scale(1.075);
+  filter:saturate(1.10) contrast(1.10) brightness(1.06)
+}
+@keyframes heroAmbient{
+  0%,100%{transform:scale(1);opacity:.88}
+  50%{transform:scale(1.035);opacity:1}
+}
+@keyframes ctaIdle{
+  0%,72%,100%{transform:translateY(0)}
+  80%{transform:translateY(-2px)}
+  88%{transform:translateY(0)}
+}
+@keyframes localFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-2px)}
+}
+
+/* Compact layout also covers browsers using a wide mobile/desktop viewport */
+@media(max-width:1100px){
+  :root{--shell:calc(100% - 40px)}
+  .topbar{height:70px;grid-template-columns:minmax(0,1fr) auto;gap:16px}
+  .nav,.top-cta{display:none}
+  .menu{
+    display:flex;width:42px;height:42px;border-radius:50%;
+    border:1px solid var(--steel-mid);background:rgba(5,7,9,.58);
+    align-items:center;justify-content:center;font-size:21px
+  }
+  .mobile-nav{
+    position:absolute;left:20px;right:20px;top:66px;z-index:40;
+    display:flex;flex-direction:column;opacity:0;pointer-events:none;
+    transform:translateY(-8px) scale(.985);transform-origin:top right;
+    transition:.18s ease;background:#0c0f12;border:1px solid rgba(255,255,255,.16);
+    border-radius:10px;padding:7px;box-shadow:0 18px 48px rgba(0,0,0,.48)
+  }
+  .mobile-nav.open{opacity:1;pointer-events:auto;transform:none}
+  .mobile-nav a{
+    min-height:44px;display:flex;align-items:center;padding:0 14px;
+    font-size:9px;letter-spacing:.14em;border-bottom:1px solid rgba(255,255,255,.07)
+  }
+  .mobile-nav a:last-child{border-bottom:0}
+
+  .hero{height:auto;min-height:0}
+  .hero-main{height:auto;min-height:430px;display:block;position:relative;padding:30px 0 28px}
+  .hero-copy{max-width:660px}
+  .hero h1{font-size:clamp(64px,8vw,82px);line-height:.78}
+  .hero-sub{margin:15px 0 14px}
+  .hero-copy>p.body{width:min(100%,520px);font-size:12px;line-height:1.58}
+  .hero-aside{display:none}
+  .hero-script{position:absolute;right:0;bottom:30px;font-size:20px}
+  .hero-features{
+    height:auto;padding:16px 0 22px;display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
+    border-top:1px solid rgba(255,255,255,.08)
+  }
+  .hero-features .feature{min-width:0;padding:10px}
+  .feature b,.feature span{font-size:8px}
+
+  .about{height:auto}
+  .about-grid{height:auto;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+  .about-copy{padding:34px 28px 32px 0}
+  .about-copy .body{font-size:11px;line-height:1.65}
+  .about-photo{height:380px}
+  .about-info{
+    grid-column:1/-1;padding:22px 0;display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));gap:14px
+  }
+  .about-note{display:none}
+
+  .prices{padding:34px 0}
+  .prices-head{grid-template-columns:1fr minmax(260px,360px)}
+  .prices-head p{font-size:10px}
+  .price-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .price-item{min-height:92px}
+  .price-copy strong{font-size:20px}
+  .price-copy small{font-size:8px}
+  .price-item b{font-size:25px}
+
+  .gallery{height:auto;padding:26px 0 30px}
+  .gallery-head{height:auto;grid-template-columns:1fr auto;gap:14px;align-items:end}
+  .gallery-head .copy{grid-column:1/-1;margin:0;font-size:9px;max-width:560px}
+  .gallery-head .btn{min-width:180px}
+  .gallery-wrap{margin-top:16px}
+  .gallery-track{height:230px;grid-auto-columns:calc((100% - 24px)/3);gap:12px}
+  .gallery-card{height:230px}
+  .arrow{width:38px;height:38px}
+  .arrow.prev{left:6px}.arrow.next{right:6px}
+
+  .local-info{padding:34px 0}
+  .local-intro{grid-template-columns:1fr;gap:14px}
+  .local-intro h2{font-size:clamp(45px,6vw,58px)}
+  .local-intro .body{font-size:11px}
+  .entity-answer{font-size:10px}
+  .local-points{justify-content:flex-start}
+  .local-pill{font-size:8px;padding:8px 10px}
+  .local-grid{grid-template-columns:1.2fr .8fr .8fr}
+  .local-card{min-height:132px;padding:20px}
+  .local-card h3{font-size:29px}
+  .local-card p{font-size:10px}
+
+  .local-faq{padding:30px 0 34px}
+  .local-faq-head p:last-child{font-size:9px}
+  .faq-grid details p{font-size:10px}
+
+  .booking{height:auto;padding:26px 0 32px}
+  .booking-head{height:auto;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+  .booking-direct{font-size:9px}
+  .payment-rule{width:100%;justify-content:flex-start;flex-wrap:wrap}
+  .barbers{height:auto;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:18px}
+  .barber{height:auto;min-height:138px;grid-template-columns:96px minmax(0,1fr);gap:11px}
+  .barber img{width:96px;height:116px}
+  .barber img.profile-photo{width:96px;height:96px}
+  .barber h3{font-size:27px}
+  .barber .btn{width:100%;min-width:0;padding:0 10px}
+
+  .final{height:auto}
+  .final-grid{height:auto;min-height:260px}
+}
+
+@media(max-width:760px){
+  :root{--shell:calc(100% - 28px)}
+  .topbar{height:64px}
+  .mobile-nav{left:14px;right:14px;top:60px}
+  .wordmark b{font-size:24px}
+  .wordmark span{font-size:6px;letter-spacing:.25em}
+  .hero-photo{object-position:center 42%}
+  .hero-main{min-height:430px;padding:26px 0 24px}
+  .hero h1{font-size:clamp(55px,17vw,70px);line-height:.79}
+  .hero-copy>p.body{font-size:12px}
+  .hero-script{right:2px;bottom:20px;font-size:18px}
+  .hero-features{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px}
+  .hero-features .feature{padding:10px 8px}
+  .feature-icon{font-size:20px;width:23px}
+  .feature b,.feature span{font-size:7.5px}
+
+  .about-grid{display:block}
+  .about-copy{padding:32px 0 28px}
+  .about-copy .title{font-size:48px}
+  .about-copy .body{font-size:11px}
+  .about-photo{width:100%;height:min(420px,112vw);min-height:330px}
+  .about-info{padding:24px 0;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 10px}
+
+  .prices-head{display:block;margin-bottom:18px}
+  .prices-head p{margin-top:16px}
+  .price-grid{grid-template-columns:1fr}
+  .price-item{min-height:78px;padding:12px}
+  .price-copy strong{font-size:18px}
+  .price-item b{font-size:22px}
+
+  .gallery-head{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+  .gallery-head .title{font-size:45px}
+  .gallery-head .copy{display:block;font-size:9px}
+  .gallery-head .btn{width:100%}
+  .gallery-track{
+    height:250px;grid-auto-columns:82%;gap:12px;
+    touch-action:pan-y pinch-zoom
+  }
+  .gallery-card{height:250px}
+  .arrow{display:grid;width:36px;height:36px}
+  .arrow.prev{left:5px}.arrow.next{right:5px}
+
+  .local-intro h2{font-size:46px}
+  .local-intro .body{font-size:11px}
+  .entity-answer{font-size:10px}
+  .local-points{gap:6px}
+  .local-pill{font-size:7px;padding:7px 8px}
+  .local-grid{grid-template-columns:1fr}
+  .local-card{min-height:0}
+  .local-card h3{font-size:28px}
+
+  .local-faq-head{display:block}
+  .local-faq-head p:last-child{margin-top:10px;font-size:9px}
+  .faq-grid{grid-template-columns:1fr}
+
+  .payment-rule{display:grid;grid-template-columns:1fr;gap:10px}
+  .payment-rule i{display:none}
+  .barbers{grid-template-columns:1fr}
+  .barber{grid-template-columns:100px minmax(0,1fr);min-height:136px}
+  .barber img{width:100px;height:118px}
+  .barber img.profile-photo{width:100px;height:100px}
+
+  .final-grid{display:flex;flex-direction:column;justify-content:center;gap:16px;padding:30px 0}
+  .values{display:none}
+  .final-copy h2{font-size:46px}
+  footer{height:auto;min-height:52px;padding:12px 14px;text-align:center;line-height:1.6;flex-wrap:wrap}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-tint,.hero-copy>.btn,.top-cta,.final-copy>.btn,.local-pill{animation:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -1263,10 +1478,83 @@ if(!reduceMotion){
 }
 
 gsap.registerPlugin(ScrollTrigger);
-document.querySelectorAll(".reveal").forEach(el=>gsap.to(el,{opacity:1,y:0,duration:.6,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 90%",once:true}}));
-if(!reduceMotion && !window.matchMedia("(max-width: 900px)").matches){
-  gsap.to(".hero-photo",{scale:1.035,yPercent:2.5,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+document.querySelectorAll(".reveal").forEach(el=>gsap.to(el,{
+  opacity:1,y:0,duration:.68,ease:"power2.out",
+  scrollTrigger:{trigger:el,start:"top 90%",once:true}
+}));
+
+if(!reduceMotion){
+  const motionGroups=[
+    [...document.querySelectorAll(".price-item")],
+    [...document.querySelectorAll(".gallery-card")],
+    [...document.querySelectorAll(".local-card")]
+  ].filter(group=>group.length);
+  const motionIndexes=motionGroups.map(()=>0);
+  motionGroups.forEach((group,g)=>{
+    group[0]?.classList.add("motion-active");
+    setInterval(()=>{
+      group[motionIndexes[g]]?.classList.remove("motion-active");
+      motionIndexes[g]=(motionIndexes[g]+1)%group.length;
+      group[motionIndexes[g]]?.classList.add("motion-active");
+    },g===1?2100:2600+(g*350));
+  });
+
+  [
+    [".price-item",{y:24,scale:.97}],
+    [".gallery-card",{y:20,scale:.975}],
+    [".local-card",{y:18,scale:.985}],
+    [".local-pill",{y:10,scale:.96}],
+    [".barber",{y:20,scale:.98}]
+  ].forEach(([selector,from])=>{
+    const items=gsap.utils.toArray(selector);
+    if(!items.length)return;
+    gsap.fromTo(items,{...from,opacity:0},{
+      y:0,scale:1,opacity:1,duration:.62,stagger:.07,ease:"power2.out",
+      scrollTrigger:{trigger:items[0],start:"top 88%",once:true}
+    });
+  });
+
+  gsap.to(".hero-photo",{
+    scale:1.05,yPercent:2.5,ease:"none",
+    scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:.8}
+  });
+
+  const aboutVideo=document.querySelector(".about-video");
+  if(aboutVideo){
+    gsap.fromTo(aboutVideo,{scale:1.015},{scale:1.055,ease:"none",
+      scrollTrigger:{trigger:".about",start:"top bottom",end:"bottom top",scrub:.9}
+    });
+  }
 }
+
+let galleryAutoTimer=null;
+function galleryStep(){
+  const firstCard=track.querySelector(".gallery-card");
+  if(!firstCard)return;
+  const styles=getComputedStyle(track);
+  const gap=parseFloat(styles.columnGap||styles.gap)||12;
+  const step=firstCard.getBoundingClientRect().width+gap;
+  const max=Math.max(0,track.scrollWidth-track.clientWidth);
+  if(max<8)return;
+  if(track.scrollLeft>=max-step*.55){
+    track.scrollTo({left:0,behavior:"smooth"});
+  }else{
+    track.scrollBy({left:step,behavior:"smooth"});
+  }
+}
+function startGalleryAuto(){
+  if(reduceMotion||galleryAutoTimer)return;
+  galleryAutoTimer=setInterval(galleryStep,3900);
+}
+function stopGalleryAuto(){
+  if(galleryAutoTimer){clearInterval(galleryAutoTimer);galleryAutoTimer=null}
+}
+startGalleryAuto();
+track.addEventListener("pointerenter",stopGalleryAuto);
+track.addEventListener("pointerleave",startGalleryAuto);
+track.addEventListener("touchstart",stopGalleryAuto,{passive:true});
+track.addEventListener("touchend",()=>setTimeout(startGalleryAuto,1800),{passive:true});
+document.addEventListener("visibilitychange",()=>document.hidden?stopGalleryAuto():startGalleryAuto);
 </script>
 </body>
 </html>
