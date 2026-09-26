@@ -578,7 +578,7 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
   .video-modal-top{margin-bottom:8px;padding:0 2px}.video-modal-top h2{font-size:28px}
   .video-modal-body{display:flex;flex-direction:column;gap:10px;overflow:hidden}
   .video-stage{order:1;flex:1 1 auto;justify-content:flex-start;overflow:auto;padding-top:2px}
-  .video-stage-inner{width:min(340px,88vw);max-width:100%;height:auto;max-height:none;aspect-ratio:9/16;flex:0 0 auto}
+  .video-stage-inner{width:min(300px,78vw);max-width:100%;height:auto;max-height:calc(100dvh - 218px);aspect-ratio:9/16;flex:0 0 auto}
   .video-library{order:2;flex:0 0 auto;border-right:0;border-top:1px solid rgba(255,255,255,.11);padding:9px 0 0;min-height:0}
   .video-list{display:flex;overflow-x:auto;overflow-y:hidden;gap:6px;padding:0 1px 4px;scroll-snap-type:x proximity}
   .video-item{flex:0 0 142px;grid-template-columns:28px 1fr;min-height:48px;scroll-snap-align:start}.video-item i{display:none}
@@ -1596,13 +1596,18 @@ videoLibrary.forEach((item,index)=>{
 });
 function playLibraryVideo(index){
   const item=videoLibrary[index];
+  const poster=galleryImages[index%galleryImages.length];
+  const previous=videoStage.querySelector("video");
+  if(previous)previous.pause();
+  videoStage.classList.remove("video-ready");
   [...videoList.children].forEach((el,i)=>el.classList.toggle("active",i===index));
-  videoStage.innerHTML='<video controls playsinline preload="metadata" aria-label="'+item.label+' — '+item.source+'"><source src="/api/reel?code='+encodeURIComponent(item.code)+'" type="video/mp4">O teu navegador não suporta vídeo HTML5.</video>';
+  videoStage.innerHTML='<video controls playsinline preload="metadata" poster="'+poster+'" aria-label="'+item.label+' — '+item.source+'" controlslist="nodownload"><source src="/api/reel?code='+encodeURIComponent(item.code)+'" type="video/mp4">O teu navegador não suporta vídeo HTML5.</video>';
   const player=videoStage.querySelector("video");
   player?.addEventListener("loadedmetadata",()=>{videoStage.classList.add("video-ready")},{once:true});
   player?.addEventListener("error",()=>{
     videoStage.innerHTML='<div class="video-stage-empty">ESTE VÍDEO NÃO ESTÁ DISPONÍVEL NESTE MOMENTO.<br>ESCOLHE OUTRO.</div>';
   },{once:true});
+  player?.load();
   videoStage.closest(".video-stage")?.scrollTo({top:0,behavior:"auto"});
 }
 function openVideoLibrary(index){
