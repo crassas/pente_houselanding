@@ -153,71 +153,96 @@ img{max-width:100%}
 .brand-core em{z-index:1;font-style:normal;margin-top:7px;padding:4px 17px;border-top:1px solid rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.75);font-size:7px;letter-spacing:.33em}
 .mini-pole{z-index:1;width:10px;height:23px;margin-top:7px;border-radius:2px;border:1px solid #ddd;background:repeating-linear-gradient(135deg,#f3f0ea 0 4px,#d62a39 4px 8px,#f3f0ea 8px 12px,#164aa4 12px 16px)}
 
-/* ARCADE ACCENTS — restrained, brand-first */
+/* ARCADE MOTION — restrained attract-mode */
 .arcade-title{display:flex;flex-direction:column;align-items:flex-start}
-.arcade-title .arcade-line{display:block;will-change:transform;animation:arcade-nudge-a 5.2s cubic-bezier(.4,0,.2,1) infinite}
-.arcade-title .arcade-line:nth-child(2){animation-name:arcade-nudge-b;animation-delay:.18s}
-@keyframes arcade-nudge-a{
-  0%,16%,100%{transform:translate3d(0,0,0)}
-  20%{transform:translate3d(3px,0,0)}
-  24%{transform:translate3d(0,0,0)}
-  68%{transform:translate3d(1px,0,0)}
-  72%{transform:translate3d(0,0,0)}
+.arcade-title .arcade-line{
+  position:relative;display:block;will-change:transform,text-shadow,letter-spacing;
+  animation:arcade-title-attract 6.4s cubic-bezier(.4,0,.2,1) infinite
 }
-@keyframes arcade-nudge-b{
-  0%,32%,100%{transform:translate3d(0,0,0)}
-  36%{transform:translate3d(-3px,0,0)}
-  40%{transform:translate3d(0,0,0)}
-  78%{transform:translate3d(-1px,0,0)}
-  82%{transform:translate3d(0,0,0)}
+.arcade-title .arcade-line:nth-child(2){animation-delay:.24s}
+@keyframes arcade-title-attract{
+  0%,9%,18%,100%{transform:translate3d(0,0,0);letter-spacing:inherit;text-shadow:0 9px 28px rgba(0,0,0,.38)}
+  11%{transform:translate3d(7px,0,0);letter-spacing:.005em;text-shadow:-2px 0 rgba(224,53,69,.38),2px 0 rgba(23,70,158,.36),0 9px 28px rgba(0,0,0,.38)}
+  13%{transform:translate3d(-2px,0,0);text-shadow:-1px 0 rgba(224,53,69,.24),1px 0 rgba(23,70,158,.24),0 9px 28px rgba(0,0,0,.38)}
+  15%{transform:translate3d(2px,0,0)}
 }
-.arcade-ticker{
-  border-top:1px solid rgba(255,255,255,.09);
-  border-bottom:1px solid rgba(255,255,255,.10);
-  background:#080a0c;overflow:hidden;white-space:nowrap
-}
-.arcade-ticker-track{
-  display:flex;width:max-content;min-width:200%;
-  animation:arcade-marquee 24s linear infinite;
-  will-change:transform
-}
-.arcade-ticker-set{
-  display:flex;align-items:center;gap:22px;padding:9px 11px 8px;
-  font:800 8px/1 Inter,Arial,sans-serif;
-  letter-spacing:.22em;color:#bfc2c6;text-transform:uppercase
-}
-.arcade-ticker-set b{color:#f3f3f1;font-weight:900}
-.arcade-dot{width:4px;height:4px;border-radius:50%;background:#d93445;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
-@keyframes arcade-marquee{to{transform:translateX(-50%)}}
 .arcade-status{
   display:inline-flex;align-items:center;gap:7px;
   padding:5px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px;
   background:rgba(7,9,11,.72);font-size:7px;font-weight:800;letter-spacing:.14em
 }
-.arcade-status i{width:5px;height:5px;border-radius:50%;background:#d93445;animation:arcade-pulse 2.2s ease-in-out infinite}
-@keyframes arcade-pulse{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}
-.price-item.popular{animation:popular-breathe 4.2s ease-in-out infinite}
-@keyframes popular-breathe{
-  0%,100%{border-color:rgba(224,53,69,.58)}
-  50%{border-color:rgba(224,53,69,.92)}
+.arcade-status i{width:5px;height:5px;border-radius:50%;background:#d93445;animation:arcade-pulse 2.4s ease-in-out infinite}
+@keyframes arcade-pulse{0%,100%{opacity:.38;transform:scale(.88)}50%{opacity:1;transform:scale(1.12)}}
+
+.hero-features .feature{
+  position:relative;padding:10px 12px;border:1px solid transparent;border-radius:7px;
+  transition:transform .24s ease,border-color .24s ease,background .24s ease,box-shadow .24s ease
 }
-.booking .book{position:relative}
-.booking .book:before{
-  content:"SELECT";position:absolute;left:9px;top:4px;
-  font-size:5px;letter-spacing:.15em;opacity:.36;font-weight:900
+.hero-features .feature.arcade-focus{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.24);
+  background:rgba(255,255,255,.035);
+  box-shadow:inset 3px 0 0 #d93445,inset -2px 0 0 rgba(23,70,158,.85)
 }
-.gallery-card:nth-child(odd){transform:translateY(0)}
-.gallery-card:nth-child(even){transform:translateY(4px)}
+.hero-features .feature.arcade-focus:after{
+  content:"";position:absolute;left:10px;right:10px;bottom:5px;height:1px;
+  background:linear-gradient(90deg,#d93445,rgba(255,255,255,.75),#17469e);
+  opacity:.72
+}
+
+.prices .title,.gallery .title,.booking .title{position:relative;display:inline-block}
+.prices .title:after,.gallery .title:after,.booking .title:after{
+  content:"";position:absolute;left:0;bottom:-8px;width:42px;height:2px;
+  background:linear-gradient(90deg,#d93445 0 31%,#f4f4f2 31% 66%,#17469e 66%);
+  animation:arcade-heading-rail 4.8s ease-in-out infinite
+}
+@keyframes arcade-heading-rail{
+  0%,100%{transform:translateX(0);opacity:.55}
+  45%{transform:translateX(18px);opacity:1}
+  55%{transform:translateX(18px);opacity:1}
+}
+
+.price-item{counter-increment:service}
+.price-grid{counter-reset:service}
+.price-item:before{
+  content:"0" counter(service);position:absolute;left:8px;top:6px;
+  font-size:5.5px;font-weight:900;letter-spacing:.10em;color:rgba(255,255,255,.28)
+}
+.price-item.popular{animation:popular-breathe 4.4s ease-in-out infinite}
+@keyframes popular-breathe{0%,100%{border-color:rgba(224,53,69,.58)}50%{border-color:rgba(224,53,69,.88)}}
+
+.gallery-track{counter-reset:work}
+.gallery-card{counter-increment:work}
+.gallery-card:after{
+  content:"WORK 0" counter(work);position:absolute;left:8px;bottom:7px;padding:4px 6px;
+  border-radius:999px;background:rgba(4,6,8,.74);border:1px solid rgba(255,255,255,.14);
+  font-size:6px;font-weight:800;letter-spacing:.12em;color:#fff;backdrop-filter:blur(4px)
+}
+.gallery-card:nth-child(even){transform:translateY(3px)}
 .gallery-card:hover{transform:translateY(-2px)}
 .gallery-card:nth-child(even):hover{transform:translateY(1px)}
+
+.barber{position:relative;transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease}
+.barber:before{
+  content:attr(data-player);position:absolute;right:8px;top:6px;
+  font-size:5.5px;font-weight:900;letter-spacing:.12em;color:rgba(255,255,255,.27)
+}
+.barber.arcade-focus{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.28);
+  box-shadow:0 12px 28px rgba(0,0,0,.28),inset 3px 0 0 #d93445
+}
+.barber.arcade-focus:after{
+  content:"SELECT";position:absolute;left:8px;bottom:6px;
+  font-size:5.5px;font-weight:900;letter-spacing:.14em;color:#f4f4f2;opacity:.52
+}
+
 @media(max-width:900px){
-  .arcade-ticker-set{gap:16px;padding:8px 9px;font-size:7px;letter-spacing:.18em}
-  .gallery-card:nth-child(even){transform:none}
-  .gallery-card:nth-child(even):hover{transform:none}
+  .gallery-card:nth-child(even),.gallery-card:nth-child(even):hover{transform:none}
+  .hero-features .feature{padding:9px 8px}
 }
 @media(prefers-reduced-motion:reduce){
-  .arcade-title .arcade-line,.arcade-ticker-track,.arcade-status i,.price-item.popular{animation:none!important}
-  .arcade-ticker-track{transform:none!important}
+  .arcade-title .arcade-line,.arcade-status i,.prices .title:after,.gallery .title:after,.booking .title:after,.price-item.popular{animation:none!important}
 }
 
 
@@ -361,7 +386,6 @@ img{max-width:100%}
 .gallery-card{position:relative;height:190px;margin:0;border-radius:7px;overflow:hidden;scroll-snap-align:start;background:#15181b}
 .gallery-card img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 34%;transition:transform .35s ease}
 .gallery-card:hover img{transform:scale(1.035)}
-.gallery-card:after{content:"PENTE HOUSE";position:absolute;left:8px;bottom:7px;padding:4px 6px;border-radius:999px;background:rgba(4,6,8,.72);border:1px solid rgba(255,255,255,.14);font-size:6px;font-weight:800;letter-spacing:.12em;color:#fff;backdrop-filter:blur(4px)}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.75);background:#080a0d;display:grid;place-items:center;font-size:23px;cursor:pointer}
 .arrow.prev{left:-22px}.arrow.next{right:-22px}
 
@@ -769,17 +793,6 @@ video{max-width:100%}
   </div>
 </section>
 
-<div class="arcade-ticker" aria-hidden="true">
-  <div class="arcade-ticker-track">
-    <div class="arcade-ticker-set">
-      <b>STAY CLEAN</b><span class="arcade-dot"></span><span>PORTO</span><span class="arcade-dot"></span><span>MARQUÊS</span><span class="arcade-dot"></span><span>BARBEARIA</span><span class="arcade-dot"></span><span>ESTÉTICA</span><span class="arcade-dot"></span><span>RASCAL</span><span class="arcade-dot"></span><span>GRENHA</span><span class="arcade-dot"></span><span>BRUNO WAYA</span>
-    </div>
-    <div class="arcade-ticker-set">
-      <b>STAY CLEAN</b><span class="arcade-dot"></span><span>PORTO</span><span class="arcade-dot"></span><span>MARQUÊS</span><span class="arcade-dot"></span><span>BARBEARIA</span><span class="arcade-dot"></span><span>ESTÉTICA</span><span class="arcade-dot"></span><span>RASCAL</span><span class="arcade-dot"></span><span>GRENHA</span><span class="arcade-dot"></span><span>BRUNO WAYA</span>
-    </div>
-  </div>
-</div>
-
 <section class="about" id="sobre">
   <div class="about-grid shell">
     <div class="about-copy reveal">
@@ -807,7 +820,7 @@ video{max-width:100%}
 <section class="prices" id="precos">
   <div class="shell">
     <div class="prices-head reveal">
-      <div><p class="kicker">SERVIÇOS · SELECT YOUR STYLE</p><h2 class="title">TABELA DE PREÇOS</h2></div>
+      <div><p class="kicker">SERVIÇOS · 01</p><h2 class="title">TABELA DE PREÇOS</h2></div>
       <p>Preços da casa. Para coloração ou outros trabalhos específicos, confirma directamente com a equipa.</p>
     </div>
     <div class="price-grid reveal" aria-label="Tabela de preços da Pente House">
@@ -825,7 +838,7 @@ video{max-width:100%}
 
 <section class="gallery" id="galeria">
   <div class="gallery-head shell reveal">
-    <div><p class="kicker">GALERIA · WORK SELECT</p><h2 class="title">O NOSSO TRABALHO</h2></div>
+    <div><p class="kicker">GALERIA · 02</p><h2 class="title">O NOSSO TRABALHO</h2></div>
     <p class="copy">14 trabalhos da casa. Vê logo uma amostra e abre a galeria completa quando quiseres.</p>
     <button class="btn" id="allPhotos">VER 14 TRABALHOS <span>›</span></button>
   </div>
@@ -876,16 +889,16 @@ video{max-width:100%}
 
 <section class="booking" id="marcar">
   <div class="booking-head shell reveal">
-    <div><p class="kicker">MARCAR HORÁRIO · PLAYER SELECT</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido segue já preenchido para o WhatsApp.</p></div>
+    <div><p class="kicker">MARCAR HORÁRIO · 03</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido segue já preenchido para o WhatsApp.</p></div>
     <div class="payment-rule">
       <div><span class="pi">▣</span><span>RESERVA COM<br><b>50%</b> DE SINAL</span></div><i></i>
       <div><span class="pi">▰</span><span>OS RESTANTES <b>50%</b><br>SÃO PAGOS NO ATENDIMENTO</span></div>
     </div>
   </div>
   <div class="barbers shell reveal">
-    <article class="barber"><img class="profile-photo" src="/images/rascal-profile.webp" alt="Rascal"><div><h3>RASCAL</h3><p>CEO · BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button type="button" class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">WHATSAPP <span>›</span></button></div></article>
-    <article class="barber"><img class="profile-photo" src="/images/grenha-profile.webp" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">WHATSAPP <span>›</span></button></div></article>
-    <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button type="button" class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">WHATSAPP <span>›</span></button></div></article>
+    <article class="barber" data-player="PLAYER 01"><img class="profile-photo" src="/images/rascal-profile.webp" alt="Rascal"><div><h3>RASCAL</h3><p>CEO · BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button type="button" class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">WHATSAPP <span>›</span></button></div></article>
+    <article class="barber" data-player="PLAYER 02"><img class="profile-photo" src="/images/grenha-profile.webp" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">WHATSAPP <span>›</span></button></div></article>
+    <article class="barber" data-player="PLAYER 03"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button type="button" class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">WHATSAPP <span>›</span></button></div></article>
   </div>
 </section>
 
@@ -893,7 +906,7 @@ video{max-width:100%}
   <div class="stripe left"></div><div class="stripe right"></div>
   <div class="final-grid shell reveal">
     <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2020</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
-    <div class="final-copy"><p class="kicker" style="margin-bottom:9px">PRESS START</p><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
+    <div class="final-copy"><p class="kicker" style="margin-bottom:9px">STAY CLEAN</p><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
   </div>
   <footer>PENTE HOUSE <span>—</span> RUA DA CONSTITUIÇÃO 656-L/20 <span>—</span> MARQUÊS · PORTO</footer>
@@ -1099,6 +1112,23 @@ function closeBooking(){
 document.querySelector('[data-close="booking"]').addEventListener("click",closeBooking);
 bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)closeBooking()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&bookingDialog.classList.contains("open"))closeBooking()});
+
+const heroFeatureItems=[...document.querySelectorAll(".hero-features .feature")];
+const barberCards=[...document.querySelectorAll(".barber")];
+let heroFeatureIndex=0,barberIndex=0;
+function rotateArcadeFocus(items,index){
+  items.forEach((el,i)=>el.classList.toggle("arcade-focus",i===index));
+}
+if(!reduceMotion){
+  if(heroFeatureItems.length){
+    rotateArcadeFocus(heroFeatureItems,heroFeatureIndex);
+    setInterval(()=>{heroFeatureIndex=(heroFeatureIndex+1)%heroFeatureItems.length;rotateArcadeFocus(heroFeatureItems,heroFeatureIndex)},1450);
+  }
+  if(barberCards.length){
+    rotateArcadeFocus(barberCards,barberIndex);
+    setInterval(()=>{barberIndex=(barberIndex+1)%barberCards.length;rotateArcadeFocus(barberCards,barberIndex)},1900);
+  }
+}
 
 gsap.registerPlugin(ScrollTrigger);
 document.querySelectorAll(".reveal").forEach(el=>gsap.to(el,{opacity:1,y:0,duration:.6,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 90%",once:true}}));

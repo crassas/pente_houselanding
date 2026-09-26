@@ -41,9 +41,13 @@ jobs:
           grep -q "PEDIR RESERVA NO WHATSAPP" index.html
           grep -q "pentehouse-interior.webp" index.html
           grep -q "Toca ou faz scroll para entrar" index.html
-          grep -q "PLAYER SELECT" index.html
-          grep -q "PRESS START" index.html
-          grep -q "arcade-ticker" index.html
+          grep -q "PLAYER 01" index.html
+          grep -q "rotateArcadeFocus" index.html
+          grep -q "arcade-title-attract" index.html
+          if grep -q "arcade-ticker" index.html; then
+            echo "Old ticker arcade treatment still present."
+            exit 1
+          fi
           if grep -q "Rua da Constituição 19" index.html; then
             echo "Old incorrect address still present."
             exit 1
