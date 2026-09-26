@@ -1,0 +1,43 @@
+name: Pente House quality gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Production build
+        run: npm run build
+
+      - name: Content sanity
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q "Rua da Constituição 656-L/20" index.html
+          grep -q "CEO · RASCAL" index.html
+          grep -q "TABELA DE PREÇOS" index.html
+          grep -q "13,50 €" index.html
+          grep -q "Seg-Sáb 10h-20h" index.html
+          if grep -q "Rua da Constituição 19" index.html; then
+            echo "Old incorrect address still present."
+            exit 1
+          fi
