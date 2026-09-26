@@ -540,10 +540,11 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .video-item{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:9px;min-height:48px;padding:7px 8px;border:1px solid rgba(255,255,255,.09);border-radius:7px;background:#0d1013;color:#fff;text-align:left;cursor:pointer}
 .video-item:hover,.video-item.active{border-color:rgba(76,122,206,.65);box-shadow:inset 3px 0 0 #17469e}
 .video-item b{font:900 17px/.9 "Barlow Condensed",sans-serif}.video-item span{font-size:7px;color:#aeb2b7;letter-spacing:.08em}.video-item i{font-style:normal;font-size:13px}
-.video-stage{min-width:0;display:grid;place-items:center}
-.video-stage-inner{width:min(430px,100%);aspect-ratio:9/16;max-height:calc(100vh - 40px);border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:#050607;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.video-stage{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}
+.video-stage-inner{width:min(430px,100%);aspect-ratio:9/16;max-height:calc(100vh - 72px);border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:#050607;box-shadow:0 30px 70px rgba(0,0,0,.5)}
 .video-stage iframe{width:100%;height:100%;border:0;background:#050607}
 .video-stage-empty{height:100%;display:grid;place-items:center;text-align:center;padding:30px;color:#aeb2b7;font-size:9px;line-height:1.6}
+.video-origin-link{font-size:7px;font-weight:900;letter-spacing:.12em;color:#d9dcdf;border-bottom:1px solid rgba(255,255,255,.38);padding-bottom:3px}
 @media(max-width:760px){
   .video-reel-inner{grid-template-columns:1fr}.video-teasers{grid-template-columns:repeat(3,1fr)}
   .video-teaser{height:105px}.video-modal-shell{grid-template-columns:1fr;height:100%;padding:12px 0;gap:10px}
@@ -1284,9 +1285,9 @@ section{overflow-x:clip}
       <button class="btn" id="openVideos" type="button">VER 15 VÍDEOS <span>›</span></button>
     </div>
     <div class="video-teasers" aria-label="Abrir galeria de vídeos">
-      <button class="video-teaser" type="button" data-video-index="0"><img src="/images/gallery-03.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>CORTES · PENTE HOUSE</small></button>
-      <button class="video-teaser" type="button" data-video-index="7"><img src="/images/gallery-08.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>PROCESSO · DETALHE</small></button>
-      <button class="video-teaser" type="button" data-video-index="13"><img src="/images/gallery-13.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>GRENHA · TRABALHO</small></button>
+      <button class="video-teaser" type="button" data-video-index="3"><img src="/images/gallery-03.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>TRANSFORMAÇÕES</small></button>
+      <button class="video-teaser" type="button" data-video-index="8"><img src="/images/gallery-08.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>PROCESSO · PENTE HOUSE</small></button>
+      <button class="video-teaser" type="button" data-video-index="12"><img src="/images/gallery-13.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>GRENHA · TRABALHO</small></button>
     </div>
   </div>
 </section>
@@ -1299,6 +1300,7 @@ section{overflow-x:clip}
     </aside>
     <div class="video-stage">
       <div class="video-stage-inner" id="videoStage"><div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div></div>
+      <a class="video-origin-link" id="videoOriginLink" href="#" target="_blank" rel="noopener noreferrer" hidden>ABRIR NO INSTAGRAM ↗</a>
     </div>
   </div>
 </div>
@@ -1510,25 +1512,26 @@ document.addEventListener("click",e=>{
 document.addEventListener("keydown",e=>{if(e.key==="Escape")setMobileMenu(false)});
 
 const videoLibrary=[
-  {code:"CS0EoMPIq-i",label:"Trabalho 01",source:"Pente House"},
-  {code:"CSKPYzJILXw",label:"Trabalho 02",source:"Pente House"},
-  {code:"CTPyHeNokiS",label:"Trabalho 03",source:"Pente House"},
-  {code:"CViDkCvoowF",label:"Trabalho 04",source:"Pente House"},
-  {code:"CYeKZgDMO_m",label:"Trabalho 05",source:"Pente House"},
-  {code:"CaqKp2voJmB",label:"Trabalho 06",source:"Pente House"},
-  {code:"CpaSldAD3gy",label:"Trabalho 07",source:"Pente House"},
-  {code:"DC_hZmyIBgN",label:"Trabalho 08",source:"Pente House"},
-  {code:"DOQ8-6SCMwX",label:"Trabalho 09",source:"Pente House"},
-  {code:"DOQ9FCxiOKR",label:"Trabalho 10",source:"Pente House"},
-  {code:"DOQ9OXLiKMI",label:"Trabalho 11",source:"Pente House"},
-  {code:"Da_OkRyq9kg",label:"Trabalho 12",source:"Pente House"},
-  {code:"Da_PDJnqJ7p",label:"Trabalho 13",source:"Pente House"},
-  {code:"DPFGBodDJqU",label:"Grenha 01",source:"Grenha"},
-  {code:"DPHpCGqiIrh",label:"Grenha 02",source:"Grenha"}
+  {code:"CS0EoMPIq-i",label:"Transformação",source:"Pente House"},
+  {code:"CTPyHeNokiS",label:"Barba + corte",source:"Pente House"},
+  {code:"CViDkCvoowF",label:"Fade",source:"Pente House"},
+  {code:"CYeKZgDMO_m",label:"Transformação",source:"Pente House"},
+  {code:"DC_hZmyIBgN",label:"Transformação",source:"Pente House"},
+  {code:"DON8B7MDHFr",label:"Processo",source:"Pente House"},
+  {code:"DOQ8-6SCMwX",label:"Caracóis",source:"Pente House"},
+  {code:"DOQ9FCxiOKR",label:"Buzz fade",source:"Pente House"},
+  {code:"DOQ9OXLiKMI",label:"Taper",source:"Pente House"},
+  {code:"Da_PDJnqJ7p",label:"Fade",source:"Pente House"},
+  {code:"DdrkGS0xEf5",label:"Textured crop",source:"Pente House"},
+  {code:"DPFGBodDJqU",label:"Processo",source:"Grenha"},
+  {code:"DPHpCGqiIrh",label:"Resultado",source:"Grenha"},
+  {code:"DPUUDg1iFr8",label:"Transformação",source:"Grenha"},
+  {code:"DQklNBaiLWh",label:"Design",source:"Grenha"}
 ];
 const videoModal=document.getElementById("videoModal");
 const videoList=document.getElementById("videoList");
 const videoStage=document.getElementById("videoStage");
+const videoOriginLink=document.getElementById("videoOriginLink");
 const openVideos=document.getElementById("openVideos");
 const closeVideos=document.getElementById("closeVideos");
 
@@ -1543,7 +1546,9 @@ videoLibrary.forEach((item,index)=>{
 function playLibraryVideo(index){
   const item=videoLibrary[index];
   [...videoList.children].forEach((el,i)=>el.classList.toggle("active",i===index));
-  videoStage.innerHTML='<iframe src="https://www.instagram.com/p/'+item.code+'/embed/" title="'+item.label+' — '+item.source+'" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  videoStage.innerHTML='<iframe src="https://www.instagram.com/p/'+item.code+'/embed/" title="'+item.label+' — '+item.source+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  videoOriginLink.href='https://www.instagram.com/p/'+item.code+'/';
+  videoOriginLink.hidden=false;
 }
 function openVideoLibrary(index){
   videoModal.classList.add("open");
@@ -1555,6 +1560,8 @@ function closeVideoLibrary(){
   videoModal.classList.remove("open");
   videoModal.setAttribute("aria-hidden","true");
   videoStage.innerHTML='<div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div>';
+  videoOriginLink.hidden=true;
+  videoOriginLink.removeAttribute("href");
   document.documentElement.classList.remove("lock");
 }
 openVideos?.addEventListener("click",()=>openVideoLibrary(0));
