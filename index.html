@@ -275,12 +275,7 @@ img{max-width:100%}
   will-change:transform,filter,opacity
 }
 .arcade-title.is-message .arcade-line{letter-spacing:-.01em}
-.hero h1.arcade-title.is-message{font-size:clamp(50px,7.2vw,70px);line-height:.84}
-.hero h1.arcade-title.is-message.is-long-message{font-size:clamp(38px,5.5vw,56px);line-height:.9}
-@media(max-width:760px){
-  .hero h1.arcade-title.is-message{font-size:clamp(49px,14vw,64px)}
-  .hero h1.arcade-title.is-message.is-long-message{font-size:clamp(32px,9.4vw,43px)}
-}
+.arcade-title.is-message .arcade-line:nth-child(2){min-height:0}
 .arcade-status{
   display:inline-flex;align-items:center;gap:7px;
   padding:5px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px;
@@ -1228,7 +1223,7 @@ section{overflow-x:clip}
   <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="#galeria">GALERIA</a><a href="#precos">MARCAR</a></nav>
   <div class="hero-main shell">
     <div class="hero-copy">
-      <h1 class="arcade-title"><span class="arcade-line">CORTES</span><span class="arcade-line">COM ATITUDE</span></h1>
+      <h1 class="arcade-title is-message"><span class="arcade-line">ATITUDE</span><span class="arcade-line"></span></h1>
       <p class="hero-sub">BARBEARIA · MARQUÊS — PORTO</p>
       <p class="body">Barbearia no Porto junto ao Marquês. Corte, barba e estética masculina numa casa liderada por <b>Rascal</b>.</p>
       <p class="stay">STAY CLEAN.</p>
@@ -1872,20 +1867,17 @@ function startHeroTitleCycle(){
   if(lines.length!==2)return;
   startHeroTitleCycle.started=true;
 
-  const original=["CORTES","COM ATITUDE"];
   const businessState=lisbonBusinessState();
 
-  // One main message at a time. STAY CLEAN is the separator between messages.
-  // Operational/hour notices are weighted to appear often, but two operational
-  // notices are never selected one after the other.
   const operational=[
-    {text:"SÁBADOS ATÉ ÀS 18H",weight:businessState.isSaturday?4:2},
+    {text:"SÁBADOS ATÉ 18H",weight:businessState.isSaturday?4:2},
     {text:"SATURDAY UNTIL 6 PM",weight:businessState.isSaturday?3:2},
-    {text:"RESERVAS ATÉ ÀS 19H",weight:3},
+    {text:"RESERVAS ATÉ 19H",weight:3},
     {text:"BOOKINGS UNTIL 7 PM",weight:2},
-    {text:"DOMINGOS FECHAMOS",weight:businessState.isSunday?4:2},
+    {text:"DOMINGOS FECHADOS",weight:businessState.isSunday?4:2},
     {text:"SUNDAYS CLOSED",weight:businessState.isSunday?3:2}
   ];
+
   const regular=[
     {text:"BEM-VINDOS",weight:2},
     {text:"WELCOME",weight:2},
@@ -1893,12 +1885,12 @@ function startHeroTitleCycle(){
     {text:"BOOK NOW",weight:2},
     {text:"RASCAL",weight:2},
     {text:"GRENHA",weight:2},
-    {text:"BRUNO WAYA",weight:2}
+    {text:"BRUNO WAYA",weight:2},
+    {text:"PENTE HOUSE",weight:2}
   ];
 
   let lastMainText="";
   let lastMainWasOperational=false;
-  let mainCount=0;
 
   const weightedPick=(items)=>{
     const expanded=[];
@@ -1912,9 +1904,10 @@ function startHeroTitleCycle(){
   };
 
   const pickMain=()=>{
-    // Warnings remain frequent, but after one warning force a normal/name message.
+    // Operational notices appear often, but never one immediately after another.
     const useOperational=!lastMainWasOperational&&Math.random()<.48;
-    const picked=weightedPick(useOperational?operational:regular);
+    const pool=useOperational?operational:regular;
+    const picked=weightedPick(pool);
     lastMainWasOperational=operational.some(item=>item.text===picked.text);
     lastMainText=picked.text;
     return picked.text;
@@ -1936,11 +1929,9 @@ function startHeroTitleCycle(){
   };
 
   const setTitleMode=(words)=>{
-    const single=words[1]==="";
-    const text=words.filter(Boolean).join(" ");
-    title.classList.toggle("is-message",single);
-    title.classList.toggle("is-long-message",single&&text.length>12);
-    title.setAttribute("aria-label",text);
+    title.classList.add("is-message");
+    title.classList.remove("is-long-message");
+    title.setAttribute("aria-label",words.filter(Boolean).join(" "));
   };
 
   const renderStatic=(words)=>{
@@ -1948,13 +1939,6 @@ function startHeroTitleCycle(){
     lines.forEach((line,i)=>{
       line.replaceChildren(makeLayer(words[i]||"","hero-word-current"));
     });
-  };
-
-  const stretch=()=>{
-    const layers=lines.map(line=>line.querySelector(".hero-word-current")).filter(Boolean);
-    return gsap.timeline()
-      .to(layers,{scaleX:1.045,scaleY:.975,duration:.34,stagger:.03,ease:"power2.inOut"})
-      .to(layers,{scaleX:1,scaleY:1,duration:.46,stagger:.03,ease:"power2.out"});
   };
 
   const transitionTo=(words)=>{
@@ -1966,17 +1950,17 @@ function startHeroTitleCycle(){
       const next=makeLayer(words[i]||"","hero-word-next");
       line.appendChild(next);
 
-      gsap.set(next,{opacity:0,y:-6,z:-5,rotateX:-4,filter:"blur(4px)"});
+      gsap.set(next,{opacity:0,y:-4,z:-3,rotateX:-2,filter:"blur(3px)"});
 
       tl.to(current,{
-        opacity:0,y:5,z:-5,rotateX:4,filter:"blur(4px)",
-        duration:.42,ease:"power2.inOut"
-      },i*.025);
+        opacity:0,y:4,z:-3,rotateX:2,filter:"blur(3px)",
+        duration:.52,ease:"power2.inOut"
+      },i*.02);
 
       tl.to(next,{
         opacity:1,y:0,z:0,rotateX:0,filter:"blur(0px)",
-        duration:.52,ease:"power2.out"
-      },.16+i*.025);
+        duration:.62,ease:"power2.out"
+      },.20+i*.02);
 
       tl.call(()=>{
         current.remove();
@@ -1991,39 +1975,33 @@ function startHeroTitleCycle(){
 
   let showStayCleanNext=false;
 
-  const runNotice=()=>{
+  const runRandom=()=>{
     let next;
-
     if(showStayCleanNext){
       next=["STAY CLEAN",""];
       showStayCleanNext=false;
     }else{
-      mainCount++;
-      // Let the original brand line breathe occasionally, without breaking
-      // the random order of the notices.
-      if(mainCount%8===0){
-        next=original;
-      }else{
-        next=[pickMain(),""];
-        showStayCleanNext=true;
-      }
+      next=[pickMain(),""];
+      showStayCleanNext=true;
     }
 
     transitionTo(next).eventCallback("onComplete",()=>{
-      const isStay=next[0]==="STAY CLEAN"&&next[1]==="";
-      const isOriginal=next===original;
-      const hold=isOriginal?2200:(isStay?1500:2100);
-      if(isOriginal){
-        stretch().eventCallback("onComplete",()=>setTimeout(runNotice,hold));
-      }else{
-        setTimeout(runNotice,hold);
-      }
+      const isStay=next[0]==="STAY CLEAN";
+      setTimeout(runRandom,isStay?1650:2200);
     });
   };
 
-  renderStatic(original);
-  gsap.delayedCall(.55,()=>stretch());
-  setTimeout(runNotice,2300);
+  // Opening sequence requested: ATITUDE -> PENTE HOUSE -> STAY CLEAN.
+  renderStatic(["ATITUDE",""]);
+  setTimeout(()=>{
+    transitionTo(["PENTE HOUSE",""]).eventCallback("onComplete",()=>{
+      setTimeout(()=>{
+        transitionTo(["STAY CLEAN",""]).eventCallback("onComplete",()=>{
+          setTimeout(runRandom,1750);
+        });
+      },2200);
+    });
+  },2400);
 }
 const heroFeatureItems=[...document.querySelectorAll(".hero-features .feature")];
 const barberCards=[...document.querySelectorAll(".barber")];
