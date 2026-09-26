@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="theme-color" content="#06080a">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<meta name="description" content="Pente House Barbearia no Marquês, Porto, desde 2018. Rua da Constituição 656-L/20, perto do Metro Marquês. Cortes, barba e estética masculina. Seg-Sáb 10h-20h; domingo encerrado.">
+<meta name="description" content="Pente House Barbearia no Marquês, Porto, desde 2018. Rua da Constituição 656-L/20, perto do Metro Marquês. Cortes, barba e estética masculina. Seg-Sex 10h-20h; sábado 10h-18h; domingo encerrado.">
 <meta name="geo.region" content="PT-13">
 <meta name="geo.placename" content="Porto">
 <meta name="geo.position" content="41.1621674;-8.6058802">
@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Pente House Barbearia">
 <meta property="og:url" content="https://pentehouse.pt/">
 <meta property="og:title" content="Pente House Barbearia Porto | Marquês · Stay Clean">
-<meta property="og:description" content="Barbearia no Marquês, Porto, desde 2018. Rua da Constituição 656-L/20, perto do Metro Marquês. Cortes, barba e estética masculina. Seg-Sáb 10h-20h; domingo encerrado.">
+<meta property="og:description" content="Barbearia no Marquês, Porto, desde 2018. Rua da Constituição 656-L/20, perto do Metro Marquês. Cortes, barba e estética masculina. Seg-Sex 10h-20h; sábado 10h-18h; domingo encerrado.">
 <meta property="og:image" content="https://pentehouse.pt/og-image.jpg">
 <meta property="og:image:alt" content="Interior da Pente House Barbearia no Marquês, Porto">
 <meta property="og:locale" content="pt_PT">
@@ -57,9 +57,15 @@
   "openingHoursSpecification":[
     {
       "@type":"OpeningHoursSpecification",
-      "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
       "opens":"10:00",
       "closes":"20:00"
+    },
+    {
+      "@type":"OpeningHoursSpecification",
+      "dayOfWeek":["Saturday"],
+      "opens":"10:00",
+      "closes":"18:00"
     }
   ],
   "priceRange":"€€",
@@ -141,7 +147,7 @@
     {
       "@type":"Question",
       "name":"Qual é o horário da Pente House?",
-      "acceptedAnswer":{"@type":"Answer","text":"A Pente House abre de segunda-feira a sábado, das 10h00 às 20h00, e está encerrada ao domingo."}
+      "acceptedAnswer":{"@type":"Answer","text":"A Pente House abre de segunda a sexta das 10h00 às 20h00, ao sábado das 10h00 às 18h00 e está encerrada ao domingo."}
     },
     {
       "@type":"Question",
@@ -1370,8 +1376,8 @@ section{overflow-x:clip}
     </article>
     <article class="local-card">
       <p class="kicker">HORÁRIO</p>
-      <h3>SEG — SÁB</h3>
-      <p>10h00 — 20h00<br><b>Domingo: encerrado.</b><br>Horário publicado pela Pente House.</p>
+      <h3>SEG — SEX · SÁB</h3>
+      <p>Seg–Sex · 10h00 — 20h00<br><b>Sábado · 10h00 — 18h00</b><br><b>Domingo: encerrado.</b><br>Horário publicado pela Pente House.</p>
       <a href="https://www.instagram.com/pentehouse_barbearia/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
     </article>
     <article class="local-card">
@@ -1416,7 +1422,7 @@ section{overflow-x:clip}
       </details>
       <details>
         <summary>Qual é o horário?</summary>
-        <p>Segunda a sábado, das 10h00 às 20h00. Ao domingo a Pente House está encerrada.</p>
+        <p>Segunda a sexta, das 10h00 às 20h00. Ao sábado, das 10h00 às 18h00. Ao domingo a Pente House está encerrada.</p>
       </details>
       <details>
         <summary>Como funciona o cancelamento ou reagendamento?</summary>
@@ -1841,10 +1847,12 @@ function lisbonBusinessState(){
     const minute=Number(get("minute"));
     const minutes=hour*60+minute;
     const isSunday=day==="Sun";
-    const isBusinessDay=["Mon","Tue","Wed","Thu","Fri","Sat"].includes(day);
-    return {day,isSunday,isOpen:isBusinessDay&&minutes>=600&&minutes<1200};
+    const isSaturday=day==="Sat";
+    const isWeekday=["Mon","Tue","Wed","Thu","Fri"].includes(day);
+    const isOpen=(isWeekday&&minutes>=600&&minutes<1200)||(isSaturday&&minutes>=600&&minutes<1080);
+    return {day,isSunday,isSaturday,isOpen};
   }catch{
-    return {day:"",isSunday:false,isOpen:false};
+    return {day:"",isSunday:false,isSaturday:false,isOpen:false};
   }
 }
 function lisbonOpenNow(){
@@ -1860,23 +1868,42 @@ function startHeroTitleCycle(){
 
   const original=["CORTES","COM ATITUDE"];
   const businessState=lisbonBusinessState();
-  const sequence=businessState.isOpen?[
-    original,
-    ["PASSA CÁ","HOJE"],
-    original,
-    ["HOJE ESTAMOS","ABERTOS"]
-  ]:businessState.isSunday?[
-    original,
-    ["HOJE ESTAMOS","FECHADOS"],
-    original,
-    ["VOLTAMOS","SEGUNDA"]
-  ]:[
-    original,
-    ["HOJE ESTAMOS","FECHADOS"],
-    original,
-    ["MARCA O TEU","HORÁRIO"]
+
+  const notices=[
+    ["SÁBADOS","ATÉ ÀS 18H"],
+    ["SATURDAY","UNTIL 6 PM"],
+    ["RESERVAS","ATÉ ÀS 19H"],
+    ["BOOKINGS","UNTIL 7 PM"],
+    ["BEM-VINDOS","STAY CLEAN"],
+    ["WELCOME","STAY CLEAN"],
+    ["DOMINGOS","FECHAMOS"],
+    ["SUNDAYS","CLOSED"],
+    ["RESERVA","JÁ"],
+    ["BOOK","NOW"],
+    ["STAY","CLEAN"],
+    ["RASCAL","STAY CLEAN"],
+    ["GRENHA","STAY CLEAN"],
+    ["BRUNO WAYA","STAY CLEAN"]
   ];
-  let state=0;
+
+  // Give the operational notice for the current day extra weight without
+  // removing the other Portuguese and English messages.
+  if(businessState.isSaturday){
+    notices.push(["SÁBADOS","ATÉ ÀS 18H"],["SATURDAY","UNTIL 6 PM"]);
+  }
+  if(businessState.isSunday){
+    notices.push(["DOMINGOS","FECHAMOS"],["SUNDAYS","CLOSED"]);
+  }
+
+  let lastNotice=-1;
+  let noticeCount=0;
+
+  const pickNotice=()=>{
+    let index=Math.floor(Math.random()*notices.length);
+    if(notices.length>1&&index===lastNotice)index=(index+1+Math.floor(Math.random()*(notices.length-1)))%notices.length;
+    lastNotice=index;
+    return notices[index];
+  };
 
   const charsFor=word=>[...word].map((char,index)=>{
     const span=document.createElement("span");
@@ -1906,11 +1933,11 @@ function startHeroTitleCycle(){
     return gsap.timeline()
       .to(layers,{
         scaleX:1.075,scaleY:.955,
-        duration:.28,stagger:.035,ease:"power2.inOut"
+        duration:.24,stagger:.025,ease:"power2.inOut"
       })
       .to(layers,{
         scaleX:1,scaleY:1,
-        duration:.38,stagger:.035,ease:"back.out(1.7)"
+        duration:.31,stagger:.025,ease:"back.out(1.7)"
       });
   };
 
@@ -1928,79 +1955,46 @@ function startHeroTitleCycle(){
       const newLetters=[...next.querySelectorAll(".hero-letter")];
 
       gsap.set(newLetters,{
-        opacity:0,
-        y:-5,
-        z:-8,
-        rotateX:-9,
-        rotateY:5,
-        scale:.985,
-        filter:"blur(5px)"
+        opacity:0,y:-5,z:-8,rotateX:-9,rotateY:5,scale:.985,filter:"blur(5px)"
       });
 
       tl.to(oldLetters,{
-        opacity:0,
-        y:6,
-        z:-10,
-        rotateX:10,
-        rotateY:-6,
-        scale:.985,
-        filter:"blur(5px)",
-        duration:.24,
-        stagger:{each:.012,from:"start"},
-        ease:"power2.in"
-      },i*.018);
+        opacity:0,y:6,z:-10,rotateX:10,rotateY:-6,scale:.985,filter:"blur(5px)",
+        duration:.19,stagger:{each:.009,from:"start"},ease:"power2.in"
+      },i*.012);
 
       tl.to(newLetters,{
-        opacity:1,
-        y:0,
-        z:0,
-        rotateX:0,
-        rotateY:0,
-        scale:1,
-        filter:"blur(0px)",
-        duration:.30,
-        stagger:{each:.012,from:"start"},
-        ease:"power2.out"
-      },.085+i*.018);
+        opacity:1,y:0,z:0,rotateX:0,rotateY:0,scale:1,filter:"blur(0px)",
+        duration:.24,stagger:{each:.009,from:"start"},ease:"power2.out"
+      },.065+i*.012);
 
       tl.call(()=>{
         current.remove();
         next.classList.remove("hero-word-next");
         next.classList.add("hero-word-current");
         gsap.set(next.querySelectorAll(".hero-letter"),{clearProps:"all"});
-      },null,">-.015");
+      },null,">-.01");
     });
 
     return tl;
   };
 
-  const continueCycle=()=>{
-    const current=sequence[state];
-    const isOriginal=current===original;
-    const tl=gsap.timeline({
-      delay:isOriginal?.36:.22,
-      onComplete:()=>{
-        state=(state+1)%sequence.length;
-        setTimeout(continueCycle,isOriginal?1350:1050);
+  const runNotice=()=>{
+    noticeCount++;
+    const next=(noticeCount%7===0)?original:pickNotice();
+    transitionTo(next).eventCallback("onComplete",()=>{
+      if(next===original){
+        stretch().eventCallback("onComplete",()=>setTimeout(runNotice,720));
+      }else{
+        setTimeout(runNotice,760);
       }
     });
-
-    if(isOriginal)tl.add(stretch());
-    tl.add(transitionTo(sequence[(state+1)%sequence.length]),isOriginal?">+.14":">+.04");
   };
 
   renderStatic(original);
-
-  /* Main message first; after that, the rotation becomes quicker. */
-  gsap.delayedCall(.55,()=>stretch());
-  setTimeout(()=>{
-    transitionTo(sequence[1]).eventCallback("onComplete",()=>{
-      state=1;
-      setTimeout(continueCycle,1050);
-    });
-  },1950);
+  gsap.delayedCall(.45,()=>stretch());
+  setTimeout(runNotice,1250);
 }
-
 const heroFeatureItems=[...document.querySelectorAll(".hero-features .feature")];
 const barberCards=[...document.querySelectorAll(".barber")];
 let heroFeatureIndex=0,barberIndex=0;
