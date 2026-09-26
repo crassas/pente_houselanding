@@ -1601,13 +1601,23 @@ function playLibraryVideo(index){
   if(previous)previous.pause();
   videoStage.classList.remove("video-ready");
   [...videoList.children].forEach((el,i)=>el.classList.toggle("active",i===index));
-  videoStage.innerHTML='<video controls playsinline preload="metadata" poster="'+poster+'" aria-label="'+item.label+' — '+item.source+'" controlslist="nodownload"><source src="/api/reel?code='+encodeURIComponent(item.code)+'" type="video/mp4">O teu navegador não suporta vídeo HTML5.</video>';
-  const player=videoStage.querySelector("video");
-  player?.addEventListener("loadedmetadata",()=>{videoStage.classList.add("video-ready")},{once:true});
-  player?.addEventListener("error",()=>{
-    videoStage.innerHTML='<div class="video-stage-empty">ESTE VÍDEO NÃO ESTÁ DISPONÍVEL NESTE MOMENTO.<br>ESCOLHE OUTRO.</div>';
-  },{once:true});
-  player?.load();
+
+  const mountPlayer=(attempt=0)=>{
+    const fresh=Date.now().toString(36)+"-"+attempt;
+    videoStage.innerHTML='<video controls playsinline preload="metadata" poster="'+poster+'" aria-label="'+item.label+' — '+item.source+'" controlslist="nodownload"><source src="/api/reel?code='+encodeURIComponent(item.code)+'&fresh='+fresh+'" type="video/mp4">O teu navegador não suporta vídeo HTML5.</video>';
+    const player=videoStage.querySelector("video");
+    player?.addEventListener("loadedmetadata",()=>{videoStage.classList.add("video-ready")},{once:true});
+    player?.addEventListener("error",()=>{
+      if(attempt<1){
+        window.setTimeout(()=>mountPlayer(attempt+1),450);
+        return;
+      }
+      videoStage.innerHTML='<div class="video-stage-empty">ESTE VÍDEO NÃO ESTÁ DISPONÍVEL NESTE MOMENTO.<br>ESCOLHE OUTRO.</div>';
+    },{once:true});
+    player?.load();
+  };
+
+  mountPlayer();
   videoStage.closest(".video-stage")?.scrollTo({top:0,behavior:"auto"});
 }
 function openVideoLibrary(index){
