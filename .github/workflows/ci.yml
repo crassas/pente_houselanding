@@ -37,6 +37,10 @@ jobs:
           grep -q "TABELA DE PREÇOS" index.html
           grep -q "13,50 €" index.html
           grep -q "Seg-Sáb 10h-20h" index.html
+          grep -q "MAIS PEDIDO" index.html
+          grep -q "PEDIR RESERVA NO WHATSAPP" index.html
+          grep -q "pentehouse-interior.webp" index.html
+          grep -q "Toca ou faz scroll para entrar" index.html
           if grep -q "Rua da Constituição 19" index.html; then
             echo "Old incorrect address still present."
             exit 1
