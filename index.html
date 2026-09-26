@@ -569,9 +569,8 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .video-stage{min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;overflow:auto}
 .video-stage-inner{position:relative;width:min(430px,100%);aspect-ratio:9/16;max-height:calc(100dvh - 86px);border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:#050607;box-shadow:0 30px 70px rgba(0,0,0,.5)}
 .video-stage-inner:before{content:"A CARREGAR VÍDEO";position:absolute;inset:0;display:grid;place-items:center;color:#858b91;font-size:7px;font-weight:900;letter-spacing:.14em;z-index:0}
-.video-stage iframe{position:relative;z-index:1;width:100%;height:100%;border:0;background:transparent}
+.video-stage video{position:relative;z-index:1;width:100%;height:100%;display:block;object-fit:contain;background:#050607}
 .video-stage-empty{height:100%;display:grid;place-items:center;text-align:center;padding:30px;color:#aeb2b7;font-size:9px;line-height:1.6}
-.video-origin-link{font-size:7px;font-weight:900;letter-spacing:.12em;color:#d9dcdf;border-bottom:1px solid rgba(255,255,255,.38);padding-bottom:3px}
 @media(max-width:760px){
   .video-reel-inner{grid-template-columns:1fr}.video-teasers{grid-template-columns:repeat(3,1fr)}
   .video-teaser{height:105px}
@@ -580,7 +579,6 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
   .video-modal-body{display:flex;flex-direction:column;gap:10px;overflow:hidden}
   .video-stage{order:1;flex:1 1 auto;justify-content:flex-start;overflow:auto;padding-top:2px}
   .video-stage-inner{width:min(340px,88vw);max-width:100%;height:auto;max-height:none;aspect-ratio:9/16;flex:0 0 auto}
-  .video-origin-link{margin:1px 0 4px;font-size:7px}
   .video-library{order:2;flex:0 0 auto;border-right:0;border-top:1px solid rgba(255,255,255,.11);padding:9px 0 0;min-height:0}
   .video-list{display:flex;overflow-x:auto;overflow-y:hidden;gap:6px;padding:0 1px 4px;scroll-snap-type:x proximity}
   .video-item{flex:0 0 142px;grid-template-columns:28px 1fr;min-height:48px;scroll-snap-align:start}.video-item i{display:none}
@@ -1339,7 +1337,6 @@ section{overflow-x:clip}
       </aside>
       <div class="video-stage">
         <div class="video-stage-inner" id="videoStage"><div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div></div>
-        <a class="video-origin-link" id="videoOriginLink" href="#" target="_blank" rel="noopener noreferrer">ABRIR NO INSTAGRAM ↗</a>
       </div>
     </div>
   </div>
@@ -1586,7 +1583,6 @@ const videoLibrary=[
 const videoModal=document.getElementById("videoModal");
 const videoList=document.getElementById("videoList");
 const videoStage=document.getElementById("videoStage");
-const videoOriginLink=document.getElementById("videoOriginLink");
 const openVideos=document.getElementById("openVideos");
 const closeVideos=document.getElementById("closeVideos");
 
@@ -1601,9 +1597,12 @@ videoLibrary.forEach((item,index)=>{
 function playLibraryVideo(index){
   const item=videoLibrary[index];
   [...videoList.children].forEach((el,i)=>el.classList.toggle("active",i===index));
-  videoStage.innerHTML='<iframe src="https://www.instagram.com/reel/'+item.code+'/embed/" title="'+item.label+' — '+item.source+'" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
-  videoOriginLink.href='https://www.instagram.com/reel/'+item.code+'/';
-  videoOriginLink.hidden=false;
+  videoStage.innerHTML='<video controls playsinline preload="metadata" aria-label="'+item.label+' — '+item.source+'"><source src="/api/reel?code='+encodeURIComponent(item.code)+'" type="video/mp4">O teu navegador não suporta vídeo HTML5.</video>';
+  const player=videoStage.querySelector("video");
+  player?.addEventListener("loadedmetadata",()=>{videoStage.classList.add("video-ready")},{once:true});
+  player?.addEventListener("error",()=>{
+    videoStage.innerHTML='<div class="video-stage-empty">ESTE VÍDEO NÃO ESTÁ DISPONÍVEL NESTE MOMENTO.<br>ESCOLHE OUTRO.</div>';
+  },{once:true});
   videoStage.closest(".video-stage")?.scrollTo({top:0,behavior:"auto"});
 }
 function openVideoLibrary(index){
@@ -1616,8 +1615,6 @@ function closeVideoLibrary(){
   videoModal.classList.remove("open");
   videoModal.setAttribute("aria-hidden","true");
   videoStage.innerHTML='<div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div>';
-  videoOriginLink.hidden=false;
-  videoOriginLink.href="#";
   document.documentElement.classList.remove("lock");
 }
 openVideos?.addEventListener("click",()=>openVideoLibrary(0));
