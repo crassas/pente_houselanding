@@ -399,6 +399,24 @@ img{max-width:100%}
 .price-item{position:relative;min-height:86px;padding:14px 14px;border:1px solid rgba(255,255,255,.11);border-radius:9px;background:linear-gradient(145deg,#14171a,#0d0f11);display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;overflow:hidden;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
 .price-item:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.34);background:linear-gradient(145deg,#181c20,#101316);box-shadow:0 14px 30px rgba(0,0,0,.28)}
 .price-item.service-choice{cursor:pointer;touch-action:manipulation}
+.price-item.service-choice .price-copy:after{
+  content:"TOCAR PARA ESCOLHER";
+  margin-top:1px;
+  color:rgba(215,218,221,.46);
+  font-size:5.5px;
+  font-weight:900;
+  letter-spacing:.12em;
+  transition:color .2s ease,transform .2s ease
+}
+.price-item.service-choice:hover .price-copy:after,
+.price-item.service-choice:focus-visible .price-copy:after{
+  color:rgba(126,157,218,.9);
+  transform:translateX(2px)
+}
+.price-item.service-choice.selected .price-copy:after{
+  content:"ESCOLHIDO";
+  color:rgba(126,157,218,.95)
+}
 .price-item.service-choice:active{transform:translateY(1px) scale(.985)}
 .price-item.service-choice:focus-visible{outline:2px solid var(--steel-hi);outline-offset:3px}
 .price-item.service-choice.selected{
@@ -1153,15 +1171,15 @@ section{overflow-x:clip}
 <section class="prices" id="precos">
   <div class="shell">
     <div class="prices-head reveal">
-      <div><p class="kicker">SERVIÇOS · 01</p><h2 class="title">TABELA DE PREÇOS</h2></div>
-      <p>Preços da casa. Para coloração ou outros trabalhos específicos, confirma directamente com a equipa.</p>
+      <div><p class="kicker">SERVIÇOS · 01</p><h2 class="title">ESCOLHE O TEU CORTE</h2></div>
+      <p>Toca no serviço que queres. A seguir escolhes o barbeiro e fazes o pedido de marcação.</p>
     </div>
     <div class="booking-flow reveal" aria-label="Etapas da marcação">
       <span class="active" data-flow-step="service"><b>01</b> SERVIÇO</span><i></i>
       <span data-flow-step="barber"><b>02</b> BARBEIRO</span><i></i>
       <span data-flow-step="reserve"><b>03</b> RESERVA</span>
     </div>
-    <div class="price-grid reveal" aria-label="Tabela de preços da Pente House">
+    <div class="price-grid reveal" aria-label="Escolher serviço na Pente House">
       <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Cabelo — 13,50 €" aria-label="Selecionar Cabelo por 13,50 euros"><span class="price-icon" aria-hidden="true">✂</span><span class="price-copy"><strong>Cabelo</strong><small>corte e acabamento</small></span><b>13,50 €</b></div>
       <div class="price-item popular service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Cabelo + Barba — 16 €" aria-label="Selecionar Cabelo mais Barba por 16 euros"><span class="price-badge">MAIS PEDIDO</span><span class="price-icon" aria-hidden="true">✂+</span><span class="price-copy"><strong>Cabelo + Barba</strong><small>combo completo</small></span><b>16 €</b></div>
       <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Corte de criança — 11 €" aria-label="Selecionar Corte de criança por 11 euros"><span class="price-icon" aria-hidden="true">★</span><span class="price-copy"><strong>Corte de criança</strong><small>serviço infantil</small></span><b>11 €</b></div>
