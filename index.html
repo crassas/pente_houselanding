@@ -221,8 +221,7 @@ img{max-width:100%}
       url("/images/pentehouse-interior-720.webp") center/cover no-repeat
   }
 }
-.intro-word{position:relative;z-index:2;font:900 clamp(62px,14vw,175px)/.78 "Barlow Condensed",sans-serif;letter-spacing:.06em;text-shadow:0 15px 45px #000}
-.intro-logo{position:absolute;z-index:3;width:min(365px,74vw);opacity:0}
+.intro-word{position:relative;z-index:2;font:900 clamp(62px,14vw,175px)/.78 "Barlow Condensed",sans-serif;letter-spacing:.06em;text-shadow:0 15px 45px #000;transform:scale(1.018);will-change:transform,filter,opacity}
 
 /* LOGO */
 .brandmark{aspect-ratio:1;border-radius:50%;display:grid;place-items:center}
@@ -629,7 +628,7 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 
 /* FINAL CTA */
 .final{position:relative;height:207px;background:radial-gradient(circle at 48% 0,rgba(255,255,255,.035),transparent 34%),#080a0b;overflow:hidden}
-.final-grid{height:174px;display:grid;grid-template-columns:210px 1fr 150px;gap:30px;align-items:center;position:relative;z-index:2}
+.final-grid{height:174px;display:grid;grid-template-columns:150px 1fr 150px;gap:30px;align-items:center;position:relative;z-index:2}
 .footer-logo{width:156px;justify-self:center}
 .footer-logo .brand-ring{padding:6px}
 .footer-logo .brand-core strong{font-size:22px}
@@ -638,9 +637,9 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .footer-logo .brand-tools{font-size:19px}
 .footer-logo .brand-core em{font-size:5px;padding:3px 8px;margin-top:4px}
 .footer-logo .mini-pole{width:7px;height:15px;margin-top:3px}
-.final-copy{text-align:center}
+.final-copy{grid-column:2;text-align:center}
 .final-copy h2{margin:0 0 15px;font:italic 800 49px/.85 "Barlow Condensed",sans-serif;transform:rotate(-1.5deg);text-shadow:0 6px 18px rgba(0,0,0,.4)}
-.values{border-left:1px solid var(--line);padding-left:20px;font-size:8px;line-height:2.05;letter-spacing:.15em;color:#b8bbc0}
+.values{grid-column:3;border-left:1px solid var(--line);padding-left:20px;font-size:8px;line-height:2.05;letter-spacing:.15em;color:#b8bbc0}
 .stripe{position:absolute;bottom:-124px;width:285px;height:285px;background:repeating-linear-gradient(135deg,#f0eee9 0 21px,#1749a4 21px 42px,#f0eee9 42px 63px,#cc2635 63px 84px);opacity:.62}
 .stripe.left{left:-161px;transform:rotate(14deg)}
 .stripe.right{right:-161px;transform:rotate(-14deg)}
@@ -1326,13 +1325,6 @@ section{overflow-x:clip}
 <body>
 <div class="intro" id="intro">
   <div class="intro-word">STAY CLEAN</div>
-  <div class="brandmark intro-logo">
-    <div class="brand-ring"><div class="brand-core">
-      <div class="brand-crown">♛</div><div class="brand-tools">✂</div>
-      <div class="brand-meta"><span>EST.</span><span>2018</span></div>
-      <strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span>
-    </div></div>
-  </div>
 </div>
 
 <main>
@@ -1582,7 +1574,6 @@ section{overflow-x:clip}
 <section class="final" id="final">
   <div class="stripe left"></div><div class="stripe right"></div>
   <div class="final-grid shell reveal">
-    <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2018</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
     <div class="final-copy"><p class="kicker" style="margin-bottom:9px">STAY CLEAN</p><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red start-booking">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
   </div>
@@ -1670,12 +1661,11 @@ function enter(){
     intro.remove();
     unlockPage();
   }});
-  tl.to(".intro-word",{opacity:0,y:-13,duration:.24,ease:"power2.out"})
-    .fromTo(".intro-logo",{opacity:0,scale:.76},{opacity:1,scale:1.04,duration:.56,ease:"power3.out"},"-=.02")
-    .to(".intro-logo",{opacity:0,scale:1.13,filter:"blur(4px)",duration:.34,ease:"power2.in"},"+=.16")
-    .to("#intro",{opacity:.18,filter:"blur(5px)",duration:.38,ease:"power2.out"},"-=.08")
-    .to("main",{opacity:1,filter:"blur(0px)",scale:1,duration:.55,ease:"power2.out"},"-=.30")
-    .to("#intro",{opacity:0,duration:.26,ease:"power1.out"},"-=.30");
+  tl.to(".intro-word",{scale:1.035,duration:.18,ease:"power1.out"})
+    .to(".intro-word",{opacity:0,scale:1.055,filter:"blur(5px)",duration:.42,ease:"power2.inOut"},"+=.08")
+    .to("#intro",{opacity:.18,filter:"blur(6px)",duration:.42,ease:"power2.out"},"-=.22")
+    .to("main",{opacity:1,filter:"blur(0px)",scale:1,duration:.60,ease:"power2.out"},"-=.34")
+    .to("#intro",{opacity:0,duration:.28,ease:"power1.out"},"-=.32");
 }
 if(reduceMotion){
   enter();
