@@ -1883,12 +1883,24 @@ function startHeroTitleCycle(){
   if(lines.length!==2)return;
   startHeroTitleCycle.started=true;
 
-  const brandCycle=["ATITUDE","PENTE HOUSE","STAY CLEAN"];
-  let brandIndex=0;
+  const brandCycle=[
+    "ATITUDE",
+    "PENTE HOUSE",
+    "STAY CLEAN",
+    "BEM-VINDOS",
+    "WELCOME",
+    "RESERVA JÁ",
+    "BOOK NOW",
+    "RASCAL",
+    "GRENHA",
+    "BRUNO WAYA"
+  ];
+  let lastBrandText="STAY CLEAN";
 
   const pickMain=()=>{
-    const value=brandCycle[brandIndex%brandCycle.length];
-    brandIndex=(brandIndex+1)%brandCycle.length;
+    let candidates=brandCycle.filter(text=>text!==lastBrandText);
+    const value=candidates[Math.floor(Math.random()*candidates.length)];
+    lastBrandText=value;
     return value;
   };
 
