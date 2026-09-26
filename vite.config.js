@@ -8,7 +8,8 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         constituicao: resolve(__dirname, "barbearia-rua-constituicao/index.html"),
         metroMarques: resolve(__dirname, "barbeiro-metro-marques/index.html"),
-        caminhos: resolve(__dirname, "todos-os-caminhos-pente-house/index.html")
+        caminhos: resolve(__dirname, "todos-os-caminhos-pente-house/index.html"),
+        visitingPorto: resolve(__dirname, "visiting-porto/index.html")
       }
     }
   }
