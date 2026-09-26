@@ -275,6 +275,12 @@ img{max-width:100%}
   will-change:transform,filter,opacity
 }
 .arcade-title.is-message .arcade-line{letter-spacing:-.01em}
+.hero h1.arcade-title.is-message{font-size:clamp(50px,7.2vw,70px);line-height:.84}
+.hero h1.arcade-title.is-message.is-long-message{font-size:clamp(38px,5.5vw,56px);line-height:.9}
+@media(max-width:760px){
+  .hero h1.arcade-title.is-message{font-size:clamp(49px,14vw,64px)}
+  .hero h1.arcade-title.is-message.is-long-message{font-size:clamp(32px,9.4vw,43px)}
+}
 .arcade-status{
   display:inline-flex;align-items:center;gap:7px;
   padding:5px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px;
@@ -1869,40 +1875,49 @@ function startHeroTitleCycle(){
   const original=["CORTES","COM ATITUDE"];
   const businessState=lisbonBusinessState();
 
-  const notices=[
-    ["SÁBADOS","ATÉ ÀS 18H"],
-    ["SATURDAY","UNTIL 6 PM"],
-    ["RESERVAS","ATÉ ÀS 19H"],
-    ["BOOKINGS","UNTIL 7 PM"],
-    ["BEM-VINDOS","STAY CLEAN"],
-    ["WELCOME","STAY CLEAN"],
-    ["DOMINGOS","FECHAMOS"],
-    ["SUNDAYS","CLOSED"],
-    ["RESERVA","JÁ"],
-    ["BOOK","NOW"],
-    ["STAY","CLEAN"],
-    ["RASCAL","STAY CLEAN"],
-    ["GRENHA","STAY CLEAN"],
-    ["BRUNO WAYA","STAY CLEAN"]
+  // One main message at a time. STAY CLEAN is the separator between messages.
+  // Operational/hour notices are weighted to appear often, but two operational
+  // notices are never selected one after the other.
+  const operational=[
+    {text:"SÁBADOS ATÉ ÀS 18H",weight:businessState.isSaturday?4:2},
+    {text:"SATURDAY UNTIL 6 PM",weight:businessState.isSaturday?3:2},
+    {text:"RESERVAS ATÉ ÀS 19H",weight:3},
+    {text:"BOOKINGS UNTIL 7 PM",weight:2},
+    {text:"DOMINGOS FECHAMOS",weight:businessState.isSunday?4:2},
+    {text:"SUNDAYS CLOSED",weight:businessState.isSunday?3:2}
+  ];
+  const regular=[
+    {text:"BEM-VINDOS",weight:2},
+    {text:"WELCOME",weight:2},
+    {text:"RESERVA JÁ",weight:2},
+    {text:"BOOK NOW",weight:2},
+    {text:"RASCAL",weight:2},
+    {text:"GRENHA",weight:2},
+    {text:"BRUNO WAYA",weight:2}
   ];
 
-  // Give the operational notice for the current day extra weight without
-  // removing the other Portuguese and English messages.
-  if(businessState.isSaturday){
-    notices.push(["SÁBADOS","ATÉ ÀS 18H"],["SATURDAY","UNTIL 6 PM"]);
-  }
-  if(businessState.isSunday){
-    notices.push(["DOMINGOS","FECHAMOS"],["SUNDAYS","CLOSED"]);
-  }
+  let lastMainText="";
+  let lastMainWasOperational=false;
+  let mainCount=0;
 
-  let lastNotice=-1;
-  let noticeCount=0;
+  const weightedPick=(items)=>{
+    const expanded=[];
+    items.forEach(item=>{
+      const count=Math.max(1,Number(item.weight)||1);
+      for(let i=0;i<count;i++)expanded.push(item);
+    });
+    let candidates=expanded.filter(item=>item.text!==lastMainText);
+    if(!candidates.length)candidates=expanded;
+    return candidates[Math.floor(Math.random()*candidates.length)];
+  };
 
-  const pickNotice=()=>{
-    let index=Math.floor(Math.random()*notices.length);
-    if(notices.length>1&&index===lastNotice)index=(index+1+Math.floor(Math.random()*(notices.length-1)))%notices.length;
-    lastNotice=index;
-    return notices[index];
+  const pickMain=()=>{
+    // Warnings remain frequent, but after one warning force a normal/name message.
+    const useOperational=!lastMainWasOperational&&Math.random()<.48;
+    const picked=weightedPick(useOperational?operational:regular);
+    lastMainWasOperational=operational.some(item=>item.text===picked.text);
+    lastMainText=picked.text;
+    return picked.text;
   };
 
   const charsFor=word=>[...word].map((char,index)=>{
@@ -1920,80 +1935,95 @@ function startHeroTitleCycle(){
     return layer;
   };
 
+  const setTitleMode=(words)=>{
+    const single=words[1]==="";
+    const text=words.filter(Boolean).join(" ");
+    title.classList.toggle("is-message",single);
+    title.classList.toggle("is-long-message",single&&text.length>12);
+    title.setAttribute("aria-label",text);
+  };
+
   const renderStatic=(words)=>{
+    setTitleMode(words);
     lines.forEach((line,i)=>{
-      line.replaceChildren(makeLayer(words[i],"hero-word-current"));
+      line.replaceChildren(makeLayer(words[i]||"","hero-word-current"));
     });
-    title.classList.toggle("is-message",words!==original);
-    title.setAttribute("aria-label",words.join(" "));
   };
 
   const stretch=()=>{
     const layers=lines.map(line=>line.querySelector(".hero-word-current")).filter(Boolean);
     return gsap.timeline()
-      .to(layers,{
-        scaleX:1.075,scaleY:.955,
-        duration:.24,stagger:.025,ease:"power2.inOut"
-      })
-      .to(layers,{
-        scaleX:1,scaleY:1,
-        duration:.31,stagger:.025,ease:"back.out(1.7)"
-      });
+      .to(layers,{scaleX:1.045,scaleY:.975,duration:.34,stagger:.03,ease:"power2.inOut"})
+      .to(layers,{scaleX:1,scaleY:1,duration:.46,stagger:.03,ease:"power2.out"});
   };
 
   const transitionTo=(words)=>{
     const tl=gsap.timeline();
-    title.classList.toggle("is-message",words!==original);
-    title.setAttribute("aria-label",words.join(" "));
+    setTitleMode(words);
 
     lines.forEach((line,i)=>{
       const current=line.querySelector(".hero-word-current");
-      const next=makeLayer(words[i],"hero-word-next");
+      const next=makeLayer(words[i]||"","hero-word-next");
       line.appendChild(next);
 
-      const oldLetters=[...current.querySelectorAll(".hero-letter")];
-      const newLetters=[...next.querySelectorAll(".hero-letter")];
+      gsap.set(next,{opacity:0,y:-6,z:-5,rotateX:-4,filter:"blur(4px)"});
 
-      gsap.set(newLetters,{
-        opacity:0,y:-5,z:-8,rotateX:-9,rotateY:5,scale:.985,filter:"blur(5px)"
-      });
+      tl.to(current,{
+        opacity:0,y:5,z:-5,rotateX:4,filter:"blur(4px)",
+        duration:.42,ease:"power2.inOut"
+      },i*.025);
 
-      tl.to(oldLetters,{
-        opacity:0,y:6,z:-10,rotateX:10,rotateY:-6,scale:.985,filter:"blur(5px)",
-        duration:.19,stagger:{each:.009,from:"start"},ease:"power2.in"
-      },i*.012);
-
-      tl.to(newLetters,{
-        opacity:1,y:0,z:0,rotateX:0,rotateY:0,scale:1,filter:"blur(0px)",
-        duration:.24,stagger:{each:.009,from:"start"},ease:"power2.out"
-      },.065+i*.012);
+      tl.to(next,{
+        opacity:1,y:0,z:0,rotateX:0,filter:"blur(0px)",
+        duration:.52,ease:"power2.out"
+      },.16+i*.025);
 
       tl.call(()=>{
         current.remove();
         next.classList.remove("hero-word-next");
         next.classList.add("hero-word-current");
-        gsap.set(next.querySelectorAll(".hero-letter"),{clearProps:"all"});
-      },null,">-.01");
+        gsap.set(next,{clearProps:"all"});
+      },null,">-.03");
     });
 
     return tl;
   };
 
+  let showStayCleanNext=false;
+
   const runNotice=()=>{
-    noticeCount++;
-    const next=(noticeCount%7===0)?original:pickNotice();
-    transitionTo(next).eventCallback("onComplete",()=>{
-      if(next===original){
-        stretch().eventCallback("onComplete",()=>setTimeout(runNotice,720));
+    let next;
+
+    if(showStayCleanNext){
+      next=["STAY CLEAN",""];
+      showStayCleanNext=false;
+    }else{
+      mainCount++;
+      // Let the original brand line breathe occasionally, without breaking
+      // the random order of the notices.
+      if(mainCount%8===0){
+        next=original;
       }else{
-        setTimeout(runNotice,760);
+        next=[pickMain(),""];
+        showStayCleanNext=true;
+      }
+    }
+
+    transitionTo(next).eventCallback("onComplete",()=>{
+      const isStay=next[0]==="STAY CLEAN"&&next[1]==="";
+      const isOriginal=next===original;
+      const hold=isOriginal?2200:(isStay?1500:2100);
+      if(isOriginal){
+        stretch().eventCallback("onComplete",()=>setTimeout(runNotice,hold));
+      }else{
+        setTimeout(runNotice,hold);
       }
     });
   };
 
   renderStatic(original);
-  gsap.delayedCall(.45,()=>stretch());
-  setTimeout(runNotice,1250);
+  gsap.delayedCall(.55,()=>stretch());
+  setTimeout(runNotice,2300);
 }
 const heroFeatureItems=[...document.querySelectorAll(".hero-features .feature")];
 const barberCards=[...document.querySelectorAll(".barber")];
