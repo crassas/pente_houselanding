@@ -200,7 +200,7 @@ img{max-width:100%}
 .brand-core em{z-index:1;font-style:normal;margin-top:7px;padding:4px 17px;border-top:1px solid rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.75);font-size:7px;letter-spacing:.33em}
 .mini-pole{z-index:1;width:10px;height:23px;margin-top:7px;border-radius:2px;border:1px solid #ddd;background:repeating-linear-gradient(135deg,#f3f0ea 0 4px,#d62a39 4px 8px,#f3f0ea 8px 12px,#164aa4 12px 16px)}
 
-/* HERO TYPE MOTION — one controlled focal animation */
+/* HERO TITLE — stretch + melt text cycle */
 .arcade-title{
   display:flex;flex-direction:column;align-items:flex-start;
   min-height:1.55em;overflow:visible
@@ -211,9 +211,7 @@ img{max-width:100%}
   will-change:transform,filter,opacity,letter-spacing;
   text-wrap:balance
 }
-.arcade-title.is-message .arcade-line{
-  letter-spacing:-.01em
-}
+.arcade-title.is-message .arcade-line{letter-spacing:-.01em}
 .arcade-status{
   display:inline-flex;align-items:center;gap:7px;
   padding:5px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px;
@@ -290,7 +288,7 @@ img{max-width:100%}
   .hero-features .feature{padding:9px 8px}
 }
 @media(prefers-reduced-motion:reduce){
-  .arcade-title .arcade-line,.arcade-status i,.prices .title:after,.gallery .title:after,.booking .title:after,.price-item.popular{animation:none!important}
+  .arcade-status i,.prices .title:after,.gallery .title:after,.booking .title:after,.price-item.popular{animation:none!important}
 }
 
 
@@ -1035,26 +1033,6 @@ section{overflow-x:clip}
   .hero-tint,.hero-copy>.btn,.top-cta,.final-copy>.btn,.local-pill{animation:none!important}
 }
 
-
-/* FOCUSED MOTION: keep the page calm; hero typography is the focal animation */
-.arcade-status i,
-.prices .title:after,
-.gallery .title:after,
-.booking .title:after,
-.price-item.popular,
-.hero-tint,
-.hero-copy>.btn,
-.top-cta,
-.final-copy>.btn,
-.local-pill,
-.btn span,
-.tour-play,
-.feature-icon{
-  animation:none!important
-}
-.price-item.motion-active,.local-card.motion-active{transform:none!important;box-shadow:none}
-.gallery-card.motion-active img{transform:scale(1.018)!important}
-
 </style>
 </head>
 <body>
@@ -1482,6 +1460,7 @@ document.querySelector('[data-close="booking"]').addEventListener("click",closeB
 bookingDialog.addEventListener("click",e=>{if(e.target===bookingDialog)closeBooking()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&bookingDialog.classList.contains("open"))closeBooking()});
 
+
 function lisbonOpenNow(){
   try{
     const parts=new Intl.DateTimeFormat("en-GB",{
@@ -1506,55 +1485,87 @@ function startHeroTitleCycle(){
   startHeroTitleCycle.started=true;
 
   const original=["CORTES","COM ATITUDE"];
-  const messages=lisbonOpenNow()
-    ? [["PASSA CÁ","HOJE"],["HOJE ESTAMOS","ABERTOS"]]
-    : [["PASSA CÁ","HOJE"],["MARCA O TEU","HORÁRIO"]];
-  let messageIndex=0;
+  const sequence=[
+    original,
+    ["PASSA CÁ","HOJE"],
+    original,
+    lisbonOpenNow()?["HOJE ESTAMOS","ABERTOS"]:["MARCA O TEU","HORÁRIO"]
+  ];
+  let state=0;
 
-  const setWords=(words,isMessage=false)=>{
+  const setWords=(words)=>{
     lines[0].textContent=words[0];
     lines[1].textContent=words[1];
-    title.classList.toggle("is-message",isMessage);
+    title.classList.toggle("is-message",words!==original);
   };
 
   const stretch=()=>gsap.timeline()
-    .to(lines,{scaleX:1.09,scaleY:.94,letterSpacing:".012em",duration:.42,stagger:.05,ease:"power2.inOut"})
-    .to(lines,{scaleX:1,scaleY:1,letterSpacing:"0em",duration:.55,stagger:.05,ease:"elastic.out(1,.55)"});
+    .to(lines,{
+      scaleX:1.10,scaleY:.93,letterSpacing:".012em",
+      duration:.34,stagger:.045,ease:"power2.inOut"
+    })
+    .to(lines,{
+      scaleX:1,scaleY:1,letterSpacing:"0em",
+      duration:.48,stagger:.045,ease:"back.out(2)"
+    });
 
   const meltOut=()=>gsap.to(lines,{
-    scaleY:.42,scaleX:1.05,y:18,skewX:-6,filter:"blur(7px)",opacity:0,
-    duration:.52,stagger:.06,ease:"power2.in",transformOrigin:"50% 100%"
+    scaleY:.34,scaleX:1.07,y:20,skewX:-7,
+    filter:"blur(8px)",opacity:0,
+    duration:.48,stagger:.055,ease:"power2.in",
+    transformOrigin:"50% 100%"
   });
 
   const meltIn=()=>gsap.fromTo(lines,{
-    scaleY:.46,scaleX:1.04,y:-12,skewX:5,filter:"blur(7px)",opacity:0
+    scaleY:.38,scaleX:1.05,y:-15,skewX:6,
+    filter:"blur(8px)",opacity:0
   },{
-    scaleY:1,scaleX:1,y:0,skewX:0,filter:"blur(0px)",opacity:1,
-    duration:.62,stagger:.07,ease:"power3.out",transformOrigin:"50% 100%"
+    scaleY:1,scaleX:1,y:0,skewX:0,
+    filter:"blur(0px)",opacity:1,
+    duration:.58,stagger:.065,ease:"power3.out",
+    transformOrigin:"50% 100%"
   });
 
-  const cycle=()=>{
-    const alt=messages[messageIndex%messages.length];
-    messageIndex++;
+  const next=()=>{
+    const current=sequence[state%sequence.length];
+    setWords(current);
 
-    const tl=gsap.timeline({
-      delay:5.4,
-      onComplete:()=>setTimeout(cycle,5600)
-    });
+    const hold=current===original?4.6:3.3;
+    const tl=gsap.timeline({delay:.7,onComplete:()=>setTimeout(next,hold*1000)});
 
-    tl.add(stretch())
-      .to({}, {duration:1.4})
-      .add(meltOut())
-      .call(()=>setWords(alt,true))
-      .add(meltIn())
-      .to({}, {duration:3.2})
-      .add(meltOut())
-      .call(()=>setWords(original,false))
+    if(current===original){
+      tl.add(stretch()).to({}, {duration:1.0});
+    }else{
+      tl.to({}, {duration:.7});
+    }
+
+    tl.add(meltOut())
+      .call(()=>{
+        state=(state+1)%sequence.length;
+        setWords(sequence[state]);
+      })
       .add(meltIn());
   };
 
-  setWords(original,false);
-  setTimeout(cycle,2200);
+  setWords(original);
+  setTimeout(next,1800);
+}
+
+const heroFeatureItems=[...document.querySelectorAll(".hero-features .feature")];
+const barberCards=[...document.querySelectorAll(".barber")];
+let heroFeatureIndex=0,barberIndex=0;
+function rotateArcadeFocus(items,index){
+  items.forEach((el,i)=>el.classList.toggle("arcade-focus",i===index));
+}
+if(!reduceMotion){
+  if(heroFeatureItems.length){
+    rotateArcadeFocus(heroFeatureItems,heroFeatureIndex);
+    setInterval(()=>{heroFeatureIndex=(heroFeatureIndex+1)%heroFeatureItems.length;rotateArcadeFocus(heroFeatureItems,heroFeatureIndex)},1450);
+  }
+  if(barberCards.length){
+    rotateArcadeFocus(barberCards,barberIndex);
+    setInterval(()=>{barberIndex=(barberIndex+1)%barberCards.length;rotateArcadeFocus(barberCards,barberIndex)},1900);
+  }
 }
 
 gsap.registerPlugin(ScrollTrigger);
@@ -1564,25 +1575,77 @@ document.querySelectorAll(".reveal").forEach(el=>gsap.to(el,{
 }));
 
 if(!reduceMotion){
+  const motionGroups=[
+    [...document.querySelectorAll(".price-item")],
+    [...document.querySelectorAll(".gallery-card")],
+    [...document.querySelectorAll(".local-card")]
+  ].filter(group=>group.length);
+  const motionIndexes=motionGroups.map(()=>0);
+  motionGroups.forEach((group,g)=>{
+    group[0]?.classList.add("motion-active");
+    setInterval(()=>{
+      group[motionIndexes[g]]?.classList.remove("motion-active");
+      motionIndexes[g]=(motionIndexes[g]+1)%group.length;
+      group[motionIndexes[g]]?.classList.add("motion-active");
+    },g===1?2100:2600+(g*350));
+  });
+
   [
-    [".price-item",{y:18,scale:.985}],
-    [".gallery-card",{y:16,scale:.985}],
-    [".local-card",{y:14,scale:.99}],
-    [".barber",{y:16,scale:.99}]
+    [".price-item",{y:24,scale:.97}],
+    [".gallery-card",{y:20,scale:.975}],
+    [".local-card",{y:18,scale:.985}],
+    [".local-pill",{y:10,scale:.96}],
+    [".barber",{y:20,scale:.98}]
   ].forEach(([selector,from])=>{
     const items=gsap.utils.toArray(selector);
     if(!items.length)return;
     gsap.fromTo(items,{...from,opacity:0},{
-      y:0,scale:1,opacity:1,duration:.56,stagger:.055,ease:"power2.out",
-      scrollTrigger:{trigger:items[0],start:"top 90%",once:true}
+      y:0,scale:1,opacity:1,duration:.62,stagger:.07,ease:"power2.out",
+      scrollTrigger:{trigger:items[0],start:"top 88%",once:true}
     });
   });
 
   gsap.to(".hero-photo",{
-    scale:1.035,yPercent:1.8,ease:"none",
-    scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:.9}
+    scale:1.05,yPercent:2.5,ease:"none",
+    scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:.8}
   });
+
+  const aboutVideo=document.querySelector(".about-video");
+  if(aboutVideo){
+    gsap.fromTo(aboutVideo,{scale:1.015},{scale:1.055,ease:"none",
+      scrollTrigger:{trigger:".about",start:"top bottom",end:"bottom top",scrub:.9}
+    });
+  }
 }
+
+let galleryAutoTimer=null;
+function galleryStep(){
+  const firstCard=track.querySelector(".gallery-card");
+  if(!firstCard)return;
+  const styles=getComputedStyle(track);
+  const gap=parseFloat(styles.columnGap||styles.gap)||12;
+  const step=firstCard.getBoundingClientRect().width+gap;
+  const max=Math.max(0,track.scrollWidth-track.clientWidth);
+  if(max<8)return;
+  if(track.scrollLeft>=max-step*.55){
+    track.scrollTo({left:0,behavior:"smooth"});
+  }else{
+    track.scrollBy({left:step,behavior:"smooth"});
+  }
+}
+function startGalleryAuto(){
+  if(reduceMotion||galleryAutoTimer)return;
+  galleryAutoTimer=setInterval(galleryStep,3900);
+}
+function stopGalleryAuto(){
+  if(galleryAutoTimer){clearInterval(galleryAutoTimer);galleryAutoTimer=null}
+}
+startGalleryAuto();
+track.addEventListener("pointerenter",stopGalleryAuto);
+track.addEventListener("pointerleave",startGalleryAuto);
+track.addEventListener("touchstart",stopGalleryAuto,{passive:true});
+track.addEventListener("touchend",()=>setTimeout(startGalleryAuto,1800),{passive:true});
+document.addEventListener("visibilitychange",()=>document.hidden?stopGalleryAuto():startGalleryAuto);
 </script>
 </body>
 </html>
