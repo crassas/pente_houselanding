@@ -276,22 +276,11 @@ img{max-width:100%}
 .price-item.popular{animation:popular-breathe 4.4s ease-in-out infinite}
 @keyframes popular-breathe{0%,100%{border-color:rgba(224,53,69,.58)}50%{border-color:rgba(224,53,69,.88)}}
 
-.gallery-track{counter-reset:work}
-.gallery-card{counter-increment:work}
-.gallery-card:after{
-  content:"WORK 0" counter(work);position:absolute;left:8px;bottom:7px;padding:4px 6px;
-  border-radius:999px;background:rgba(4,6,8,.74);border:1px solid rgba(255,255,255,.14);
-  font-size:6px;font-weight:800;letter-spacing:.12em;color:#fff;backdrop-filter:blur(4px)
-}
 .gallery-card:nth-child(even){transform:translateY(3px)}
 .gallery-card:hover{transform:translateY(-2px)}
 .gallery-card:nth-child(even):hover{transform:translateY(1px)}
 
 .barber{position:relative;transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease}
-.barber:before{
-  content:attr(data-player);position:absolute;right:8px;top:6px;
-  font-size:5.5px;font-weight:900;letter-spacing:.12em;color:rgba(255,255,255,.27)
-}
 .barber.arcade-focus{
   transform:translateY(-2px);
   border-color:rgba(255,255,255,.28);
@@ -410,6 +399,34 @@ img{max-width:100%}
 .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
 .price-item{position:relative;min-height:86px;padding:14px 14px;border:1px solid rgba(255,255,255,.11);border-radius:9px;background:linear-gradient(145deg,#14171a,#0d0f11);display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;overflow:hidden;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
 .price-item:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.34);background:linear-gradient(145deg,#181c20,#101316);box-shadow:0 14px 30px rgba(0,0,0,.28)}
+.price-item.service-choice{cursor:pointer;touch-action:manipulation}
+.price-item.service-choice:active{transform:translateY(1px) scale(.985)}
+.price-item.service-choice:focus-visible{outline:2px solid var(--steel-hi);outline-offset:3px}
+.price-item.service-choice.selected{
+  border-color:rgba(224,53,69,.9);
+  background:radial-gradient(circle at 88% 0,rgba(224,53,69,.20),transparent 44%),linear-gradient(145deg,#181b1e,#0d0f11);
+  box-shadow:0 0 0 1px rgba(224,53,69,.24),0 14px 32px rgba(0,0,0,.32),inset 3px 0 0 #d93445
+}
+.price-item.service-choice.selected:after{
+  content:"✓ SELECIONADO";position:absolute;left:11px;bottom:6px;
+  font-size:5.5px;font-weight:900;letter-spacing:.11em;color:#f4f4f2;opacity:.72
+}
+.booking-flow{display:flex;align-items:center;gap:10px;margin:-4px 0 16px}
+.booking-flow span{
+  display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 10px;
+  border:1px solid rgba(255,255,255,.11);border-radius:999px;background:#0d1013;
+  color:#858a90;font-size:7px;font-weight:900;letter-spacing:.12em;transition:.22s ease
+}
+.booking-flow span b{font:900 12px/1 "Barlow Condensed",sans-serif;color:inherit}
+.booking-flow i{width:22px;height:1px;background:rgba(255,255,255,.13)}
+.booking-flow span.active{color:#fff;border-color:var(--steel-mid);box-shadow:inset 3px 0 0 #d93445}
+.booking-flow span.done{color:#d8dadd;border-color:rgba(215,218,221,.25)}
+.selected-service-line{
+  display:inline-flex;align-items:center;min-height:25px;margin:8px 0 0;padding:0 9px;
+  border:1px solid rgba(255,255,255,.12);border-radius:999px;background:#0c0f12;
+  color:#9da2a8;font-size:7px;font-weight:800;letter-spacing:.09em
+}
+.selected-service-line.ready{color:#fff;border-color:rgba(224,53,69,.55);box-shadow:inset 3px 0 0 #d93445}
 .price-item.popular{border-color:rgba(224,53,69,.72);background:radial-gradient(circle at 85% 0,rgba(224,53,69,.22),transparent 45%),linear-gradient(145deg,#181a1d,#0d0f11);box-shadow:0 0 0 1px rgba(224,53,69,.16),0 14px 34px rgba(0,0,0,.3)}
 .price-badge{position:absolute;right:8px;top:7px;padding:3px 6px;border-radius:999px;background:#e03545;color:#fff;font-size:6px;font-weight:900;letter-spacing:.12em}
 .price-icon{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);background:#090b0d;color:#f1f1ef;font:800 14px/1 "Barlow Condensed",sans-serif}
@@ -1007,6 +1024,10 @@ section{overflow-x:clip}
   .prices-head p{margin-top:16px}
   .price-grid{grid-template-columns:1fr}
   .price-item{min-height:78px;padding:12px}
+  .booking-flow{gap:5px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  .booking-flow::-webkit-scrollbar{display:none}
+  .booking-flow span{flex:0 0 auto;padding:0 8px;font-size:6.5px}
+  .booking-flow i{width:10px;flex:0 0 10px}
   .price-copy strong{font-size:18px}
   .price-item b{font-size:22px}
 
@@ -1076,10 +1097,10 @@ section{overflow-x:clip}
     <nav class="nav">
       <a class="active" href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="#galeria">GALERIA</a><a href="#contactos">CONTACTOS</a>
     </nav>
-    <a class="btn top-cta" href="#marcar">▣ MARCAR HORÁRIO</a>
+    <a class="btn top-cta" href="#precos">▣ MARCAR HORÁRIO</a>
     <button class="menu" id="menu" aria-label="Abrir menu" aria-controls="mobileNav" aria-expanded="false">☰</button>
   </header>
-  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="#galeria">GALERIA</a><a href="#marcar">MARCAR</a></nav>
+  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="#galeria">GALERIA</a><a href="#precos">MARCAR</a></nav>
   <div class="hero-main shell">
     <div class="hero-copy">
       <h1 class="arcade-title"><span class="arcade-line">CORTES</span><span class="arcade-line">COM ATITUDE</span></h1>
@@ -1087,7 +1108,7 @@ section{overflow-x:clip}
       <p class="body">Barbearia no Porto junto ao Marquês. Corte, barba e estética masculina numa casa liderada por <b>Rascal</b>.</p>
       <p class="stay">STAY CLEAN.</p>
       <span class="arcade-status" aria-label="Pente House no Marquês, Porto"><i aria-hidden="true"></i> MARQUÊS · PORTO · EST. 2018</span>
-      <a class="btn light" href="#marcar" style="margin-top:12px">▣ MARCAR HORÁRIO <span>›</span></a>
+      <a class="btn light" href="#precos" style="margin-top:12px">▣ MARCAR HORÁRIO <span>›</span></a>
     </div>
     <div></div>
     <p class="hero-aside">MAIS<br>QUE UM<br>CORTE<br><b>É ATITUDE</b></p>
@@ -1132,15 +1153,20 @@ section{overflow-x:clip}
       <div><p class="kicker">SERVIÇOS · 01</p><h2 class="title">TABELA DE PREÇOS</h2></div>
       <p>Preços da casa. Para coloração ou outros trabalhos específicos, confirma directamente com a equipa.</p>
     </div>
+    <div class="booking-flow reveal" aria-label="Etapas da marcação">
+      <span class="active" data-flow-step="service"><b>01</b> SERVIÇO</span><i></i>
+      <span data-flow-step="barber"><b>02</b> BARBEIRO</span><i></i>
+      <span data-flow-step="reserve"><b>03</b> RESERVA</span>
+    </div>
     <div class="price-grid reveal" aria-label="Tabela de preços da Pente House">
-      <div class="price-item"><span class="price-icon" aria-hidden="true">✂</span><span class="price-copy"><strong>Cabelo</strong><small>corte e acabamento</small></span><b>13,50 €</b></div>
-      <div class="price-item popular"><span class="price-badge">MAIS PEDIDO</span><span class="price-icon" aria-hidden="true">✂+</span><span class="price-copy"><strong>Cabelo + Barba</strong><small>combo completo</small></span><b>16 €</b></div>
-      <div class="price-item"><span class="price-icon" aria-hidden="true">★</span><span class="price-copy"><strong>Corte de criança</strong><small>serviço infantil</small></span><b>11 €</b></div>
-      <div class="price-item"><span class="price-icon" aria-hidden="true">B</span><span class="price-copy"><strong>Barba</strong><small>barba e acabamento</small></span><b>6 €</b></div>
-      <div class="price-item"><span class="price-icon" aria-hidden="true">P</span><span class="price-copy"><strong>Pera e bigode</strong><small>definição e acabamento</small></span><b>3 €</b></div>
-      <div class="price-item"><span class="price-icon" aria-hidden="true">S</span><span class="price-copy"><strong>Sobrancelhas</strong><small>acabamento</small></span><b>2,50 €</b></div>
-      <div class="price-item"><span class="price-icon" aria-hidden="true">R</span><span class="price-copy"><strong>Relaxamento capilar</strong><small>serviço capilar</small></span><b>6 €</b></div>
-      <div class="price-item"><span class="price-icon" aria-hidden="true">C</span><span class="price-copy"><strong>Contornos</strong><small>linha e acabamento</small></span><b>5 €</b></div>
+      <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Cabelo — 13,50 €" aria-label="Selecionar Cabelo por 13,50 euros"><span class="price-icon" aria-hidden="true">✂</span><span class="price-copy"><strong>Cabelo</strong><small>corte e acabamento</small></span><b>13,50 €</b></div>
+      <div class="price-item popular service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Cabelo + Barba — 16 €" aria-label="Selecionar Cabelo mais Barba por 16 euros"><span class="price-badge">MAIS PEDIDO</span><span class="price-icon" aria-hidden="true">✂+</span><span class="price-copy"><strong>Cabelo + Barba</strong><small>combo completo</small></span><b>16 €</b></div>
+      <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Corte de criança — 11 €" aria-label="Selecionar Corte de criança por 11 euros"><span class="price-icon" aria-hidden="true">★</span><span class="price-copy"><strong>Corte de criança</strong><small>serviço infantil</small></span><b>11 €</b></div>
+      <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Barba — 6 €" aria-label="Selecionar Barba por 6 euros"><span class="price-icon" aria-hidden="true">B</span><span class="price-copy"><strong>Barba</strong><small>barba e acabamento</small></span><b>6 €</b></div>
+      <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Pera e bigode — 3 €" aria-label="Selecionar Pera e bigode por 3 euros"><span class="price-icon" aria-hidden="true">P</span><span class="price-copy"><strong>Pera e bigode</strong><small>definição e acabamento</small></span><b>3 €</b></div>
+      <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Sobrancelhas — 2,50 €" aria-label="Selecionar Sobrancelhas por 2,50 euros"><span class="price-icon" aria-hidden="true">S</span><span class="price-copy"><strong>Sobrancelhas</strong><small>acabamento</small></span><b>2,50 €</b></div>
+      <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Relaxamento capilar — 6 €" aria-label="Selecionar Relaxamento capilar por 6 euros"><span class="price-icon" aria-hidden="true">R</span><span class="price-copy"><strong>Relaxamento capilar</strong><small>serviço capilar</small></span><b>6 €</b></div>
+      <div class="price-item service-choice" role="button" tabindex="0" aria-pressed="false" data-service="Contornos — 5 €" aria-label="Selecionar Contornos por 5 euros"><span class="price-icon" aria-hidden="true">C</span><span class="price-copy"><strong>Contornos</strong><small>linha e acabamento</small></span><b>5 €</b></div>
     </div>
   </div>
 </section>
@@ -1245,16 +1271,16 @@ section{overflow-x:clip}
 
 <section class="booking" id="marcar">
   <div class="booking-head shell reveal">
-    <div><p class="kicker">MARCAR HORÁRIO · 03</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido segue já preenchido para o WhatsApp.</p></div>
+    <div><p class="kicker">MARCAR HORÁRIO · 03</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido segue já preenchido para o WhatsApp.</p><p class="selected-service-line" id="selectedServiceLine">ESCOLHE PRIMEIRO UM SERVIÇO</p></div>
     <div class="payment-rule">
       <div><span class="pi">▣</span><span>RESERVA COM<br><b>50%</b> DE SINAL</span></div><i></i>
       <div><span class="pi">▰</span><span>OS RESTANTES <b>50%</b><br>SÃO PAGOS NO ATENDIMENTO</span></div>
     </div>
   </div>
   <div class="barbers shell reveal">
-    <article class="barber" data-player="PLAYER 01"><img class="profile-photo" src="/images/rascal-profile.webp" alt="Rascal"><div><h3>RASCAL</h3><p>CEO · BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button type="button" class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">WHATSAPP <span>›</span></button></div></article>
-    <article class="barber" data-player="PLAYER 02"><img class="profile-photo" src="/images/grenha-profile.webp" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">WHATSAPP <span>›</span></button></div></article>
-    <article class="barber" data-player="PLAYER 03"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button type="button" class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">WHATSAPP <span>›</span></button></div></article>
+    <article class="barber"><img class="profile-photo" src="/images/rascal-profile.webp" alt="Rascal"><div><h3>RASCAL</h3><p>CEO · BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button type="button" class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">ESCOLHER RASCAL <span>›</span></button></div></article>
+    <article class="barber"><img class="profile-photo" src="/images/grenha-profile.webp" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">ESCOLHER GRENHA <span>›</span></button></div></article>
+    <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button type="button" class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">ESCOLHER BRUNO <span>›</span></button></div></article>
   </div>
 </section>
 
@@ -1262,7 +1288,7 @@ section{overflow-x:clip}
   <div class="stripe left"></div><div class="stripe right"></div>
   <div class="final-grid shell reveal">
     <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2018</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
-    <div class="final-copy"><p class="kicker" style="margin-bottom:9px">STAY CLEAN</p><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
+    <div class="final-copy"><p class="kicker" style="margin-bottom:9px">STAY CLEAN</p><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red start-booking">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
   </div>
   <footer>PENTE HOUSE <span>—</span> RUA DA CONSTITUIÇÃO 656-L/20 <span>—</span> MARQUÊS · PORTO</footer>
@@ -1414,10 +1440,69 @@ function syncSelectedBarber(name){
 
 bookingBarber.addEventListener("change",()=>syncSelectedBarber(bookingBarber.value));
 
+const serviceChoices=[...document.querySelectorAll(".service-choice")];
+const selectedServiceLine=document.getElementById("selectedServiceLine");
+const flowSteps=[...document.querySelectorAll("[data-flow-step]")];
+let selectedServiceValue="";
+
+function setFlowStage(stage){
+  const order=["service","barber","reserve"];
+  const activeIndex=order.indexOf(stage);
+  flowSteps.forEach(step=>{
+    const idx=order.indexOf(step.dataset.flowStep);
+    step.classList.toggle("active",idx===activeIndex);
+    step.classList.toggle("done",idx<activeIndex);
+  });
+}
+
+function selectService(value,scrollToBarber=true){
+  if(!value)return;
+  selectedServiceValue=value;
+  bookingService.value=value;
+  serviceChoices.forEach(card=>{
+    const active=card.dataset.service===value;
+    card.classList.toggle("selected",active);
+    card.setAttribute("aria-pressed",String(active));
+  });
+  selectedServiceLine.textContent="✓ "+value.toUpperCase();
+  selectedServiceLine.classList.add("ready");
+  setFlowStage("barber");
+  if(scrollToBarber){
+    const chosen=serviceChoices.find(card=>card.dataset.service===value);
+    if(chosen&&!reduceMotion)gsap.fromTo(chosen,{scale:.97},{scale:1,duration:.38,ease:"back.out(1.8)"});
+    setTimeout(()=>document.getElementById("marcar").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"center"}),170);
+  }
+}
+
+serviceChoices.forEach(card=>{
+  card.addEventListener("click",()=>selectService(card.dataset.service));
+  card.addEventListener("keydown",e=>{
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();selectService(card.dataset.service)}
+  });
+});
+
+bookingService.addEventListener("change",()=>{
+  if(bookingService.value)selectService(bookingService.value,false);
+});
+
+document.querySelectorAll(".start-booking").forEach(btn=>btn.addEventListener("click",()=>{
+  document.getElementById("precos").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});
+  setFlowStage("service");
+}));
+
 document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{
+  if(!selectedServiceValue){
+    document.getElementById("precos").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});
+    setFlowStage("service");
+    const grid=document.querySelector(".price-grid");
+    if(grid&&!reduceMotion)gsap.fromTo(grid,{x:-5},{x:0,duration:.42,ease:"elastic.out(1,.35)"});
+    return;
+  }
   const name=btn.dataset.barber||"";
   bookingBarber.value=barberContacts[name]?name:"";
+  bookingService.value=selectedServiceValue;
   syncSelectedBarber(bookingBarber.value);
+  setFlowStage("reserve");
   bookingDialog.classList.add("open");
   bookingDialog.setAttribute("aria-hidden","false");
   document.documentElement.classList.add("booking-open");
