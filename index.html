@@ -1498,8 +1498,16 @@ bookingService.addEventListener("change",()=>{
 });
 
 document.querySelectorAll(".start-booking").forEach(btn=>btn.addEventListener("click",()=>{
-  document.getElementById("precos").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});
+  const firstService=document.querySelector(".service-choice");
+  (firstService||document.getElementById("precos")).scrollIntoView({
+    behavior:reduceMotion?"auto":"smooth",
+    block:"center",
+    inline:"nearest"
+  });
   setFlowStage("service");
+  if(firstService&&!reduceMotion){
+    gsap.fromTo(firstService,{scale:.985},{scale:1,duration:.38,ease:"back.out(1.5)"});
+  }
 }));
 
 document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{
