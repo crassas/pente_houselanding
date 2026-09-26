@@ -70,11 +70,13 @@ async function streamVideo(req, res, videoUrl) {
   });
 
   if (!(upstream.ok || upstream.status === 206)) {
+    console.error("reel upstream status", upstream.status, upstream.url);
     throw new Error(`instagram_media_${upstream.status}`);
   }
 
   const contentType = upstream.headers.get("content-type") || "video/mp4";
   if (!/^(video\/|application\/octet-stream)/i.test(contentType)) {
+    console.error("reel upstream type", contentType, upstream.url);
     throw new Error("instagram_media_invalid_type");
   }
 
@@ -128,7 +130,8 @@ export default async function handler(req, res) {
 
   try {
     await streamVideo(req, res, videoUrl);
-  } catch {
+  } catch (error) {
+    console.error("reel proxy error", error?.message || error);
     if (!res.headersSent) {
       res.setHeader("Cache-Control", "no-store");
       res.status(502).json({ error: "video_proxy_unavailable" });
