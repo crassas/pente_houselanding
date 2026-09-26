@@ -1204,6 +1204,119 @@ section{overflow-x:clip}
   footer{height:auto;min-height:52px;padding:12px 14px;text-align:center;line-height:1.6;flex-wrap:wrap}
 }
 
+
+/* MOBILE COMPACT FLOW — keep all content, reduce vertical travel */
+@media(max-width:760px){
+  .prices{padding:18px 0 20px}
+  .prices-head{margin-bottom:12px}
+  .prices-head .title{font-size:clamp(38px,11vw,44px);line-height:.86}
+  .prices-head p{margin-top:10px;font-size:8px;line-height:1.4}
+  .booking-flow{margin:0 0 10px;gap:4px}
+  .booking-flow span{min-height:25px;padding:0 7px;font-size:6px}
+  .booking-flow span b{font-size:10px}
+  .booking-flow i{width:7px;flex-basis:7px}
+
+  .price-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .price-item{
+    min-height:76px;
+    padding:10px 8px 9px;
+    grid-template-columns:25px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    column-gap:7px;row-gap:3px;
+    align-content:center;align-items:center
+  }
+  .price-item:before{left:auto;right:5px;top:auto;bottom:4px;font-size:4.8px}
+  .price-icon{grid-row:1/span 2;width:25px;height:25px;font-size:11px}
+  .price-copy{gap:2px;min-width:0}
+  .price-copy strong{font-size:15px;line-height:.9}
+  .price-copy small{font-size:5.8px;line-height:1.15;letter-spacing:.015em}
+  .price-item b{grid-column:2;justify-self:start;font-size:19px;line-height:.9}
+  .price-item.service-choice .price-copy:after{font-size:4.6px;letter-spacing:.07em;margin-top:1px}
+  .price-item.service-choice.selected:after{left:auto;right:5px;bottom:14px;font-size:4.4px;letter-spacing:.07em}
+  .price-badge{top:4px;right:4px;padding:2px 4px;font-size:4.5px;letter-spacing:.06em}
+  .price-item.popular .price-copy{padding-right:36px}
+
+  .booking{padding:17px 0 19px;min-height:0}
+  .booking-head{display:block;min-height:0}
+  .booking-head .title{font-size:clamp(39px,11vw,45px);line-height:.86}
+  .booking-direct{margin-top:6px;font-size:7.5px}
+  .selected-service-line{margin-top:6px;min-height:23px;font-size:6.5px}
+  .booking-policy-inline{margin-top:6px;font-size:6.8px;line-height:1.42}
+  .payment-rule{
+    margin:10px 0 0;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:6px
+  }
+  .payment-rule>div{
+    min-height:54px;padding:7px 8px;
+    gap:6px;border:1px solid rgba(255,255,255,.10);
+    border-radius:7px;background:#0d1013
+  }
+  .payment-rule .pi{font-size:18px}
+  .payment-rule span{font-size:6px;line-height:1.32;letter-spacing:.045em}
+  .payment-rule i{display:none}
+
+  .barbers{
+    height:auto;
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    padding:0 max(14px,calc((100vw - var(--shell))/2)) 5px;
+    width:100%;
+    max-width:none
+  }
+  .barbers::-webkit-scrollbar{display:none}
+  .barber{
+    flex:0 0 min(300px,82vw);
+    scroll-snap-align:start;
+    min-height:116px;height:116px;
+    grid-template-columns:84px minmax(0,1fr);
+    gap:9px;padding:7px
+  }
+  .barber img{width:84px;height:100px}
+  .barber img.profile-photo{width:84px;height:84px}
+  .barber h3{font-size:25px}
+  .barber p{margin-bottom:7px;font-size:6.3px}
+  .barber .btn{height:31px;min-width:0;width:100%;padding:0 8px;font-size:7px}
+
+  .local-grid{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    padding-bottom:4px
+  }
+  .local-grid::-webkit-scrollbar{display:none}
+  .local-card{
+    flex:0 0 min(300px,84vw);
+    scroll-snap-align:start;
+    min-height:104px;padding:14px
+  }
+  .local-card h3{font-size:25px;margin-bottom:6px}
+  .local-card p{font-size:8px;line-height:1.42}
+  .local-card a{margin-top:8px}
+}
+
+@media(max-width:380px){
+  .price-grid{gap:6px}
+  .price-item{min-height:74px;padding:9px 7px 8px;grid-template-columns:23px minmax(0,1fr);column-gap:6px}
+  .price-icon{width:23px;height:23px}
+  .price-copy strong{font-size:14px}
+  .price-copy small{font-size:5.5px}
+  .price-item b{font-size:18px}
+  .price-item.popular .price-copy{padding-right:30px}
+  .payment-rule span{font-size:5.7px}
+}
+
 @media(prefers-reduced-motion:reduce){
   .hero-tint,.hero-copy>.btn,.top-cta,.final-copy>.btn,.local-pill{animation:none!important}
 }
