@@ -1126,13 +1126,26 @@ section{overflow-x:clip}
   .wordmark b{font-size:24px}
   .wordmark span{font-size:6px;letter-spacing:.25em}
   .hero-photo{object-position:center 42%}
-  .hero-main{min-height:430px;padding:26px 0 24px}
-  .hero h1{font-size:clamp(55px,17vw,70px);line-height:.79}
+  .hero-main{min-height:0;padding:26px 0 14px}
+  .hero h1{font-size:clamp(55px,16vw,68px);line-height:.79;max-width:100%;overflow:hidden}
   .hero-copy>p.body{font-size:12px}
-  .hero-script{right:2px;bottom:20px;font-size:18px}
-  .hero-features{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px}
-  .hero-features .feature{padding:10px 8px}
-  .feature-icon{font-size:20px;width:23px}
+  .hero-script{
+    position:static;
+    width:max-content;
+    max-width:46%;
+    margin:24px 4px 10px auto;
+    font-size:18px;
+    line-height:1.02;
+    text-align:left;
+    transform:rotate(-6deg)
+  }
+  .hero-features{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px 8px;
+    padding:14px 0 18px
+  }
+  .hero-features .feature{padding:9px 8px;min-height:58px}
+  .feature-icon{font-size:19px;width:22px}
   .feature b,.feature span{font-size:7.5px}
 
   .about-grid{display:block}
@@ -1874,50 +1887,13 @@ function startHeroTitleCycle(){
   if(lines.length!==2)return;
   startHeroTitleCycle.started=true;
 
-  const businessState=lisbonBusinessState();
-
-  const operational=[
-    {text:"SÁBADOS 18H",weight:businessState.isSaturday?4:2},
-    {text:"SATURDAY 6 PM",weight:businessState.isSaturday?3:2},
-    {text:"RESERVAS 19H",weight:3},
-    {text:"BOOKINGS 7 PM",weight:2},
-    {text:"DOMINGOS FECHADOS",weight:businessState.isSunday?4:2},
-    {text:"SUNDAYS CLOSED",weight:businessState.isSunday?3:2}
-  ];
-
-  const regular=[
-    {text:"BEM-VINDOS",weight:2},
-    {text:"WELCOME",weight:2},
-    {text:"RESERVA JÁ",weight:2},
-    {text:"BOOK NOW",weight:2},
-    {text:"RASCAL",weight:2},
-    {text:"GRENHA",weight:2},
-    {text:"BRUNO WAYA",weight:2},
-    {text:"PENTE HOUSE",weight:2}
-  ];
-
-  let lastMainText="";
-  let lastMainWasOperational=false;
-
-  const weightedPick=(items)=>{
-    const expanded=[];
-    items.forEach(item=>{
-      const count=Math.max(1,Number(item.weight)||1);
-      for(let i=0;i<count;i++)expanded.push(item);
-    });
-    let candidates=expanded.filter(item=>item.text!==lastMainText);
-    if(!candidates.length)candidates=expanded;
-    return candidates[Math.floor(Math.random()*candidates.length)];
-  };
+  const brandCycle=["ATITUDE","PENTE HOUSE","STAY CLEAN"];
+  let brandIndex=0;
 
   const pickMain=()=>{
-    // Operational notices appear often, but never one immediately after another.
-    const useOperational=!lastMainWasOperational&&Math.random()<.48;
-    const pool=useOperational?operational:regular;
-    const picked=weightedPick(pool);
-    lastMainWasOperational=operational.some(item=>item.text===picked.text);
-    lastMainText=picked.text;
-    return picked.text;
+    const value=brandCycle[brandIndex%brandCycle.length];
+    brandIndex=(brandIndex+1)%brandCycle.length;
+    return value;
   };
 
   const charsFor=word=>[...word].map((char,index)=>{
@@ -1980,21 +1956,10 @@ function startHeroTitleCycle(){
     return tl;
   };
 
-  let showStayCleanNext=false;
-
   const runRandom=()=>{
-    let next;
-    if(showStayCleanNext){
-      next=["STAY CLEAN",""];
-      showStayCleanNext=false;
-    }else{
-      next=[pickMain(),""];
-      showStayCleanNext=true;
-    }
-
+    const next=[pickMain(),""];
     transitionTo(next).eventCallback("onComplete",()=>{
-      const isStay=next[0]==="STAY CLEAN";
-      setTimeout(runRandom,isStay?1650:2200);
+      setTimeout(runRandom,2100);
     });
   };
 
