@@ -1,0 +1,1 @@
+/\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n\n/images/*\n  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400\n\n/media/*\n  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400\n
