@@ -556,8 +556,9 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .video-reel-copy p:last-of-type{margin:8px 0 12px;color:#aeb2b7;font-size:8px;line-height:1.55}
 .video-teasers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .video-teaser{position:relative;height:118px;padding:0;border:1px solid rgba(255,255,255,.11);border-radius:8px;overflow:hidden;background:#111;cursor:pointer}
-.video-teaser img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) brightness(.78);transition:.25s ease}
-.video-teaser:hover img{transform:scale(1.035);filter:saturate(1) brightness(.9)}
+.video-teaser img,.video-teaser video{width:100%;height:100%;object-fit:cover;filter:saturate(.92) brightness(.78);transition:.25s ease}
+.video-teaser video{display:block;pointer-events:none;background:#080a0c}
+.video-teaser:hover img,.video-teaser:hover video{transform:scale(1.035);filter:saturate(1) brightness(.9)}
 .video-play{position:absolute;inset:0;display:grid;place-items:center}
 .video-play span{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.62);background:rgba(4,6,8,.72);font-size:14px;color:#fff;backdrop-filter:blur(5px)}
 .video-teaser small{position:absolute;left:9px;bottom:8px;font-size:6px;font-weight:900;letter-spacing:.12em;color:#fff}
@@ -1324,20 +1325,20 @@ section{overflow-x:clip}
     <div class="video-reel-copy">
       <p class="kicker">EM MOVIMENTO · 02B</p>
       <h2>VÊ O CORTE A ACONTECER</h2>
-      <p>Uma selecção de 15 vídeos reais da Pente House e do trabalho da equipa. A página só carrega o vídeo quando o escolhes.</p>
-      <button class="btn" id="openVideos" type="button">VER 15 VÍDEOS <span>›</span></button>
+      <p>21 vídeos reais da Pente House e do trabalho da equipa. Os três destaques passam aqui na própria página; a biblioteca completa abre quando escolhes um vídeo.</p>
+      <button class="btn" id="openVideos" type="button">VER 21 VÍDEOS <span>›</span></button>
     </div>
     <div class="video-teasers" aria-label="Abrir galeria de vídeos">
-      <button class="video-teaser" type="button" data-video-index="3"><img src="/images/gallery-03.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>TRANSFORMAÇÕES</small></button>
-      <button class="video-teaser" type="button" data-video-index="8"><img src="/images/gallery-08.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>PROCESSO · PENTE HOUSE</small></button>
-      <button class="video-teaser" type="button" data-video-index="12"><img src="/images/gallery-13.webp" alt="" loading="lazy"><span class="video-play"><span>▶</span></span><small>GRENHA · TRABALHO</small></button>
+      <button class="video-teaser" type="button" data-video-index="11"><video muted autoplay loop playsinline preload="metadata" poster="/images/gallery-03.webp" aria-hidden="true"><source src="/api/reel?code=CSKPYzJILXw&preview=1" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>FADE + TEXTURA</small></button>
+      <button class="video-teaser" type="button" data-video-index="14"><video muted autoplay loop playsinline preload="metadata" poster="/images/gallery-08.webp" aria-hidden="true"><source src="/api/reel?code=CpaSldAD3gy&preview=1" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE EM PROCESSO</small></button>
+      <button class="video-teaser" type="button" data-video-index="16"><video muted autoplay loop playsinline preload="metadata" poster="/images/gallery-13.webp" aria-hidden="true"><source src="/api/reel?code=Da_OkRyq9kg&preview=1" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
     </div>
   </div>
 </section>
 
 <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galeria de vídeos Pente House">
   <div class="video-modal-shell">
-    <div class="video-modal-top"><div><p class="kicker">15 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
+    <div class="video-modal-top"><div><p class="kicker">21 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
     <div class="video-modal-body">
       <aside class="video-library">
         <div class="video-list" id="videoList"></div>
@@ -1582,6 +1583,12 @@ const videoLibrary=[
   {code:"DOQ9OXLiKMI",label:"Taper",source:"Pente House"},
   {code:"Da_PDJnqJ7p",label:"Fade",source:"Pente House"},
   {code:"DdrkGS0xEf5",label:"Textured crop",source:"Pente House"},
+  {code:"CSKPYzJILXw",label:"Fade + textura",source:"Pente House"},
+  {code:"CaqKp2voJmB",label:"Textura + fade",source:"Pente House"},
+  {code:"CmgYhhSDf8e",label:"Caracóis + acabamento",source:"Pente House"},
+  {code:"CpaSldAD3gy",label:"Corte em processo",source:"Pente House"},
+  {code:"Da_O2EkKX9k",label:"Fade + acabamento",source:"Pente House"},
+  {code:"Da_OkRyq9kg",label:"Corte clássico",source:"Pente House"},
   {code:"DPFGBodDJqU",label:"Processo",source:"Grenha"},
   {code:"DPHpCGqiIrh",label:"Resultado",source:"Grenha"},
   {code:"DPUUDg1iFr8",label:"Transformação",source:"Grenha"},
