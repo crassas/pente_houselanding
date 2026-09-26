@@ -1352,6 +1352,9 @@ let entered=false;
 const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const mobileEntry=window.matchMedia("(max-width: 900px), (pointer: coarse)").matches;
 document.documentElement.classList.add("lock");
+if(!reduceMotion){
+  gsap.set("main",{opacity:.82,filter:"blur(7px)",scale:1.006,transformOrigin:"50% 18%"});
+}
 function unlockPage(){
   document.documentElement.classList.remove("lock");
   if(window.ScrollTrigger)ScrollTrigger.refresh();
@@ -1365,17 +1368,23 @@ function enter(){
     unlockPage();
     return;
   }
-  const tl=gsap.timeline({onComplete:()=>{intro.remove();unlockPage()}});
+  const tl=gsap.timeline({onComplete:()=>{
+    gsap.set("main",{clearProps:"filter,opacity,scale,transformOrigin"});
+    intro.remove();
+    unlockPage();
+  }});
   tl.to(".intro-word",{opacity:0,y:-13,duration:.24,ease:"power2.out"})
     .fromTo(".intro-logo",{opacity:0,scale:.76},{opacity:1,scale:1.04,duration:.56,ease:"power3.out"},"-=.02")
     .to(".intro-logo",{opacity:0,scale:1.13,filter:"blur(4px)",duration:.34,ease:"power2.in"},"+=.16")
-    .to("#intro",{opacity:0,duration:.28},"-=.06");
+    .to("#intro",{opacity:.18,filter:"blur(5px)",duration:.38,ease:"power2.out"},"-=.08")
+    .to("main",{opacity:1,filter:"blur(0px)",scale:1,duration:.55,ease:"power2.out"},"-=.30")
+    .to("#intro",{opacity:0,duration:.26,ease:"power1.out"},"-=.30");
 }
 if(reduceMotion){
   enter();
 }else{
   ["wheel","touchstart","keydown","click"].forEach(ev=>intro.addEventListener(ev,enter,{once:true,passive:true}));
-  if(mobileEntry)setTimeout(enter,1100);
+  setTimeout(enter,mobileEntry?1100:1350);
 }
 
 const menu=document.getElementById("menu"),mobileNav=document.getElementById("mobileNav");
@@ -1552,7 +1561,14 @@ payBtn.addEventListener("click",()=>{
   ].join("\n");
 
   const url="https://wa.me/"+barberPhone+"?text="+encodeURIComponent(message);
-  window.open(url,"_blank","noopener,noreferrer");
+  payBtn.disabled=true;
+  const previousLabel=payBtn.innerHTML;
+  payBtn.innerHTML='A ABRIR WHATSAPP <span>›</span>';
+  setTimeout(()=>{
+    payBtn.disabled=false;
+    payBtn.innerHTML=previousLabel;
+  },1800);
+  window.location.href=url;
 });
 
 function closeBooking(){
