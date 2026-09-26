@@ -40,6 +40,10 @@ jobs:
           grep -q "MAIS PEDIDO" index.html
           grep -q "PEDIR RESERVA NO WHATSAPP" index.html
           grep -q "pentehouse-interior.webp" index.html
+          grep -q "pentehouse-interior-720.webp" index.html
+          grep -q 'grid-template-columns:1fr;gap:8px' index.html
+          grep -q 'aria-expanded="false"' index.html
+          grep -q "POR DENTRO DA CASA · PORTO" index.html
           grep -q "Toca ou faz scroll para entrar" index.html
           grep -q "PLAYER 01" index.html
           grep -q "rotateArcadeFocus" index.html
