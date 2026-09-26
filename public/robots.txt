@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pente-houselanding.vercel.app/sitemap.xml
+Sitemap: https://pentehousebarbearia.pt/sitemap.xml
