@@ -102,11 +102,20 @@ img{max-width:100%}
 .kicker{margin:0 0 7px;color:#ee3a49;font-size:10px;font-weight:800;letter-spacing:.29em}
 .title{margin:0;font:900 50px/.82 "Barlow Condensed",sans-serif;letter-spacing:-.015em}
 .btn{
+  position:relative;overflow:hidden;
   height:42px;border:1px solid rgba(255,255,255,.76);border-radius:999px;padding:0 22px;
   background:rgba(5,7,9,.2);display:inline-flex;align-items:center;justify-content:center;gap:12px;
-  font-size:10px;font-weight:800;letter-spacing:.09em;cursor:pointer;transition:.2s ease
+  font-size:10px;font-weight:800;letter-spacing:.09em;cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease
 }
-.btn:hover{transform:translateY(-1px)}
+.btn:after{
+  content:"";position:absolute;inset:-2px auto -2px -38%;width:28%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.20),transparent);
+  transform:skewX(-18deg);transition:left .42s ease;pointer-events:none
+}
+.btn:hover{transform:translateY(-1px);border-color:#fff}
+.btn:hover:after{left:118%}
+.btn:active{transform:translateY(1px) scale(.985)}
 .btn.light{background:#f6f4ef;color:#111315;border-color:#f6f4ef}
 .btn.red{background:linear-gradient(180deg,#d83a49,#af202d);border-color:#e45561;min-width:248px;height:50px}
 .stay{font:700 12px/1 "Barlow Condensed",sans-serif;letter-spacing:.31em}
@@ -143,6 +152,74 @@ img{max-width:100%}
 .brand-core strong{font:900 clamp(24px,3.7vw,47px)/.86 "Barlow Condensed",sans-serif;text-shadow:0 2px 0 #30343a,0 6px 14px #000;z-index:1}
 .brand-core em{z-index:1;font-style:normal;margin-top:7px;padding:4px 17px;border-top:1px solid rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.75);font-size:7px;letter-spacing:.33em}
 .mini-pole{z-index:1;width:10px;height:23px;margin-top:7px;border-radius:2px;border:1px solid #ddd;background:repeating-linear-gradient(135deg,#f3f0ea 0 4px,#d62a39 4px 8px,#f3f0ea 8px 12px,#164aa4 12px 16px)}
+
+/* ARCADE ACCENTS — restrained, brand-first */
+.arcade-title{display:flex;flex-direction:column;align-items:flex-start}
+.arcade-title .arcade-line{display:block;will-change:transform;animation:arcade-nudge-a 5.2s cubic-bezier(.4,0,.2,1) infinite}
+.arcade-title .arcade-line:nth-child(2){animation-name:arcade-nudge-b;animation-delay:.18s}
+@keyframes arcade-nudge-a{
+  0%,16%,100%{transform:translate3d(0,0,0)}
+  20%{transform:translate3d(3px,0,0)}
+  24%{transform:translate3d(0,0,0)}
+  68%{transform:translate3d(1px,0,0)}
+  72%{transform:translate3d(0,0,0)}
+}
+@keyframes arcade-nudge-b{
+  0%,32%,100%{transform:translate3d(0,0,0)}
+  36%{transform:translate3d(-3px,0,0)}
+  40%{transform:translate3d(0,0,0)}
+  78%{transform:translate3d(-1px,0,0)}
+  82%{transform:translate3d(0,0,0)}
+}
+.arcade-ticker{
+  border-top:1px solid rgba(255,255,255,.09);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  background:#080a0c;overflow:hidden;white-space:nowrap
+}
+.arcade-ticker-track{
+  display:flex;width:max-content;min-width:200%;
+  animation:arcade-marquee 24s linear infinite;
+  will-change:transform
+}
+.arcade-ticker-set{
+  display:flex;align-items:center;gap:22px;padding:9px 11px 8px;
+  font:800 8px/1 Inter,Arial,sans-serif;
+  letter-spacing:.22em;color:#bfc2c6;text-transform:uppercase
+}
+.arcade-ticker-set b{color:#f3f3f1;font-weight:900}
+.arcade-dot{width:4px;height:4px;border-radius:50%;background:#d93445;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+@keyframes arcade-marquee{to{transform:translateX(-50%)}}
+.arcade-status{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:5px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px;
+  background:rgba(7,9,11,.72);font-size:7px;font-weight:800;letter-spacing:.14em
+}
+.arcade-status i{width:5px;height:5px;border-radius:50%;background:#d93445;animation:arcade-pulse 2.2s ease-in-out infinite}
+@keyframes arcade-pulse{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}
+.price-item.popular{animation:popular-breathe 4.2s ease-in-out infinite}
+@keyframes popular-breathe{
+  0%,100%{border-color:rgba(224,53,69,.58)}
+  50%{border-color:rgba(224,53,69,.92)}
+}
+.booking .book{position:relative}
+.booking .book:before{
+  content:"SELECT";position:absolute;left:9px;top:4px;
+  font-size:5px;letter-spacing:.15em;opacity:.36;font-weight:900
+}
+.gallery-card:nth-child(odd){transform:translateY(0)}
+.gallery-card:nth-child(even){transform:translateY(4px)}
+.gallery-card:hover{transform:translateY(-2px)}
+.gallery-card:nth-child(even):hover{transform:translateY(1px)}
+@media(max-width:900px){
+  .arcade-ticker-set{gap:16px;padding:8px 9px;font-size:7px;letter-spacing:.18em}
+  .gallery-card:nth-child(even){transform:none}
+  .gallery-card:nth-child(even):hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .arcade-title .arcade-line,.arcade-ticker-track,.arcade-status i,.price-item.popular{animation:none!important}
+  .arcade-ticker-track{transform:none!important}
+}
+
 
 /* HERO - exact visual proportions of approved reference */
 .hero{position:relative;height:504px;isolation:isolate;border-bottom:1px solid rgba(255,255,255,.11)}
@@ -673,11 +750,12 @@ video{max-width:100%}
   <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="#galeria">GALERIA</a><a href="#marcar">MARCAR</a></nav>
   <div class="hero-main shell">
     <div class="hero-copy">
-      <h1>CORTES<br>COM ATITUDE</h1>
+      <h1 class="arcade-title"><span class="arcade-line">CORTES</span><span class="arcade-line">COM ATITUDE</span></h1>
       <p class="hero-sub">BARBEARIA · MARQUÊS — PORTO</p>
       <p class="body">Barbearia no Porto junto ao Marquês. Corte, barba e estética masculina numa casa liderada por <b>Rascal</b>.</p>
       <p class="stay">STAY CLEAN.</p>
-      <a class="btn light" href="#marcar">▣ MARCAR HORÁRIO <span>›</span></a>
+      <span class="arcade-status" aria-label="Pente House no Marquês, Porto"><i aria-hidden="true"></i> MARQUÊS · PORTO · EST. 2020</span>
+      <a class="btn light" href="#marcar" style="margin-top:12px">▣ MARCAR HORÁRIO <span>›</span></a>
     </div>
     <div></div>
     <p class="hero-aside">MAIS<br>QUE UM<br>CORTE<br><b>É ATITUDE</b></p>
@@ -690,6 +768,17 @@ video{max-width:100%}
     <a class="feature" href="https://www.google.com/maps/dir/?api=1&destination=Rua+da+Constitui%C3%A7%C3%A3o+656%2C+4200-194+Porto%2C+Portugal" target="_blank" rel="noopener noreferrer" aria-label="Direções para a Pente House, Rua da Constituição 656-L/20, Porto"><span class="feature-icon">⌖</span><div><b>MARQUÊS</b><span>3 MIN A PÉ</span></div></a>
   </div>
 </section>
+
+<div class="arcade-ticker" aria-hidden="true">
+  <div class="arcade-ticker-track">
+    <div class="arcade-ticker-set">
+      <b>STAY CLEAN</b><span class="arcade-dot"></span><span>PORTO</span><span class="arcade-dot"></span><span>MARQUÊS</span><span class="arcade-dot"></span><span>BARBEARIA</span><span class="arcade-dot"></span><span>ESTÉTICA</span><span class="arcade-dot"></span><span>RASCAL</span><span class="arcade-dot"></span><span>GRENHA</span><span class="arcade-dot"></span><span>BRUNO WAYA</span>
+    </div>
+    <div class="arcade-ticker-set">
+      <b>STAY CLEAN</b><span class="arcade-dot"></span><span>PORTO</span><span class="arcade-dot"></span><span>MARQUÊS</span><span class="arcade-dot"></span><span>BARBEARIA</span><span class="arcade-dot"></span><span>ESTÉTICA</span><span class="arcade-dot"></span><span>RASCAL</span><span class="arcade-dot"></span><span>GRENHA</span><span class="arcade-dot"></span><span>BRUNO WAYA</span>
+    </div>
+  </div>
+</div>
 
 <section class="about" id="sobre">
   <div class="about-grid shell">
@@ -718,7 +807,7 @@ video{max-width:100%}
 <section class="prices" id="precos">
   <div class="shell">
     <div class="prices-head reveal">
-      <div><p class="kicker">SERVIÇOS</p><h2 class="title">TABELA DE PREÇOS</h2></div>
+      <div><p class="kicker">SERVIÇOS · SELECT YOUR STYLE</p><h2 class="title">TABELA DE PREÇOS</h2></div>
       <p>Preços da casa. Para coloração ou outros trabalhos específicos, confirma directamente com a equipa.</p>
     </div>
     <div class="price-grid reveal" aria-label="Tabela de preços da Pente House">
@@ -736,7 +825,7 @@ video{max-width:100%}
 
 <section class="gallery" id="galeria">
   <div class="gallery-head shell reveal">
-    <div><p class="kicker">GALERIA</p><h2 class="title">O NOSSO TRABALHO</h2></div>
+    <div><p class="kicker">GALERIA · WORK SELECT</p><h2 class="title">O NOSSO TRABALHO</h2></div>
     <p class="copy">14 trabalhos da casa. Vê logo uma amostra e abre a galeria completa quando quiseres.</p>
     <button class="btn" id="allPhotos">VER 14 TRABALHOS <span>›</span></button>
   </div>
@@ -787,7 +876,7 @@ video{max-width:100%}
 
 <section class="booking" id="marcar">
   <div class="booking-head shell reveal">
-    <div><p class="kicker">MARCAR HORÁRIO</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido segue já preenchido para o WhatsApp.</p></div>
+    <div><p class="kicker">MARCAR HORÁRIO · PLAYER SELECT</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido segue já preenchido para o WhatsApp.</p></div>
     <div class="payment-rule">
       <div><span class="pi">▣</span><span>RESERVA COM<br><b>50%</b> DE SINAL</span></div><i></i>
       <div><span class="pi">▰</span><span>OS RESTANTES <b>50%</b><br>SÃO PAGOS NO ATENDIMENTO</span></div>
@@ -804,7 +893,7 @@ video{max-width:100%}
   <div class="stripe left"></div><div class="stripe right"></div>
   <div class="final-grid shell reveal">
     <div class="brandmark footer-logo"><div class="brand-ring"><div class="brand-core"><div class="brand-crown">♛</div><div class="brand-tools">✂</div><div class="brand-meta"><span>EST.</span><span>2020</span></div><strong>PENTE HOUSE</strong><em>STAY CLEAN</em><span class="mini-pole"></span></div></div></div>
-    <div class="final-copy"><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
+    <div class="final-copy"><p class="kicker" style="margin-bottom:9px">PRESS START</p><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red book" data-barber="">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
   </div>
   <footer>PENTE HOUSE <span>—</span> RUA DA CONSTITUIÇÃO 656-L/20 <span>—</span> MARQUÊS · PORTO</footer>
