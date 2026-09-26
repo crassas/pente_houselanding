@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta name="theme-color" content="#06080a">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<meta name="description" content="Pente House Barbearia no Porto, junto ao Marquês. Cortes, barba e estética masculina na Rua da Constituição 656-L/20. Seg-Sáb 10h-20h. CEO: Rascal.">
+<meta name="description" content="Pente House Barbearia no Marquês, Porto, na Rua da Constituição 656-L/20, a poucos minutos do Metro Marquês. Cortes, barba e estética masculina. Seg-Sáb 10h-20h.">
 <meta name="geo.region" content="PT-13">
 <meta name="geo.placename" content="Porto">
 <meta name="geo.position" content="41.1621674;-8.6058802">
@@ -43,6 +43,11 @@
     "latitude":41.1621674,
     "longitude":-8.6058802
   },
+  "areaServed":[
+    {"@type":"Place","name":"Marquês, Porto"},
+    {"@type":"Place","name":"Rua da Constituição, Porto"}
+  ],
+  "keywords":"barbearia Marquês, barbeiro Marquês, barbearia Rua da Constituição, barbeiro perto do Metro Marquês, barber Marquês Porto",
   "openingHoursSpecification":[
     {
       "@type":"OpeningHoursSpecification",
@@ -75,6 +80,34 @@
       {"@type":"Offer","price":"5.00","priceCurrency":"EUR","itemOffered":{"@type":"Service","name":"Contornos"}}
     ]
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Onde fica a Pente House Barbearia?",
+      "acceptedAnswer":{"@type":"Answer","text":"A Pente House fica na Rua da Constituição 656-L/20, 4200-194 Porto, na zona do Marquês."}
+    },
+    {
+      "@type":"Question",
+      "name":"A Pente House fica perto do Metro Marquês?",
+      "acceptedAnswer":{"@type":"Answer","text":"Sim. A barbearia fica a poucos minutos a pé da estação de Metro Marquês."}
+    },
+    {
+      "@type":"Question",
+      "name":"Posso escolher o barbeiro?",
+      "acceptedAnswer":{"@type":"Answer","text":"Sim. No pedido de marcação podes escolher Rascal, Grenha ou Bruno Waya."}
+    },
+    {
+      "@type":"Question",
+      "name":"Como posso marcar um corte?",
+      "acceptedAnswer":{"@type":"Answer","text":"Escolhe o barbeiro e o serviço no site e envia o pedido já preenchido pelo WhatsApp para confirmar disponibilidade."}
+    }
+  ]
 }
 </script>
 <link rel="preload" as="image" href="/images/pentehouse-interior-720.webp" imagesrcset="/images/pentehouse-interior-720.webp 720w, /images/pentehouse-interior.webp 1400w" imagesizes="100vw" fetchpriority="high">
@@ -359,17 +392,39 @@ img{max-width:100%}
 .price-copy strong{font:800 18px/.95 "Barlow Condensed",sans-serif}
 .price-copy small{font-size:7px;line-height:1.25;letter-spacing:.04em;color:#9fa3a8}
 .price-item b{white-space:nowrap;font:900 24px/.9 "Barlow Condensed",sans-serif;color:#f4f4f2}
-.local-info{padding:24px 0;background:#07090b;border-bottom:1px solid var(--line)}
+.local-info{padding:28px 0;background:#07090b;border-bottom:1px solid var(--line)}
+.local-intro{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:end;margin-bottom:15px}
+.local-intro h2{margin:0;font:900 45px/.86 "Barlow Condensed",sans-serif;letter-spacing:-.015em}
+.local-intro .body{max-width:680px;margin:10px 0 0;color:#c6c9cd;font-size:10px;line-height:1.6}
+.local-points{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+.local-pill{padding:7px 9px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:#0c0f12;font-size:7px;font-weight:800;letter-spacing:.09em;color:#d7d9dc}
+.local-searchline{display:block;margin-top:9px;color:#8f949a;font-size:7px;letter-spacing:.16em;text-transform:uppercase}
 .local-grid{display:grid;grid-template-columns:1.35fr .8fr .8fr;gap:10px}
 .local-card{min-height:112px;padding:18px;border:1px solid rgba(255,255,255,.11);border-radius:8px;background:linear-gradient(145deg,#121519,#0b0d10)}
 .local-card .kicker{margin-bottom:8px}
 .local-card h3{margin:0 0 8px;font:900 27px/.9 "Barlow Condensed",sans-serif}
 .local-card p{margin:0;color:#c6c9cd;font-size:9px;line-height:1.55}
 .local-card a{display:inline-flex;margin-top:11px;font-size:8px;font-weight:800;letter-spacing:.09em;border-bottom:1px solid rgba(255,255,255,.5)}
+.local-faq{padding:26px 0 30px;background:#090b0d;border-bottom:1px solid var(--line)}
+.local-faq-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:13px}
+.local-faq-head .title{font-size:43px}
+.local-faq-head p:last-child{max-width:390px;margin:0;color:#aeb2b7;font-size:8px;line-height:1.55}
+.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.faq-grid details{border:1px solid rgba(255,255,255,.11);border-radius:8px;background:linear-gradient(145deg,#121519,#0b0d10);padding:14px 16px}
+.faq-grid summary{cursor:pointer;list-style:none;font:800 16px/.95 "Barlow Condensed",sans-serif;letter-spacing:.02em}
+.faq-grid summary::-webkit-details-marker{display:none}
+.faq-grid summary:after{content:"+";float:right;color:#e03545}
+.faq-grid details[open] summary:after{content:"–"}
+.faq-grid details p{margin:11px 0 1px;color:#c6c9cd;font-size:9px;line-height:1.55}
 @media(max-width:900px){
   .prices-head{grid-template-columns:1fr}
   .price-grid{grid-template-columns:repeat(2,1fr)}
+  .local-intro{grid-template-columns:1fr;gap:13px}
+  .local-points{justify-content:flex-start}
   .local-grid{grid-template-columns:1fr}
+  .local-faq-head{display:block}
+  .local-faq-head p:last-child{margin-top:9px}
+  .faq-grid{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   .prices{padding:24px 0}
@@ -877,6 +932,21 @@ video{max-width:100%}
 </section>
 
 <section class="local-info" id="contactos">
+  <div class="local-intro shell reveal">
+    <div>
+      <p class="kicker">MARQUÊS · PORTO</p>
+      <h2>NO CENTRO DA TUA ROTINA</h2>
+      <p class="body">Na Rua da Constituição, junto ao Marquês: uma barbearia pensada para quem vive, estuda, trabalha ou simplesmente passa pela zona. Metro, comércio, escolas e serviços ficam todos nas imediações.</p>
+      <span class="local-searchline">BARBER NEAR MARQUÊS METRO · PORTO</span>
+    </div>
+    <div class="local-points" aria-label="Referências próximas da Pente House">
+      <span class="local-pill">METRO MARQUÊS</span>
+      <span class="local-pill">PRAÇA DO MARQUÊS</span>
+      <span class="local-pill">RUA DA CONSTITUIÇÃO</span>
+      <span class="local-pill">WALL STREET ENGLISH</span>
+      <span class="local-pill">COMÉRCIO LOCAL</span>
+    </div>
+  </div>
   <div class="local-grid shell reveal">
     <article class="local-card">
       <p class="kicker">ONDE ESTAMOS</p>
@@ -896,6 +966,33 @@ video{max-width:100%}
       <p>Rascal lidera a Pente House e trabalha na cadeira com Grenha e Bruno Waya.</p>
       <a href="https://www.facebook.com/p/Pente-House-100063724173968/" target="_blank" rel="noopener noreferrer">FACEBOOK ↗</a>
     </article>
+  </div>
+</section>
+
+<section class="local-faq" id="faq">
+  <div class="shell">
+    <div class="local-faq-head reveal">
+      <div><p class="kicker">PERGUNTAS RÁPIDAS</p><h2 class="title">PENTE HOUSE NO MARQUÊS</h2></div>
+      <p>Informação direta para quem procura uma barbearia na zona do Marquês e Rua da Constituição.</p>
+    </div>
+    <div class="faq-grid reveal">
+      <details>
+        <summary>Onde fica a Pente House?</summary>
+        <p>Na Rua da Constituição 656-L/20, 4200-194 Porto, na zona do Marquês.</p>
+      </details>
+      <details>
+        <summary>Fica perto do Metro Marquês?</summary>
+        <p>Sim. A Pente House fica a poucos minutos a pé da estação de Metro Marquês.</p>
+      </details>
+      <details>
+        <summary>Posso escolher o barbeiro?</summary>
+        <p>Sim. No pedido de marcação podes escolher Rascal, Grenha ou Bruno Waya.</p>
+      </details>
+      <details>
+        <summary>Como marco um corte?</summary>
+        <p>Escolhe o barbeiro e o serviço e envia o pedido já preenchido por WhatsApp para confirmar disponibilidade.</p>
+      </details>
+    </div>
   </div>
 </section>
 
