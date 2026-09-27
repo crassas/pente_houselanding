@@ -247,6 +247,9 @@ img{max-width:100%}
 }
 .arcade-title.is-message .arcade-line{letter-spacing:-.01em}
 .arcade-title.is-message .arcade-line:nth-child(2){min-height:0}
+.arcade-title.has-second-line .arcade-line:nth-child(2){
+  margin-top:.18em;font-size:.52em;line-height:1;letter-spacing:.01em
+}
 .arcade-status{
   display:inline-flex;align-items:center;gap:7px;
   padding:5px 8px;border:1px solid rgba(255,255,255,.14);border-radius:999px;
@@ -1983,13 +1986,39 @@ function startHeroTitleCycle(){
     "GRENHA",
     "BRUNO WAYA"
   ];
+
+  const scheduleCycle=[
+    ["DOMINGO","FECHADO"],
+    ["SUNDAYS","WE'RE CLOSED"],
+    ["SÁBADO","ABERTO ATÉ 18H"],
+    ["SATURDAY","OPEN UNTIL 6 PM"],
+    ["FERIADOS","ATÉ ÀS 19H"],
+    ["HOLIDAYS","UNTIL 7 PM"]
+  ];
+
   let lastBrandText="STAY CLEAN";
+  let lastScheduleKey="";
+  let lastWasSchedule=false;
+  let turnsSinceSchedule=3;
 
   const pickMain=()=>{
+    const shouldShowSchedule=!lastWasSchedule&&(turnsSinceSchedule>=4||Math.random()<.32);
+
+    if(shouldShowSchedule){
+      let candidates=scheduleCycle.filter(words=>words.join("|")!==lastScheduleKey);
+      const words=candidates[Math.floor(Math.random()*candidates.length)];
+      lastScheduleKey=words.join("|");
+      lastWasSchedule=true;
+      turnsSinceSchedule=0;
+      return words;
+    }
+
     let candidates=brandCycle.filter(text=>text!==lastBrandText);
     const value=candidates[Math.floor(Math.random()*candidates.length)];
     lastBrandText=value;
-    return value;
+    lastWasSchedule=false;
+    turnsSinceSchedule+=1;
+    return [value,""];
   };
 
   const charsFor=word=>[...word].map((char,index)=>{
@@ -2010,6 +2039,7 @@ function startHeroTitleCycle(){
   const setTitleMode=(words)=>{
     title.classList.add("is-message");
     title.classList.remove("is-long-message");
+    title.classList.toggle("has-second-line",Boolean(words[1]));
     title.setAttribute("aria-label",words.filter(Boolean).join(" "));
   };
 
@@ -2053,13 +2083,12 @@ function startHeroTitleCycle(){
   };
 
   const runRandom=()=>{
-    const next=[pickMain(),""];
-    transitionTo(next).eventCallback("onComplete",()=>{
+    transitionTo(pickMain()).eventCallback("onComplete",()=>{
       setTimeout(runRandom,2100);
     });
   };
 
-  // Opening sequence requested: ATITUDE -> PENTE HOUSE -> STAY CLEAN.
+  // Opening sequence: ATITUDE -> PENTE HOUSE -> STAY CLEAN.
   renderStatic(["ATITUDE",""]);
   setTimeout(()=>{
     transitionTo(["PENTE HOUSE",""]).eventCallback("onComplete",()=>{
