@@ -1435,7 +1435,7 @@ section{overflow-x:clip}
 <section class="gallery" id="galeria">
   <div class="gallery-head shell reveal">
     <div><p class="kicker">TRABALHOS · 02</p><h2 class="title">O NOSSO TRABALHO</h2></div>
-    <p class="copy">14 trabalhos e 17 vídeos reais da Pente House. Aqui fica uma amostra; a coleção completa tem agora uma página própria.</p>
+    <p class="copy">25 fotografias e 19 vídeos reais da Pente House. Aqui fica uma amostra; a coleção completa tem agora uma página própria.</p>
     <button class="btn" id="allPhotos" type="button">VER GALERIA COMPLETA <span>›</span></button>
   </div>
   <div class="gallery-wrap shell reveal">
@@ -1453,20 +1453,20 @@ section{overflow-x:clip}
     <div>
       <p class="kicker">EM MOVIMENTO · 02B</p>
       <h3>VÊ O CORTE A ACONTECER</h3>
-      <p>Três destaques ficam aqui. Os 17 vídeos completos estão organizados na página de trabalhos.</p>
+      <p>Três destaques ficam aqui. Os 19 vídeos completos estão organizados na página de trabalhos.</p>
     </div>
     <div class="video-teasers" aria-label="Destaques de vídeo Pente House">
-      <button class="video-teaser" type="button" data-video-index="0"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true"><source src="/api/reel?code=DdrkGS0xEf5" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>TEXTURED CROP</small></button>
-      <button class="video-teaser" type="button" data-video-index="7"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true"><source src="/api/reel?code=DON8B7MDHFr" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>PROCESSO</small></button>
-      <button class="video-teaser" type="button" data-video-index="3"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true"><source src="/api/reel?code=Da_OkRyq9kg" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
+      <button class="video-teaser" type="button" data-video-index="0"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/DdrkGS0xEf5.jpg"><source src="/media/reels/DdrkGS0xEf5.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>TEXTURED CROP</small></button>
+      <button class="video-teaser" type="button" data-video-index="7"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/DON8B7MDHFr.jpg"><source src="/media/reels/DON8B7MDHFr.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>PROCESSO</small></button>
+      <button class="video-teaser" type="button" data-video-index="3"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/Da_OkRyq9kg.jpg"><source src="/media/reels/Da_OkRyq9kg.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
     </div>
-    <a class="btn media-page-link" href="/galeria/#videos">VER OS 17 VÍDEOS <span>›</span></a>
+    <a class="btn media-page-link" href="/galeria/#videos">VER OS 19 VÍDEOS <span>›</span></a>
   </div>
 </section>
 
 <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galeria de vídeos Pente House">
   <div class="video-modal-shell">
-    <div class="video-modal-top"><div><p class="kicker">17 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
+    <div class="video-modal-top"><div><p class="kicker">19 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
     <div class="video-modal-body">
       <aside class="video-library">
         <div class="video-list" id="videoList"></div>
@@ -1621,7 +1621,7 @@ section{overflow-x:clip}
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
-const galleryImages=["/images/gallery-01.webp","/images/gallery-02.webp","/images/gallery-03.webp","/images/gallery-04.webp","/images/gallery-05.webp","/images/gallery-06.webp","/images/gallery-07.webp","/images/gallery-08.webp","/images/gallery-09.webp","/images/gallery-10.webp","/images/gallery-11.webp","/images/gallery-12.webp","/images/gallery-13.webp","/images/gallery-14.webp"];
+const galleryImages=["/images/gallery-01.webp","/images/gallery-02.webp","/images/gallery-03.webp","/images/gallery-04.webp","/images/gallery-05.webp","/images/gallery-06.webp","/images/gallery-07.webp","/images/gallery-08.webp","/images/gallery-09.webp","/images/gallery-10.webp","/images/gallery-11.webp","/images/gallery-12.webp","/images/gallery-13.webp","/images/gallery-14.webp","/images/gallery-15.webp","/images/gallery-16.webp","/images/gallery-17.webp","/images/gallery-18.webp","/images/gallery-19.webp","/images/gallery-20.webp","/images/gallery-21.webp","/images/gallery-22.webp","/images/gallery-23.webp","/images/gallery-24.webp","/images/gallery-25.webp"];
 
 const intro=document.getElementById("intro");
 let entered=false;
@@ -1692,7 +1692,9 @@ const videoLibrary=[
   {code:"CViDkCvoowF",label:"Fade",source:"Pente House"},
   {code:"CTPyHeNokiS",label:"Barba + corte",source:"Pente House"},
   {code:"CS0EoMPIq-i",label:"Transformação",source:"Pente House"},
-  {code:"CSKPYzJILXw",label:"Fade + textura",source:"Pente House"}
+  {code:"CSKPYzJILXw",label:"Fade + textura",source:"Pente House"},
+  {code:"Cvr77PLo5kW_01",label:"Corte e barba · antes",source:"Pente House"},
+  {code:"Cvr77PLo5kW_02",label:"Corte e barba · resultado",source:"Pente House"}
 ]
 const videoModal=document.getElementById("videoModal");
 const videoList=document.getElementById("videoList");
@@ -1710,28 +1712,26 @@ videoLibrary.forEach((item,index)=>{
 });
 function playLibraryVideo(index){
   const item=videoLibrary[index];
-  const poster=galleryImages[index%galleryImages.length];
-  const previous=videoStage.querySelector("video");
-  if(previous)previous.pause();
+  videoStage.querySelector("video")?.pause();
   videoStage.classList.remove("video-ready");
   [...videoList.children].forEach((el,i)=>el.classList.toggle("active",i===index));
-
-  const mountPlayer=(attempt=0)=>{
-    const fresh=Date.now().toString(36)+"-"+attempt;
-    videoStage.innerHTML='<video controls autoplay playsinline preload="auto" aria-label="'+item.label+' — '+item.source+'" controlslist="nodownload"><source src="/api/reel?code='+encodeURIComponent(item.code)+'&fresh='+fresh+'" type="video/mp4">O teu navegador não suporta vídeo HTML5.</video>';
-    const player=videoStage.querySelector("video");
-    player?.addEventListener("loadedmetadata",()=>{videoStage.classList.add("video-ready")},{once:true});
-    player?.addEventListener("error",()=>{
-      if(attempt<1){
-        window.setTimeout(()=>mountPlayer(attempt+1),450);
-        return;
-      }
-      videoStage.innerHTML='<div class="video-stage-empty">ESTE VÍDEO NÃO ESTÁ DISPONÍVEL NESTE MOMENTO.<br>ESCOLHE OUTRO.</div>';
-    },{once:true});
-    player?.load();
-  };
-
-  mountPlayer();
+  const player=document.createElement("video");
+  player.controls=true;
+  player.playsInline=true;
+  player.preload="metadata";
+  player.poster="/media/reels/"+item.code+".jpg";
+  player.src="/media/reels/"+item.code+".mp4";
+  player.setAttribute("aria-label",item.label+" — Pente House");
+  player.addEventListener("loadedmetadata",()=>videoStage.classList.add("video-ready"),{once:true});
+  player.addEventListener("error",()=>{
+    if(!player.isConnected)return;
+    const message=document.createElement("p");
+    message.className="video-stage-empty";
+    message.textContent="Não foi possível carregar o vídeo. Volta a selecioná-lo para tentar novamente.";
+    videoStage.replaceChildren(message);
+  },{once:true});
+  videoStage.replaceChildren(player);
+  player.play().catch(()=>{});
   videoStage.closest(".video-stage")?.scrollTo({top:0,behavior:"auto"});
 }
 function openVideoLibrary(index){
@@ -1741,6 +1741,7 @@ function openVideoLibrary(index){
   if(Number.isInteger(index))playLibraryVideo(index);
 }
 function closeVideoLibrary(){
+  videoStage.querySelector("video")?.pause();
   videoModal.classList.remove("open");
   videoModal.setAttribute("aria-hidden","true");
   videoStage.innerHTML='<div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div>';
