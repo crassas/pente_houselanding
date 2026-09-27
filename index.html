@@ -1329,17 +1329,96 @@ section{overflow-x:clip}
 .media-preview p:not(.kicker){margin:7px 0 0;color:#aeb2b7;font-size:8px;line-height:1.5}
 .media-preview .video-teasers{min-width:0}
 .media-page-link{white-space:nowrap}
+
+/* GRENHA VIDEO STRIP */
+.grenha-strip{
+  margin-top:13px;padding:12px 0 3px;border-top:1px solid rgba(255,255,255,.08);
+  display:grid;grid-template-columns:minmax(220px,.72fr) 1.6fr;gap:12px;align-items:stretch
+}
+.grenha-strip-intro{
+  min-width:0;display:grid;grid-template-columns:62px minmax(0,1fr);gap:11px;align-items:center;
+  padding:10px;border:1px solid rgba(255,255,255,.11);border-radius:8px;
+  background:linear-gradient(145deg,#121519,#0b0d10)
+}
+.grenha-strip-intro img{
+  width:62px;height:62px;border-radius:50%;object-fit:cover;object-position:center;
+  border:1px solid rgba(215,218,221,.34);background:#090b0d
+}
+.grenha-strip-intro h3{margin:2px 0 4px;font:900 26px/.88 "Barlow Condensed",sans-serif}
+.grenha-strip-intro p:not(.kicker){margin:0;color:#aeb2b7;font-size:7px;line-height:1.45}
+.grenha-video-row{min-width:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.grenha-video-card{
+  position:relative;min-height:94px;padding:10px;border:1px solid rgba(255,255,255,.11);
+  border-radius:8px;overflow:hidden;background:
+  radial-gradient(circle at 82% 16%,rgba(224,53,69,.14),transparent 40%),
+  linear-gradient(145deg,#13171b,#0b0d10);
+  color:#fff;text-align:left;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease
+}
+.grenha-video-card:hover,.grenha-video-card:focus-visible{
+  transform:translateY(-2px);border-color:rgba(215,218,221,.42);
+  background:radial-gradient(circle at 82% 16%,rgba(224,53,69,.22),transparent 42%),linear-gradient(145deg,#171b20,#0d1013)
+}
+.grenha-video-card:focus-visible{outline:2px solid #e03545;outline-offset:2px}
+.grenha-video-card b{
+  display:block;color:#e03545;font:900 21px/.9 "Barlow Condensed",sans-serif;letter-spacing:.03em
+}
+.grenha-video-card strong{
+  position:absolute;left:10px;bottom:10px;right:42px;font:900 15px/.92 "Barlow Condensed",sans-serif;letter-spacing:.02em
+}
+.grenha-video-card .grenha-play{
+  position:absolute;right:9px;bottom:9px;width:29px;height:29px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.54);display:grid;place-items:center;background:rgba(4,6,8,.62);
+  font-size:10px
+}
+.grenha-modal{
+  position:fixed;inset:0;z-index:1450;display:none;place-items:center;padding:16px;
+  background:rgba(3,5,7,.97);backdrop-filter:blur(12px)
+}
+.grenha-modal.open{display:grid}
+.grenha-modal-shell{width:min(520px,100%);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;gap:10px}
+.grenha-modal-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.grenha-modal-top h2{margin:0;font:900 32px/.88 "Barlow Condensed",sans-serif}
+.grenha-modal-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.grenha-modal-tabs button{
+  min-height:35px;padding:6px 7px;border:1px solid rgba(255,255,255,.11);border-radius:7px;
+  background:#0d1013;color:#aeb2b7;font-size:6px;font-weight:900;letter-spacing:.08em;cursor:pointer
+}
+.grenha-modal-tabs button.active{color:#fff;border-color:rgba(224,53,69,.62);box-shadow:inset 3px 0 0 #e03545}
+.grenha-modal-stage{
+  width:min(390px,86vw);height:min(690px,calc(100dvh - 150px));aspect-ratio:9/16;align-self:center;
+  border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:#050607;
+  box-shadow:0 30px 70px rgba(0,0,0,.5)
+}
+.grenha-modal-stage iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.grenha-modal-empty{height:100%;display:grid;place-items:center;text-align:center;padding:30px;color:#aeb2b7;font-size:8px;line-height:1.55}
+
 .local-home-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 @media(max-width:900px){
   .media-preview{grid-template-columns:1fr;gap:11px;padding-bottom:8px}
   .media-preview .video-teasers{width:100%}
   .media-page-link{width:100%}
+  .grenha-strip{grid-template-columns:1fr;gap:8px;padding-bottom:6px}
+  .grenha-video-row{overflow-x:auto;grid-template-columns:repeat(4,minmax(138px,1fr));scroll-snap-type:x proximity;scrollbar-width:none;padding-bottom:3px}
+  .grenha-video-row::-webkit-scrollbar{display:none}
+  .grenha-video-card{scroll-snap-align:start;min-height:88px}
   .local-home-actions .btn{flex:1 1 180px}
 }
 @media(max-width:480px){
   .media-preview h3{font-size:29px}
   .media-preview .video-teasers{grid-template-columns:repeat(3,minmax(0,1fr))}
   .media-preview .video-teaser{height:96px}
+  .grenha-strip-intro{grid-template-columns:52px minmax(0,1fr)}
+  .grenha-strip-intro img{width:52px;height:52px}
+  .grenha-strip-intro h3{font-size:23px}
+  .grenha-video-row{grid-template-columns:repeat(4,minmax(128px,1fr))}
+  .grenha-video-card{min-height:82px}
+  .grenha-modal{padding:10px}
+  .grenha-modal-shell{max-height:calc(100dvh - 20px)}
+  .grenha-modal-top h2{font-size:28px}
+  .grenha-modal-tabs{display:flex;overflow-x:auto;gap:5px;scrollbar-width:none}
+  .grenha-modal-tabs::-webkit-scrollbar{display:none}
+  .grenha-modal-tabs button{flex:0 0 105px}
+  .grenha-modal-stage{width:min(300px,84vw);height:min(540px,calc(100dvh - 140px))}
 }
 
 </style>
@@ -1435,7 +1514,7 @@ section{overflow-x:clip}
 <section class="gallery" id="galeria">
   <div class="gallery-head shell reveal">
     <div><p class="kicker">TRABALHOS · 02</p><h2 class="title">O NOSSO TRABALHO</h2></div>
-    <p class="copy">24 fotografias e 16 vídeos reais da Pente House. Aqui fica uma amostra; a coleção completa tem agora uma página própria.</p>
+    <p class="copy">24 fotografias e 20 vídeos reais da Pente House, incluindo 4 trabalhos do Grenha. Aqui fica uma amostra; a coleção completa tem agora uma página própria.</p>
     <button class="btn" id="allPhotos" type="button">VER GALERIA COMPLETA <span>›</span></button>
   </div>
   <div class="media-preview shell reveal">
@@ -1449,7 +1528,23 @@ section{overflow-x:clip}
       <button class="video-teaser" type="button" data-video-index="1"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/Da_OkRyq9kg.jpg"><source src="/media/reels/Da_OkRyq9kg.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
       <button class="video-teaser" type="button" data-video-index="2"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/DOQ9OXLiKMI.jpg"><source src="/media/reels/DOQ9OXLiKMI.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>TAPER</small></button>
     </div>
-    <a class="btn media-page-link" href="/galeria/#videos">VER OS 16 VÍDEOS <span>›</span></a>
+    <a class="btn media-page-link" href="/galeria/#videos">VER OS 16 VÍDEOS DA CASA <span>›</span></a>
+  </div>
+  <div class="grenha-strip shell reveal" aria-label="Galeria de vídeos do Grenha">
+    <div class="grenha-strip-intro">
+      <img src="/images/grenha-profile.webp" alt="Grenha, barbeiro da Pente House" loading="lazy" decoding="async">
+      <div>
+        <p class="kicker">GRENHA · 04 VÍDEOS</p>
+        <h3>VÍDEOS DO GRENHA</h3>
+        <p>Processo, resultado, transformação e design. Escolhe um e vê sem sair da Pente House.</p>
+      </div>
+    </div>
+    <div class="grenha-video-row">
+      <button class="grenha-video-card" type="button" data-grenha-video="0" aria-label="Ver vídeo Processo do Grenha"><b>01</b><strong>PROCESSO</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
+      <button class="grenha-video-card" type="button" data-grenha-video="1" aria-label="Ver vídeo Resultado do Grenha"><b>02</b><strong>RESULTADO</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
+      <button class="grenha-video-card" type="button" data-grenha-video="2" aria-label="Ver vídeo Transformação do Grenha"><b>03</b><strong>TRANSFORMAÇÃO</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
+      <button class="grenha-video-card" type="button" data-grenha-video="3" aria-label="Ver vídeo Design do Grenha"><b>04</b><strong>DESIGN</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
+    </div>
   </div>
   <div class="gallery-wrap shell reveal">
     <button class="arrow prev" id="prev" aria-label="Fotos anteriores">‹</button>
@@ -1477,6 +1572,22 @@ section{overflow-x:clip}
         <div class="video-stage-inner" id="videoStage"><div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div></div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="grenha-modal" id="grenhaModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galeria de vídeos do Grenha">
+  <div class="grenha-modal-shell">
+    <div class="grenha-modal-top">
+      <div><p class="kicker">GRENHA · PENTE HOUSE</p><h2 id="grenhaVideoTitle">VÍDEOS DO GRENHA</h2></div>
+      <button class="video-close" id="closeGrenhaVideos" type="button" aria-label="Fechar vídeos do Grenha">×</button>
+    </div>
+    <div class="grenha-modal-tabs" aria-label="Escolher vídeo do Grenha">
+      <button type="button" data-grenha-switch="0">01 · PROCESSO</button>
+      <button type="button" data-grenha-switch="1">02 · RESULTADO</button>
+      <button type="button" data-grenha-switch="2">03 · TRANSFORMAÇÃO</button>
+      <button type="button" data-grenha-switch="3">04 · DESIGN</button>
+    </div>
+    <div class="grenha-modal-stage" id="grenhaStage"><div class="grenha-modal-empty">ESCOLHE UM VÍDEO DO GRENHA</div></div>
   </div>
 </div>
 
@@ -1769,6 +1880,42 @@ closeVideos?.addEventListener("click",closeVideoLibrary);
 videoModal?.addEventListener("click",e=>{if(e.target===videoModal)closeVideoLibrary()});
 document.querySelectorAll(".video-teaser").forEach(btn=>btn.addEventListener("click",()=>openVideoLibrary(Number(btn.dataset.videoIndex))));
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&videoModal?.classList.contains("open"))closeVideoLibrary()});
+
+const grenhaVideos=[
+  {code:"DPFGBodDJqU",label:"Processo"},
+  {code:"DPHpCGqiIrh",label:"Resultado"},
+  {code:"DPUUDg1iFr8",label:"Transformação"},
+  {code:"DQklNBaiLWh",label:"Design"}
+];
+const grenhaModal=document.getElementById("grenhaModal");
+const grenhaStage=document.getElementById("grenhaStage");
+const grenhaVideoTitle=document.getElementById("grenhaVideoTitle");
+const closeGrenhaVideos=document.getElementById("closeGrenhaVideos");
+function playGrenhaVideo(index){
+  const item=grenhaVideos[index];
+  if(!item)return;
+  grenhaVideoTitle.textContent=item.label+" · GRENHA";
+  document.querySelectorAll("[data-grenha-switch]").forEach(btn=>btn.classList.toggle("active",Number(btn.dataset.grenhaSwitch)===index));
+  grenhaStage.innerHTML='<iframe src="https://www.instagram.com/p/'+item.code+'/embed/" title="'+item.label+' — Grenha, Pente House" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+}
+function openGrenhaVideo(index){
+  grenhaModal.classList.add("open");
+  grenhaModal.setAttribute("aria-hidden","false");
+  document.documentElement.classList.add("lock");
+  playGrenhaVideo(index);
+}
+function closeGrenhaVideo(){
+  grenhaModal.classList.remove("open");
+  grenhaModal.setAttribute("aria-hidden","true");
+  grenhaStage.innerHTML='<div class="grenha-modal-empty">ESCOLHE UM VÍDEO DO GRENHA</div>';
+  document.querySelectorAll("[data-grenha-switch]").forEach(btn=>btn.classList.remove("active"));
+  document.documentElement.classList.remove("lock");
+}
+document.querySelectorAll("[data-grenha-video]").forEach(btn=>btn.addEventListener("click",()=>openGrenhaVideo(Number(btn.dataset.grenhaVideo))));
+document.querySelectorAll("[data-grenha-switch]").forEach(btn=>btn.addEventListener("click",()=>playGrenhaVideo(Number(btn.dataset.grenhaSwitch))));
+closeGrenhaVideos?.addEventListener("click",closeGrenhaVideo);
+grenhaModal?.addEventListener("click",e=>{if(e.target===grenhaModal)closeGrenhaVideo()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&grenhaModal?.classList.contains("open"))closeGrenhaVideo()});
 
 const track=document.getElementById("track");
 document.getElementById("prev").addEventListener("click",()=>track.scrollBy({left:-Math.min(track.clientWidth*.78,700),behavior:"smooth"}));
