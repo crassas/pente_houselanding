@@ -1435,7 +1435,7 @@ section{overflow-x:clip}
 <section class="gallery" id="galeria">
   <div class="gallery-head shell reveal">
     <div><p class="kicker">TRABALHOS · 02</p><h2 class="title">O NOSSO TRABALHO</h2></div>
-    <p class="copy">25 fotografias e 19 vídeos reais da Pente House. Aqui fica uma amostra; a coleção completa tem agora uma página própria.</p>
+    <p class="copy">25 fotografias e 16 vídeos reais da Pente House. Aqui fica uma amostra; a coleção completa tem agora uma página própria.</p>
     <button class="btn" id="allPhotos" type="button">VER GALERIA COMPLETA <span>›</span></button>
   </div>
   <div class="gallery-wrap shell reveal">
@@ -1453,20 +1453,20 @@ section{overflow-x:clip}
     <div>
       <p class="kicker">EM MOVIMENTO · 02B</p>
       <h3>VÊ O CORTE A ACONTECER</h3>
-      <p>Três destaques ficam aqui. Os 19 vídeos completos estão organizados na página de trabalhos.</p>
+      <p>Três destaques da casa. Abre um vídeo e deixa a seleção continuar ao acaso, ou escolhe o que queres ver.</p>
     </div>
     <div class="video-teasers" aria-label="Destaques de vídeo Pente House">
-      <button class="video-teaser" type="button" data-video-index="0"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/DdrkGS0xEf5.jpg"><source src="/media/reels/DdrkGS0xEf5.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>TEXTURED CROP</small></button>
-      <button class="video-teaser" type="button" data-video-index="7"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/DON8B7MDHFr.jpg"><source src="/media/reels/DON8B7MDHFr.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>PROCESSO</small></button>
-      <button class="video-teaser" type="button" data-video-index="3"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/Da_OkRyq9kg.jpg"><source src="/media/reels/Da_OkRyq9kg.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
+      <button class="video-teaser" type="button" data-video-index="0"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/Da_PDJnqJ7p.jpg"><source src="/media/reels/Da_PDJnqJ7p.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>FADE</small></button>
+      <button class="video-teaser" type="button" data-video-index="1"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/Da_OkRyq9kg.jpg"><source src="/media/reels/Da_OkRyq9kg.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
+      <button class="video-teaser" type="button" data-video-index="2"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true" poster="/media/reels/DOQ9OXLiKMI.jpg"><source src="/media/reels/DOQ9OXLiKMI.mp4" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>TAPER</small></button>
     </div>
-    <a class="btn media-page-link" href="/galeria/#videos">VER OS 19 VÍDEOS <span>›</span></a>
+    <a class="btn media-page-link" href="/galeria/#videos">VER OS 16 VÍDEOS <span>›</span></a>
   </div>
 </section>
 
 <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galeria de vídeos Pente House">
   <div class="video-modal-shell">
-    <div class="video-modal-top"><div><p class="kicker">19 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
+    <div class="video-modal-top"><div><p class="kicker">16 VÍDEOS</p><h2>NA CADEIRA</h2></div><button class="video-close" id="closeVideos" type="button" aria-label="Fechar vídeos">×</button></div>
     <div class="video-modal-body">
       <aside class="video-library">
         <div class="video-list" id="videoList"></div>
@@ -1676,14 +1676,11 @@ document.addEventListener("click",e=>{
 document.addEventListener("keydown",e=>{if(e.key==="Escape")setMobileMenu(false)});
 
 const videoLibrary=[
-  {code:"DdrkGS0xEf5",label:"Textured crop",source:"Pente House"},
   {code:"Da_PDJnqJ7p",label:"Fade",source:"Pente House"},
-  {code:"Da_O2EkKX9k",label:"Fade + acabamento",source:"Pente House"},
   {code:"Da_OkRyq9kg",label:"Corte clássico",source:"Pente House"},
   {code:"DOQ9OXLiKMI",label:"Taper",source:"Pente House"},
   {code:"DOQ9FCxiOKR",label:"Buzz fade",source:"Pente House"},
   {code:"DOQ8-6SCMwX",label:"Caracóis",source:"Pente House"},
-  {code:"DON8B7MDHFr",label:"Processo",source:"Pente House"},
   {code:"DC_hZmyIBgN",label:"Transformação",source:"Pente House"},
   {code:"CpaSldAD3gy",label:"Corte em processo",source:"Pente House"},
   {code:"CmgYhhSDf8e",label:"Caracóis + acabamento",source:"Pente House"},
@@ -1710,13 +1707,28 @@ videoLibrary.forEach((item,index)=>{
   btn.addEventListener("click",()=>playLibraryVideo(index));
   videoList.appendChild(btn);
 });
-function playLibraryVideo(index){
+let currentVideoIndex=-1;
+let videoQueue=[];
+function nextRandomVideo(){
+  if(!videoQueue.length){
+    videoQueue=videoLibrary.map((_,i)=>i).filter(i=>i!==currentVideoIndex);
+    for(let i=videoQueue.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [videoQueue[i],videoQueue[j]]=[videoQueue[j],videoQueue[i]];
+    }
+  }
+  return videoQueue.shift();
+}
+function playLibraryVideo(index,{muted=false,automatic=false}={}){
+  currentVideoIndex=index;
+  videoQueue=videoQueue.filter(i=>i!==index);
   const item=videoLibrary[index];
   videoStage.querySelector("video")?.pause();
   videoStage.classList.remove("video-ready");
   [...videoList.children].forEach((el,i)=>el.classList.toggle("active",i===index));
   const player=document.createElement("video");
   player.controls=true;
+  player.muted=muted;
   player.playsInline=true;
   player.preload="metadata";
   player.poster="/media/reels/"+item.code+".jpg";
@@ -1730,6 +1742,9 @@ function playLibraryVideo(index){
     message.textContent="Não foi possível carregar o vídeo. Volta a selecioná-lo para tentar novamente.";
     videoStage.replaceChildren(message);
   },{once:true});
+  player.addEventListener("ended",()=>{
+    if(player.isConnected)playLibraryVideo(nextRandomVideo(),{muted:player.muted,automatic:true});
+  },{once:true});
   videoStage.replaceChildren(player);
   player.play().catch(()=>{});
   videoStage.closest(".video-stage")?.scrollTo({top:0,behavior:"auto"});
@@ -1738,7 +1753,7 @@ function openVideoLibrary(index){
   videoModal.classList.add("open");
   videoModal.setAttribute("aria-hidden","false");
   document.documentElement.classList.add("lock");
-  if(Number.isInteger(index))playLibraryVideo(index);
+  playLibraryVideo(Number.isInteger(index)?index:nextRandomVideo());
 }
 function closeVideoLibrary(){
   videoStage.querySelector("video")?.pause();
@@ -1747,7 +1762,7 @@ function closeVideoLibrary(){
   videoStage.innerHTML='<div class="video-stage-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div>';
   document.documentElement.classList.remove("lock");
 }
-openVideos?.addEventListener("click",()=>openVideoLibrary(0));
+openVideos?.addEventListener("click",()=>openVideoLibrary());
 closeVideos?.addEventListener("click",closeVideoLibrary);
 videoModal?.addEventListener("click",e=>{if(e.target===videoModal)closeVideoLibrary()});
 document.querySelectorAll(".video-teaser").forEach(btn=>btn.addEventListener("click",()=>openVideoLibrary(Number(btn.dataset.videoIndex))));
