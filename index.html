@@ -332,7 +332,7 @@ img{max-width:100%}
 .menu,.mobile-nav{display:none}
 .hero-main{height:337px;display:grid;grid-template-columns:490px 1fr 113px;gap:22px;align-items:center}
 .hero-copy{align-self:center;padding-top:3px}
-.hero h1{margin:0;font:900 77px/.77 "Barlow Condensed",sans-serif;letter-spacing:-.018em;text-shadow:0 9px 28px rgba(0,0,0,.38)}
+.hero .arcade-title{margin:0;font:900 77px/.77 "Barlow Condensed",sans-serif;letter-spacing:-.018em;text-shadow:0 9px 28px rgba(0,0,0,.38)}
 .hero-sub{margin:17px 0 15px;font-size:9px;font-weight:700;letter-spacing:.30em;color:#e0e2e4}
 .hero-copy>p.body{width:265px;margin:0 0 14px;font-size:10px;line-height:1.53;color:#e0e1e3}
 .hero-copy .stay{margin:0 0 18px}
@@ -678,7 +678,7 @@ html.booking-open,html.booking-open body{overflow:hidden}
   .hero-overlay{background:linear-gradient(180deg,rgba(4,6,9,.30) 0%,rgba(4,6,9,.58) 45%,rgba(4,6,9,.88) 100%),linear-gradient(90deg,rgba(4,6,9,.82),rgba(4,6,9,.20) 72%,rgba(4,6,9,.50))}
   .hero-main{height:auto;min-height:430px;display:block;padding-top:28px;padding-bottom:28px;position:relative}
   .hero-copy{max-width:540px;padding-top:0}
-  .hero h1{font-size:72px;line-height:.78}
+  .hero .arcade-title{font-size:72px;line-height:.78}
   .hero-sub{margin:15px 0 14px}
   .hero-copy>p.body{width:min(92%,470px);font-size:12px;line-height:1.55}
   .hero-copy .btn{height:45px;padding:0 20px}
@@ -708,7 +708,7 @@ html.booking-open,html.booking-open body{overflow:hidden}
   .wordmark span{font-size:6px}
   .menu{width:40px;height:40px}
   .hero-main{min-height:410px;padding-top:24px;padding-bottom:24px}
-  .hero h1{font-size:60px;line-height:.79}
+  .hero .arcade-title{font-size:60px;line-height:.79}
   .hero-sub{font-size:8px;letter-spacing:.24em}
   .hero-copy>p.body{width:94%;font-size:12px}
   .hero-copy .stay{margin-bottom:17px}
@@ -1023,7 +1023,7 @@ section{overflow-x:clip}
   .hero{height:auto;min-height:0}
   .hero-main{height:auto;min-height:430px;display:block;position:relative;padding:30px 0 28px}
   .hero-copy{max-width:660px}
-  .hero h1{font-size:clamp(64px,8vw,82px);line-height:.78}
+  .hero .arcade-title{font-size:clamp(64px,8vw,82px);line-height:.78}
   .hero-sub{margin:15px 0 14px}
   .hero-copy>p.body{width:min(100%,520px);font-size:12px;line-height:1.58}
   .hero-aside{display:none}
@@ -1105,7 +1105,7 @@ section{overflow-x:clip}
   .wordmark span{font-size:6px;letter-spacing:.25em}
   .hero-photo{object-position:center 42%}
   .hero-main{min-height:0;padding:26px 0 14px}
-  .hero h1{font-size:clamp(55px,16vw,68px);line-height:.79;max-width:100%;overflow:hidden}
+  .hero .arcade-title{font-size:clamp(55px,16vw,68px);line-height:.79;max-width:100%;overflow:hidden}
   .hero-copy>p.body{font-size:12px}
   .hero-script{
     position:static;
@@ -1358,8 +1358,8 @@ section{overflow-x:clip}
   <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="/galeria/">GALERIA</a><a href="/perguntas/">PERGUNTAS</a><a href="#contactos">CONTACTOS</a><a href="#precos">MARCAR</a></nav>
   <div class="hero-main shell">
     <div class="hero-copy">
-      <h1 class="arcade-title is-message"><span class="arcade-line">ATITUDE</span><span class="arcade-line"></span></h1>
-      <p class="hero-sub">BARBEARIA · MARQUÊS — PORTO</p>
+      <div class="arcade-title is-message" aria-hidden="true"><span class="arcade-line">ATITUDE</span><span class="arcade-line"></span></div>
+      <h1 class="hero-sub">PENTEHOUSE BARBEARIA · MARQUÊS — PORTO</h1>
       <p class="body">Barbearia no Porto junto ao Marquês. Corte, barba e estética masculina numa casa liderada por <b>Rascal</b>.</p>
       <p class="stay">STAY CLEAN.</p>
       <span class="arcade-status" aria-label="Pente House no Marquês, Porto"><i aria-hidden="true"></i> MARQUÊS · PORTO · EST. 2018</span>
