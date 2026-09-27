@@ -2052,32 +2052,38 @@ function startHeroTitleCycle(){
 
   const transitionTo=(words)=>{
     const tl=gsap.timeline();
-    setTitleMode(words);
 
-    lines.forEach((line,i)=>{
-      const current=line.querySelector(".hero-word-current");
-      const next=makeLayer(words[i]||"","hero-word-next");
-      line.appendChild(next);
-
-      gsap.set(next,{opacity:0,y:-4,z:-3,rotateX:-2,filter:"blur(3px)"});
-
-      tl.to(current,{
-        opacity:0,y:4,z:-3,rotateX:2,filter:"blur(3px)",
-        duration:.52,ease:"power2.inOut"
-      },i*.02);
-
-      tl.to(next,{
-        opacity:1,y:0,z:0,rotateX:0,filter:"blur(0px)",
-        duration:.62,ease:"power2.out"
-      },.20+i*.02);
-
-      tl.call(()=>{
-        current.remove();
-        next.classList.remove("hero-word-next");
-        next.classList.add("hero-word-current");
-        gsap.set(next,{clearProps:"all"});
-      },null,">-.03");
+    // Evita sobreposição de duas palavras durante a troca:
+    // primeiro desaparece totalmente a mensagem atual,
+    // depois troca o conteúdo e só então mostra a seguinte.
+    tl.to(lines,{
+      opacity:0,
+      y:4,
+      filter:"blur(3px)",
+      duration:.34,
+      ease:"power2.in",
+      stagger:.02
     });
+
+    tl.call(()=>{
+      setTitleMode(words);
+      lines.forEach((line,i)=>{
+        line.replaceChildren(makeLayer(words[i]||"","hero-word-current"));
+      });
+    });
+
+    tl.set(lines,{y:-4,filter:"blur(3px)"});
+
+    tl.to(lines,{
+      opacity:1,
+      y:0,
+      filter:"blur(0px)",
+      duration:.46,
+      ease:"power2.out",
+      stagger:.02
+    });
+
+    tl.call(()=>gsap.set(lines,{clearProps:"opacity,transform,filter"}));
 
     return tl;
   };
