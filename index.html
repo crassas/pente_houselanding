@@ -1303,8 +1303,11 @@ section{overflow-x:clip}
 /* Compact FAQ portal: full FAQ now lives on /perguntas/ */
 .faq-link-card{
   min-height:118px;padding:16px;border:1px solid rgba(255,255,255,.11);border-radius:8px;
-  background:linear-gradient(145deg,#121519,#0b0d10);display:flex;flex-direction:column;justify-content:flex-end
+  background:linear-gradient(145deg,#121519,#0b0d10);display:flex;flex-direction:column;justify-content:flex-end;
+  cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease
 }
+.faq-link-card:hover,.faq-link-card:focus-visible{transform:translateY(-2px);border-color:rgba(255,255,255,.34);background:linear-gradient(145deg,#15191d,#0d1013)}
+.faq-link-card:focus-visible{outline:2px solid #e03545;outline-offset:3px}
 .faq-link-card span{margin-bottom:auto;color:#e03545;font:800 8px/1 Inter,sans-serif;letter-spacing:.18em}
 .faq-link-card strong{font:800 20px/.95 "Barlow Condensed",sans-serif;letter-spacing:.02em}
 .faq-link-card p{margin:7px 0 0;color:#bfc3c7;font-size:8px;line-height:1.5}
@@ -1509,21 +1512,21 @@ section{overflow-x:clip}
       <p>Aqui respondemos às perguntas mais comuns sobre morada, marcações, pagamentos e a Pente House.</p>
     </div>
     <div class="faq-grid reveal" aria-label="Resumo das perguntas frequentes">
-      <article class="faq-link-card">
+      <a class="faq-link-card" href="/perguntas/#morada" aria-label="Ver resposta sobre morada e como chegar">
         <span>01</span>
         <strong>MORADA E COMO CHEGAR</strong>
         <p>Rua da Constituição 656, Loja 20, Metro Marquês e referências da zona.</p>
-      </article>
-      <article class="faq-link-card">
+      </a>
+      <a class="faq-link-card" href="/perguntas/#marcacoes-pagamentos" aria-label="Ver respostas sobre marcações e pagamentos">
         <span>02</span>
         <strong>MARCAÇÕES E PAGAMENTOS</strong>
         <p>Sinal, MB WAY, dinheiro, cancelamentos e reagendamentos.</p>
-      </article>
-      <article class="faq-link-card">
+      </a>
+      <a class="faq-link-card" href="/perguntas/#nome-pentehouse" aria-label="Ver resposta sobre Pentehouse e Pente House">
         <span>03</span>
         <strong>PENTEHOUSE OU PENTE HOUSE?</strong>
-        <p>Nome da casa, pesquisas de marca e informação direta para quem nos procura.</p>
-      </article>
+        <p>Nome da casa e formas diferentes de a procurar.</p>
+      </a>
     </div>
     <div class="faq-page-cta reveal">
       <a class="btn light" href="/perguntas/">VER TODAS AS PERGUNTAS <span>›</span></a>
