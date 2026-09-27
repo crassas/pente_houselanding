@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Pentehouse">
+  <rect width="48" height="48" rx="10" fill="#06080a"/>
+  <circle cx="24" cy="24" r="18" fill="#0d1013" stroke="#f4f4f2" stroke-width="2"/>
+  <path d="M12 34 L12 14 H24 C31 14 35 17.7 35 23.1 C35 28.6 31 32 24 32 H18 V34 Z M18 26.8 H24 C27.6 26.8 29.6 25.5 29.6 23.1 C29.6 20.7 27.6 19.2 24 19.2 H18 Z" fill="#f4f4f2"/>
+  <path d="M33.5 11.5 A18 18 0 0 1 38 17" fill="none" stroke="#d93445" stroke-width="3" stroke-linecap="round"/>
+  <path d="M38 31 A18 18 0 0 1 33 36.5" fill="none" stroke="#17469e" stroke-width="3" stroke-linecap="round"/>
+</svg>
