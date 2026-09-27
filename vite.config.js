@@ -10,6 +10,7 @@ export default defineConfig({
         metroMarques: resolve(__dirname, "barbeiro-metro-marques/index.html"),
         caminhos: resolve(__dirname, "todos-os-caminhos-pente-house/index.html"),
         visitingPorto: resolve(__dirname, "visiting-porto/index.html"),
+        penthouseOuPentehouse: resolve(__dirname, "penthouse-ou-pentehouse-porto/index.html"),
         perguntas: resolve(__dirname, "perguntas/index.html"),
         galeria: resolve(__dirname, "galeria/index.html")
       }
