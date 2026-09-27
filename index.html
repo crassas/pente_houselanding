@@ -56,7 +56,8 @@
     "latitude":41.1621674,
     "longitude":-8.6058802
   },
-  "hasMap":"https://www.google.com/maps/dir/?api=1&destination=Rua+da+Constitui%C3%A7%C3%A3o%2C+Loja+19%2C+4200-194+Porto%2C+Portugal&destination_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk",
+  "hasMap":"https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk",
+  "identifier":{"@type":"PropertyValue","propertyID":"Google Place ID","value":"ChIJgdPqtldlJA0RcfObBuHD4rk"},
   "openingHoursSpecification":[
     {
       "@type":"OpeningHoursSpecification",
@@ -130,6 +131,16 @@
   "@context":"https://schema.org",
   "@type":"FAQPage",
   "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Procuras uma barbearia no Marquês, Porto?",
+      "acceptedAnswer":{"@type":"Answer","text":"A Pente House fica na Rua da Constituição, Loja 19, na zona do Marquês. Faz cortes de cabelo, barba e estética masculina e permite escolher Rascal, Grenha ou Bruno Waya para o pedido de marcação."}
+    },
+    {
+      "@type":"Question",
+      "name":"Procuras um barbeiro no Marquês?",
+      "acceptedAnswer":{"@type":"Answer","text":"Na Pente House podes escolher entre Rascal, Grenha e Bruno Waya. A barbearia fica na Rua da Constituição, Loja 19, a poucos minutos do Metro Marquês."}
+    },
     {
       "@type":"Question",
       "name":"Procurei Penthouse Marquês. É a Pentehouse barbearia?",
@@ -542,6 +553,9 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .local-card h3{margin:0 0 8px;font:900 27px/.9 "Barlow Condensed",sans-serif}
 .local-card p{margin:0;color:#c6c9cd;font-size:9px;line-height:1.55}
 .local-card a{display:inline-flex;margin-top:11px;font-size:8px;font-weight:800;letter-spacing:.09em;border-bottom:1px solid rgba(255,255,255,.5)}
+.google-proof{margin-top:10px;padding:14px 18px;border:1px solid rgba(255,255,255,.11);border-radius:8px;background:linear-gradient(145deg,#111418,#0b0d10);display:flex;align-items:center;justify-content:space-between;gap:18px}
+.google-proof .kicker{margin:0 0 5px}.google-proof h3{margin:0 0 5px;font:900 24px/.9 "Barlow Condensed",sans-serif}.google-proof p{margin:0;color:#b9bdc2;font-size:8px;line-height:1.5}.google-proof .btn{flex:0 0 auto;height:38px}
+.review-bridge{margin-top:11px;padding:10px 13px;border-top:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:space-between;gap:16px;color:#aeb2b7;font-size:7.5px;line-height:1.5}.review-bridge b{color:#f4f4f2;letter-spacing:.08em}.review-bridge a{flex:0 0 auto;color:#f4f4f2;font-weight:800;letter-spacing:.08em;border-bottom:1px solid rgba(255,255,255,.45)}
 .local-faq{padding:26px 0 30px;background:#090b0d;border-bottom:1px solid var(--line)}
 .local-faq-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:13px}
 .local-faq-head .title{font-size:43px}
@@ -559,6 +573,8 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
   .local-intro{grid-template-columns:1fr;gap:13px}
   .local-points{justify-content:flex-start}
   .local-grid{grid-template-columns:1fr}
+  .google-proof{align-items:flex-start;flex-direction:column}
+  .review-bridge{align-items:flex-start;flex-direction:column}
   .local-faq-head{display:block}
   .local-faq-head p:last-child{margin-top:9px}
   .faq-grid{grid-template-columns:1fr}
@@ -1503,6 +1519,7 @@ section{overflow-x:clip}
       <p class="body">Na Rua da Constituição, junto ao Marquês: uma barbearia pensada para quem vive, estuda, trabalha ou simplesmente passa pela zona. O Wall Street English do Marquês e o Celeste são referências locais próximas para quem chega pela Constituição e pela Praça do Marquês.</p>
       <p class="entity-answer"><strong>Pente House</strong> é uma barbearia no Marquês, Porto, em atividade desde 2018, na Rua da Constituição, Loja 19, com cortes de cabelo, barba e estética masculina.</p>
       <p class="local-route-copy"><b>Todos os caminhos vão dar à Pente House:</b> a Constituição e o Marquês são o centro da procura; o guia local liga também Costa Cabral, Rua da Alegria, Santa Catarina, Latino Coelho, Doze Casas, Visconde de Setúbal, Faria Guimarães e Lindo Vale ao mesmo destino.</p>
+      <span class="local-searchline">PROCURAS BARBEARIA OU BARBEIRO NO MARQUÊS? ESTAMOS NA RUA DA CONSTITUIÇÃO · LOJA 19 · PORTO.</span>
       <span class="local-searchline">BARBER NEAR MARQUÊS METRO · RUA DA CONSTITUIÇÃO · PORTO</span>
       <span class="local-searchline">PROCURASTE “PENTHOUSE MARQUÊS”? A BARBEARIA CHAMA-SE <b>PENTEHOUSE</b> · TAMBÉM ESCRITA <b>PENTE HOUSE</b>.</span>
     </div>
@@ -1536,6 +1553,14 @@ section{overflow-x:clip}
       <a href="https://www.facebook.com/p/Pente-House-100063724173968/" target="_blank" rel="noopener noreferrer">FACEBOOK ↗</a>
     </article>
   </div>
+  <div class="google-proof shell reveal" aria-label="Perfil oficial da Pente House no Google">
+    <div>
+      <p class="kicker">GOOGLE · PERFIL OFICIAL</p>
+      <h3>CONFIRMA A PENTE HOUSE NO GOOGLE</h3>
+      <p>Morada, horário e avaliações da mesma Pente House da Rua da Constituição, Loja 19, no Marquês.</p>
+    </div>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer">VER NO GOOGLE ↗</a>
+  </div>
 </section>
 
 <section class="local-faq" id="faq">
@@ -1545,6 +1570,14 @@ section{overflow-x:clip}
       <p>Informação direta para quem procura uma barbearia no Marquês, Porto, e na Rua da Constituição.</p>
     </div>
     <div class="faq-grid reveal">
+      <details>
+        <summary>Procuras uma barbearia no Marquês, Porto?</summary>
+        <p>A Pente House fica na Rua da Constituição, Loja 19, na zona do Marquês. Faz cortes de cabelo, barba e estética masculina e permite escolher Rascal, Grenha ou Bruno Waya para o pedido de marcação.</p>
+      </details>
+      <details>
+        <summary>Procuras um barbeiro no Marquês?</summary>
+        <p>Na Pente House podes escolher entre Rascal, Grenha e Bruno Waya. A barbearia fica na Rua da Constituição, Loja 19, a poucos minutos do Metro Marquês.</p>
+      </details>
       <details>
         <summary>Procurei “Penthouse Marquês”. É esta barbearia?</summary>
         <p>Se querias a barbearia, sim: o nome correto é <strong>Pentehouse</strong>. Também é comum escrever <strong>Pente House</strong>. Estamos na Rua da Constituição, Loja 19, no Marquês.</p>
@@ -1605,6 +1638,10 @@ section{overflow-x:clip}
     <article class="barber"><img class="profile-photo" src="/images/rascal-profile.webp" alt="Rascal"><div><h3>RASCAL</h3><p>CEO · BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><button type="button" class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">ESCOLHER RASCAL <span>›</span></button></div></article>
     <article class="barber"><img class="profile-photo" src="/images/grenha-profile.webp" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">ESCOLHER GRENHA <span>›</span></button></div></article>
     <article class="barber"><img src="/images/gallery-09.webp" alt="Corte clássico Pente House"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><button type="button" class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">ESCOLHER BRUNO <span>›</span></button></div></article>
+  </div>
+  <div class="review-bridge shell reveal">
+    <span><b>DEPOIS DO TEU CORTE</b> · Se gostaste, agradecemos uma pequena review no Google. Ajuda quem procura uma barbearia no Marquês a confirmar que chegou à Pente House.</span>
+    <a href="https://search.google.com/local/writereview?placeid=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer">DEIXAR REVIEW NO GOOGLE ↗</a>
   </div>
 </section>
 
