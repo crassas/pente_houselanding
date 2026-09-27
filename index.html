@@ -123,6 +123,7 @@
   "name":"Pentehouse",
   "alternateName":["Pente House","Pentehouse Barbearia","Pente House Barbearia","Pentehouse Porto","Pente House Porto","Pentehouse Barbearia Porto","Pente House Barbearia Porto","Pentehouse Marquês","Pente House Marquês"],
   "publisher":{"@id":"https://pentehouse.pt/#pente-house"},
+  "about":{"@id":"https://pentehouse.pt/#pente-house"},
   "inLanguage":"pt-PT"
 }
 </script>
@@ -680,7 +681,7 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .barber .btn{height:35px;min-width:145px;font-size:8px}
 
 /* FINAL CTA */
-.final{position:relative;height:207px;background:radial-gradient(circle at 48% 0,rgba(255,255,255,.035),transparent 34%),#080a0b;overflow:hidden}
+.final{position:relative;height:229px;background:radial-gradient(circle at 48% 0,rgba(255,255,255,.035),transparent 34%),#080a0b;overflow:hidden}
 .final-grid{height:174px;display:grid;grid-template-columns:150px 1fr 150px;gap:30px;align-items:center;position:relative;z-index:2}
 .footer-logo{width:156px;justify-self:center}
 .footer-logo .brand-ring{padding:6px}
@@ -696,7 +697,9 @@ a.local-pill:hover{transform:translateY(-1px);border-color:rgba(76,122,206,.58);
 .stripe{position:absolute;bottom:-124px;width:285px;height:285px;background:repeating-linear-gradient(135deg,#f0eee9 0 21px,#1749a4 21px 42px,#f0eee9 42px 63px,#cc2635 63px 84px);opacity:.62}
 .stripe.left{left:-161px;transform:rotate(14deg)}
 .stripe.right{right:-161px;transform:rotate(-14deg)}
-footer{height:33px;display:flex;align-items:center;justify-content:center;gap:13px;border-top:1px solid rgba(255,255,255,.08);font-size:6px;letter-spacing:.38em;color:#9da1a6}
+.final footer{height:55px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-top:1px solid rgba(255,255,255,.08);font-size:6px;letter-spacing:.30em;color:#9da1a6;text-align:center}
+.final footer .website-relation{font-size:6.5px;font-weight:800;letter-spacing:.20em;color:#c8cbd0}
+.final footer .website-relation b{color:#f0f1f2}
 
 /* DIALOGS */
 dialog{color:#fff;background:#0a0c0f;border:1px solid rgba(255,255,255,.16);border-radius:14px;box-shadow:0 30px 90px rgba(0,0,0,.75)}
@@ -1669,7 +1672,10 @@ section{overflow-x:clip}
     <div class="final-copy"><p class="kicker" style="margin-bottom:9px">STAY CLEAN</p><h2>PRONTO PARA O TEU PRÓXIMO CORTE?</h2><button type="button" class="btn red start-booking">▣ MARCAR AGORA <span>›</span></button></div>
     <div class="values">ESTILO<br>CONFIANÇA<br>DISCIPLINA<br>SEMPRE</div>
   </div>
-  <footer>PENTE HOUSE <span>—</span> RUA DA CONSTITUIÇÃO · LOJA 19 <span>—</span> MARQUÊS · PORTO</footer>
+  <footer>
+    <span class="website-relation">WEBSITE RELACIONADO COM A <b>PENTE HOUSE</b> · BARBEARIA NO MARQUÊS, PORTO</span>
+    <span>PENTE HOUSE · RUA DA CONSTITUIÇÃO · LOJA 19 · MARQUÊS · PORTO</span>
+  </footer>
 </section>
 </main>
 
