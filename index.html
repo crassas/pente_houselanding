@@ -1306,6 +1306,29 @@ section{overflow-x:clip}
 .faq-page-cta{display:flex;justify-content:flex-end;margin-top:12px}
 @media(max-width:900px){.faq-page-cta{justify-content:stretch}.faq-page-cta .btn{width:100%}}
 
+
+/* MULTI-PAGE PASS: compact homepage portals */
+.media-preview{
+  margin-top:14px;padding:15px 0 2px;border-top:1px solid rgba(255,255,255,.08);
+  display:grid;grid-template-columns:minmax(190px,.72fr) 1.6fr auto;gap:16px;align-items:center
+}
+.media-preview h3{margin:0;font:900 31px/.86 "Barlow Condensed",sans-serif}
+.media-preview p:not(.kicker){margin:7px 0 0;color:#aeb2b7;font-size:8px;line-height:1.5}
+.media-preview .video-teasers{min-width:0}
+.media-page-link{white-space:nowrap}
+.local-home-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:900px){
+  .media-preview{grid-template-columns:1fr;gap:11px;padding-bottom:8px}
+  .media-preview .video-teasers{width:100%}
+  .media-page-link{width:100%}
+  .local-home-actions .btn{flex:1 1 180px}
+}
+@media(max-width:480px){
+  .media-preview h3{font-size:29px}
+  .media-preview .video-teasers{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .media-preview .video-teaser{height:96px}
+}
+
 </style>
 </head>
 <body>
@@ -1320,12 +1343,12 @@ section{overflow-x:clip}
   <header class="topbar shell">
     <a href="#inicio" class="wordmark"><b>PENTE HOUSE</b><span>BARBEARIA · MARQUÊS · PORTO</span></a>
     <nav class="nav">
-      <a class="active" href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="#galeria">GALERIA</a><a href="/perguntas/">PERGUNTAS</a>
+      <a class="active" href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="/galeria/">GALERIA</a><a href="/perguntas/">PERGUNTAS</a>
     </nav>
     <a class="btn top-cta" href="#precos">▣ MARCAR HORÁRIO</a>
     <button class="menu" id="menu" aria-label="Abrir menu" aria-controls="mobileNav" aria-expanded="false">☰</button>
   </header>
-  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="#galeria">GALERIA</a><a href="/perguntas/">PERGUNTAS</a><a href="#contactos">CONTACTOS</a><a href="#precos">MARCAR</a></nav>
+  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="/galeria/">GALERIA</a><a href="/perguntas/">PERGUNTAS</a><a href="#contactos">CONTACTOS</a><a href="#precos">MARCAR</a></nav>
   <div class="hero-main shell">
     <div class="hero-copy">
       <h1 class="arcade-title is-message"><span class="arcade-line">ATITUDE</span><span class="arcade-line"></span></h1>
@@ -1343,7 +1366,7 @@ section{overflow-x:clip}
     <div class="feature"><span class="feature-icon">✂</span><div><b>BARBEARIA</b><span>PROFISSIONAL</span></div></div>
     <div class="feature"><span class="feature-icon">♙</span><div><b>ESTÉTICA</b><span>MASCULINA</span></div></div>
     <div class="feature"><span class="feature-icon">◇</span><div><b>QUALIDADE</b><span>SEMPRE</span></div></div>
-    <a class="feature" href="https://www.google.com/maps/dir/?api=1&destination=Rua+da+Constitui%C3%A7%C3%A3o%2C+Loja+19%2C+4200-194+Porto%2C+Portugal&destination_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer" aria-label="Direções para a Pente House, Rua da Constituição, Loja 20, Porto"><span class="feature-icon">⌖</span><div><b>MARQUÊS</b><span>3 MIN A PÉ</span></div></a>
+    <a class="feature" href="https://www.google.com/maps/dir/?api=1&destination=Rua+da+Constitui%C3%A7%C3%A3o%2C+Loja+20%2C+4200-194+Porto%2C+Portugal&destination_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer" aria-label="Direções para a Pente House, Rua da Constituição, Loja 20, Porto"><span class="feature-icon">⌖</span><div><b>MARQUÊS</b><span>3 MIN A PÉ</span></div></a>
   </div>
 </section>
 
@@ -1398,45 +1421,33 @@ section{overflow-x:clip}
 
 <section class="gallery" id="galeria">
   <div class="gallery-head shell reveal">
-    <div><p class="kicker">GALERIA · 02</p><h2 class="title">O NOSSO TRABALHO</h2></div>
-    <p class="copy">14 trabalhos da casa. Vê logo uma amostra e abre a galeria completa quando quiseres.</p>
-    <button class="btn" id="allPhotos">VER 14 TRABALHOS <span>›</span></button>
+    <div><p class="kicker">TRABALHOS · 02</p><h2 class="title">O NOSSO TRABALHO</h2></div>
+    <p class="copy">14 trabalhos e 17 vídeos reais da Pente House. Aqui fica uma amostra; a coleção completa tem agora uma página própria.</p>
+    <button class="btn" id="allPhotos" type="button">VER GALERIA COMPLETA <span>›</span></button>
   </div>
   <div class="gallery-wrap shell reveal">
     <button class="arrow prev" id="prev" aria-label="Fotos anteriores">‹</button>
     <div class="gallery-track" id="track">
       <figure class="gallery-card"><img src="/images/gallery-01.webp" alt="Trabalho Pente House 1" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-02.webp" alt="Trabalho Pente House 2" decoding="async"></figure>
       <figure class="gallery-card"><img src="/images/gallery-03.webp" alt="Trabalho Pente House 3" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-04.webp" alt="Trabalho Pente House 4" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-05.webp" alt="Trabalho Pente House 5" decoding="async"></figure>
       <figure class="gallery-card"><img src="/images/gallery-06.webp" alt="Trabalho Pente House 6" loading="lazy" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-07.webp" alt="Trabalho Pente House 7" loading="lazy" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-08.webp" alt="Trabalho Pente House 8" loading="lazy" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-09.webp" alt="Trabalho Pente House 9" loading="lazy" decoding="async"></figure>
       <figure class="gallery-card"><img src="/images/gallery-10.webp" alt="Trabalho Pente House 10" loading="lazy" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-11.webp" alt="Trabalho Pente House 11" loading="lazy" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-12.webp" alt="Trabalho Pente House 12" loading="lazy" decoding="async"></figure>
-      <figure class="gallery-card"><img src="/images/gallery-13.webp" alt="Trabalho Pente House 13" loading="lazy" decoding="async"></figure>
       <figure class="gallery-card"><img src="/images/gallery-14.webp" alt="Trabalho Pente House 14" loading="lazy" decoding="async"></figure>
     </div>
     <button class="arrow next" id="next" aria-label="Fotos seguintes">›</button>
   </div>
-</section>
-
-<section class="video-reel" id="videos">
-  <div class="video-reel-inner shell reveal">
-    <div class="video-reel-copy">
+  <div class="media-preview shell reveal">
+    <div>
       <p class="kicker">EM MOVIMENTO · 02B</p>
-      <h2>VÊ O CORTE A ACONTECER</h2>
-      <p>17 vídeos reais do ficheiro da Pente House. Os destaques passam aqui em vídeo e a biblioteca completa abre quando escolhes um trabalho.</p>
-      <button class="btn" id="openVideos" type="button">VER 17 VÍDEOS <span>›</span></button>
+      <h3>VÊ O CORTE A ACONTECER</h3>
+      <p>Três destaques ficam aqui. Os 17 vídeos completos estão organizados na página de trabalhos.</p>
     </div>
-    <div class="video-teasers" aria-label="Abrir galeria de vídeos">
-      <button class="video-teaser" type="button" data-video-index="0"><video muted autoplay loop playsinline preload="auto" aria-hidden="true"><source src="/api/reel?code=DdrkGS0xEf5" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>TEXTURED CROP</small></button>
-      <button class="video-teaser" type="button" data-video-index="7"><video muted autoplay loop playsinline preload="auto" aria-hidden="true"><source src="/api/reel?code=DON8B7MDHFr" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>PROCESSO</small></button>
-      <button class="video-teaser" type="button" data-video-index="3"><video muted autoplay loop playsinline preload="auto" aria-hidden="true"><source src="/api/reel?code=Da_OkRyq9kg" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
+    <div class="video-teasers" aria-label="Destaques de vídeo Pente House">
+      <button class="video-teaser" type="button" data-video-index="0"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true"><source src="/api/reel?code=DdrkGS0xEf5" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>TEXTURED CROP</small></button>
+      <button class="video-teaser" type="button" data-video-index="7"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true"><source src="/api/reel?code=DON8B7MDHFr" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>PROCESSO</small></button>
+      <button class="video-teaser" type="button" data-video-index="3"><video muted autoplay loop playsinline preload="metadata" aria-hidden="true"><source src="/api/reel?code=Da_OkRyq9kg" type="video/mp4"></video><span class="video-play"><span>▶</span></span><small>CORTE CLÁSSICO</small></button>
     </div>
+    <a class="btn media-page-link" href="/galeria/#videos">VER OS 17 VÍDEOS <span>›</span></a>
   </div>
 </section>
 
@@ -1458,52 +1469,29 @@ section{overflow-x:clip}
   <div class="local-intro shell reveal">
     <div>
       <p class="kicker">BARBEARIA NO MARQUÊS · PORTO</p>
-      <h2>NO CENTRO DA TUA ROTINA</h2>
-      <p class="body">Na Rua da Constituição, junto ao Marquês: uma barbearia pensada para quem vive, estuda, trabalha ou simplesmente passa pela zona. Se procuras uma barbearia no Marquês, Porto, a Pente House fica na Loja 20; se procuras um barbeiro no Marquês, podes escolher Rascal, Grenha ou Bruno Waya. O Wall Street English do Marquês e o Celeste são referências locais próximas.</p>
-      <p class="entity-answer"><strong>Pentehouse</strong>, também escrita <strong>Pente House</strong>, é uma barbearia no Marquês, Porto, em atividade desde 2018, na Rua da Constituição, Loja 20, com cortes de cabelo, barba e estética masculina.</p>
-      <p class="local-route-copy"><b>Todos os caminhos vão dar à Pente House:</b> a Constituição e o Marquês são o centro da procura; o guia local liga também Costa Cabral, Rua da Alegria, Santa Catarina, Latino Coelho, Doze Casas, Visconde de Setúbal, Faria Guimarães e Lindo Vale ao mesmo destino.</p>
-      <span class="local-searchline">PROCURAS BARBEARIA OU BARBEIRO NO MARQUÊS? ESTAMOS NA RUA DA CONSTITUIÇÃO · LOJA 19 · PORTO.</span>
-      <span class="local-searchline">BARBER NEAR MARQUÊS METRO · RUA DA CONSTITUIÇÃO · PORTO</span>
-      <span class="local-searchline">PROCURASTE “PENTHOUSE MARQUÊS”? A BARBEARIA CHAMA-SE <b>PENTEHOUSE</b> · TAMBÉM ESCRITA <b>PENTE HOUSE</b>.</span>
+      <h2>RUA DA CONSTITUIÇÃO · LOJA 20</h2>
+      <p class="body"><strong>Pentehouse</strong>, também escrita <strong>Pente House</strong>, é uma barbearia no Marquês, Porto, em atividade desde 2018. Cortes de cabelo, barba e estética masculina com Rascal, Grenha e Bruno Waya.</p>
+      <div class="local-home-actions">
+        <a class="btn light" href="https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer">VER NO GOOGLE ↗</a>
+        <a class="btn" href="/todos-os-caminhos-pente-house/">COMO CHEGAR <span>›</span></a>
+      </div>
     </div>
-    <div class="local-points" aria-label="Referências próximas da Pente House">
-      <a class="local-pill" href="/barbeiro-metro-marques/">BARBEIRO · METRO MARQUÊS</a>
-      <span class="local-pill">PRAÇA DO MARQUÊS</span>
+    <div class="local-points" aria-label="Guias da zona da Pente House">
+      <a class="local-pill" href="/barbeiro-metro-marques/">METRO MARQUÊS</a>
       <a class="local-pill" href="/barbearia-rua-constituicao/">RUA DA CONSTITUIÇÃO</a>
-      <span class="local-pill">WALL STREET ENGLISH</span>
-      <span class="local-pill">CELESTE · MARQUÊS</span>
       <a class="local-pill" href="/todos-os-caminhos-pente-house/">TODOS OS CAMINHOS</a>
       <a class="local-pill" href="/visiting-porto/" lang="en">VISITING PORTO? · EN</a>
       <a class="local-pill" href="/penthouse-ou-pentehouse-porto/">PENTHOUSE OU PENTEHOUSE?</a>
+      <a class="local-pill" href="/perguntas/">PERGUNTAS</a>
     </div>
   </div>
-  <div class="local-grid shell reveal">
-    <article class="local-card">
-      <p class="kicker">ONDE ESTAMOS</p>
-      <h3>RUA DA CONSTITUIÇÃO · LOJA 19</h3>
-      <p>4200-194 Porto · a cerca de 210 m da Praça do Marquês e 250 m da estação de Metro Marquês.<br><b>TELEFONE DA CASA:</b> <a href="tel:+351916605673">+351 916 605 673</a></p>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+da+Constitui%C3%A7%C3%A3o%2C+Loja+19%2C+4200-194+Porto%2C+Portugal&destination_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer">ABRIR PERCURSO ↗</a>
-    </article>
-    <article class="local-card">
-      <p class="kicker">HORÁRIO</p>
-      <h3>SEG — SEX · SÁB</h3>
-      <p>Seg–Sex · 10h00 — 20h00<br><b>Sábado · 10h00 — 18h00</b><br><b>Domingo: encerrado.</b><br>Horário publicado pela Pente House.</p>
-      <a href="https://www.instagram.com/pentehouse_barbearia/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
-    </article>
-    <article class="local-card">
-      <p class="kicker">A CASA</p>
-      <h3>CEO · RASCAL</h3>
-      <p>Rascal lidera a Pente House e trabalha na cadeira com Grenha e Bruno Waya.</p>
-      <a href="https://www.facebook.com/p/Pente-House-100063724173968/" target="_blank" rel="noopener noreferrer">FACEBOOK ↗</a>
-    </article>
-  </div>
-  <div class="google-proof shell reveal" aria-label="Perfil oficial da Pente House no Google">
+  <div class="google-proof shell reveal" aria-label="Informação rápida Pente House">
     <div>
-      <p class="kicker">GOOGLE · PERFIL OFICIAL</p>
-      <h3>CONFIRMA A PENTE HOUSE NO GOOGLE</h3>
-      <p>Morada, horário e avaliações da mesma Pente House da Rua da Constituição, Loja 20, no Marquês.</p>
+      <p class="kicker">MORADA · HORÁRIO · CONTACTO</p>
+      <h3>O ESSENCIAL FICA NA PÁGINA PRINCIPAL</h3>
+      <p>Rua da Constituição, Loja 20 · Porto. Seg–Sex 10h00–20h00 · Sáb 10h00–18h00 · Domingo encerrado · +351 916 605 673.</p>
     </div>
-    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer">VER NO GOOGLE ↗</a>
+    <a class="btn" href="/todos-os-caminhos-pente-house/">ABRIR GUIA LOCAL <span>›</span></a>
   </div>
 </section>
 
@@ -1757,7 +1745,7 @@ document.getElementById("next").addEventListener("click",()=>track.scrollBy({lef
 
 const galleryDialog=document.getElementById("galleryDialog"),allGrid=document.getElementById("allGrid");
 allGrid.innerHTML=galleryImages.map(src=>'<img src="'+src+'" alt="Trabalho Pente House" loading="lazy">').join("");
-document.getElementById("allPhotos").addEventListener("click",()=>galleryDialog.showModal());
+document.getElementById("allPhotos").addEventListener("click",()=>{window.location.href="/galeria/"});
 document.querySelector('[data-close="gallery"]').addEventListener("click",()=>galleryDialog.close());
 galleryDialog.addEventListener("click",e=>{if(e.target===galleryDialog)galleryDialog.close()});
 
