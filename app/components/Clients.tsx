@@ -258,6 +258,41 @@ export function ClientModal({
     avg = Math.round(days / (completed.length - 1));
   }
 
+  async function saveClient() {
+    if (!edit?.name?.trim()) {
+      notify("O nome é obrigatório.", "error");
+      return;
+    }
+    const payload: any = {
+      name: edit.name.trim(),
+      phone: edit.phone.trim() || null,
+      email: edit.email.trim() || null,
+      birth_date: edit.birth_date || null,
+      instagram: edit.instagram.trim() || null,
+      preferred_barber_id: edit.preferred_barber_id || null,
+      marketing_consent: Boolean(edit.marketing_consent),
+    };
+    if (edit.marketing_consent && !client.marketing_consent) {
+      payload.marketing_consent_at = new Date().toISOString();
+    }
+    if (!edit.marketing_consent) payload.marketing_consent_at = null;
+
+    const result = await supabase.from("clients").update(payload).eq("id", id);
+    if (result.error) {
+      notify(
+        result.error.message.includes("clients_store_phone_unique")
+          ? "Já existe um cliente com este número."
+          : result.error.message,
+        "error"
+      );
+      return;
+    }
+    notify("Ficha do cliente actualizada.");
+    setEditing(false);
+    await load();
+    await onChanged();
+  }
+
   async function addNote() {
     if (!note.trim()) return;
     const result = await supabase.from("client_notes").insert({
@@ -350,10 +385,38 @@ export function ClientModal({
             </a>
           ) : null}
           {client.instagram ? <span className="btn ghost">{client.instagram}</span> : null}
+          <button className="btn" onClick={() => setEditing(!editing)}>{editing ? "Fechar edição" : "Editar dados"}</button>
           {isAdmin ? <button className="btn" onClick={exportData}>Exportar RGPD</button> : null}
           {isAdmin ? <button className="btn danger" onClick={anonymize}>Anonimizar</button> : null}
           {isAdmin ? <button className="btn danger small" onClick={remove}>Eliminar</button> : null}
         </div>
+
+        {editing && edit ? (
+          <section className="panel" style={{ marginTop: 14 }}>
+            <h3>Dados do cliente</h3>
+            <div className="formGrid">
+              <div><label className="label">Nome</label><input className="field" value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} /></div>
+              <div><label className="label">Telefone</label><input className="field" inputMode="tel" value={edit.phone} onChange={(e) => setEdit({ ...edit, phone: e.target.value })} /></div>
+              <div><label className="label">Email</label><input className="field" type="email" value={edit.email} onChange={(e) => setEdit({ ...edit, email: e.target.value })} /></div>
+              <div><label className="label">Data de nascimento</label><input className="field" type="date" value={edit.birth_date} onChange={(e) => setEdit({ ...edit, birth_date: e.target.value })} /></div>
+              <div><label className="label">Instagram</label><input className="field" value={edit.instagram} onChange={(e) => setEdit({ ...edit, instagram: e.target.value })} /></div>
+              <div>
+                <label className="label">Barbeiro preferido</label>
+                <select className="field" value={edit.preferred_barber_id} onChange={(e) => setEdit({ ...edit, preferred_barber_id: e.target.value })}>
+                  <option value="">Sem preferência</option>
+                  {barbers.filter((b: any) => b.active).map((b: any) => <option key={b.id} value={b.id}>{b.name}</option>)}
+                </select>
+              </div>
+              <label className="tiny full">
+                <input type="checkbox" checked={edit.marketing_consent} onChange={(e) => setEdit({ ...edit, marketing_consent: e.target.checked })} /> Consentimento para marketing
+              </label>
+            </div>
+            <div className="actions" style={{ marginTop: 12 }}>
+              <button className="btn primary" onClick={saveClient}>Guardar alterações</button>
+              <button className="btn" onClick={() => setEditing(false)}>Cancelar</button>
+            </div>
+          </section>
+        ) : null}
 
         <div className="grid metrics" style={{ marginTop: 14 }}>
           {[
@@ -378,6 +441,14 @@ export function ClientModal({
             <div className="row">
               <div className="rowMain"><b>Barbeiro preferido</b></div>
               <span>{barbers.find((b: any) => b.id === client.preferred_barber_id)?.name || "—"}</span>
+            </div>
+            <div className="row">
+              <div className="rowMain"><b>Email</b></div>
+              <span>{client.email || "—"}</span>
+            </div>
+            <div className="row">
+              <div className="rowMain"><b>Instagram</b></div>
+              <span>{client.instagram || "—"}</span>
             </div>
             <div className="row">
               <div className="rowMain"><b>Próxima marcação</b></div>
@@ -432,7 +503,7 @@ export function ClientModal({
                   <tr
                     key={a.id}
                     style={{ cursor: "pointer" }}
-                    onClick={() => onAppointment(a)}
+                    onClick={() => onAppointment({ ...a, clients: { id: client.id, name: client.name, phone: client.phone } })}
                   >
                     <td>{formatDate(a.appointment_date)}</td>
                     <td>{timeShort(a.start_time)}</td>
