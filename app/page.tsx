@@ -236,7 +236,8 @@ function CRM({ ctx }: { ctx: Context }) {
   const [services, setServices] = useState<any[]>([]);
   const [barberServices, setBarberServices] = useState<any[]>([]);
   const [schedules, setSchedules] = useState<any[]>([]);
-  const [businessHours, setBusinessHours] = useState<any[]>([]);\n  const [specialHours, setSpecialHours] = useState<any[]>([]);
+  const [businessHours, setBusinessHours] = useState<any[]>([]);
+  const [specialHours, setSpecialHours] = useState<any[]>([]);
   const [appointments, setAppointments] = useState<any[]>([]);
   const [blocks, setBlocks] = useState<any[]>([]);
   const [dashboard, setDashboard] = useState<any>(null);
@@ -273,6 +274,7 @@ function CRM({ ctx }: { ctx: Context }) {
         .order("weekday")
         .order("start_time"),
       supabase.from("business_hours").select("*").order("weekday"),
+      supabase.from("special_hours").select("*").order("date"),
     ]);
 
     const firstError = [b.error, s.error, bs.error, sc.error, bh.error, sh.error].find(Boolean);
@@ -282,7 +284,8 @@ function CRM({ ctx }: { ctx: Context }) {
     setServices(s.data || []);
     setBarberServices(bs.data || []);
     setSchedules(sc.data || []);
-    setBusinessHours(bh.data || []);\n    setSpecialHours(sh.data || []);
+    setBusinessHours(bh.data || []);
+    setSpecialHours(sh.data || []);
     setBaseLoading(false);
   }, [isAdmin, notify]);
 
@@ -392,6 +395,11 @@ function CRM({ ctx }: { ctx: Context }) {
     setSelectedClientId(id);
   }
 
+  const activeBarbers = barbers.filter((b) => b.active);
+  const agendaBarbers = isAdmin
+    ? activeBarbers
+    : activeBarbers.filter((b) => b.id === ctx.barber_id);
+
   const nav: Array<[Section, string, string]> = [
     ["home", "⌂", "Início"],
     ["agenda", "▦", "Agenda"],
@@ -488,7 +496,7 @@ function CRM({ ctx }: { ctx: Context }) {
         {section === "home" ? (
           <Home
             dashboard={dashboard}
-            barbers={barbers.filter((b) => b.active)}
+            barbers={agendaBarbers}
             onOpenAgenda={() => setSection("agenda")}
             onNew={() => setQuick({ date: lisbonToday() })}
           />
@@ -502,9 +510,10 @@ function CRM({ ctx }: { ctx: Context }) {
             setSelectedDate={setSelectedDate}
             barberFilter={barberFilter}
             setBarberFilter={setBarberFilter}
-            barbers={barbers.filter((b) => b.active)}
+            barbers={agendaBarbers}
             schedules={schedules}
             businessHours={businessHours}
+            specialHours={specialHours}
             appointments={appointments}
             blocks={blocks}
             onEmpty={(seed: QuickSeed) => setQuick(seed)}
@@ -561,11 +570,12 @@ function CRM({ ctx }: { ctx: Context }) {
         <QuickBooking
           seed={quick}
           ctx={ctx}
-          barbers={barbers.filter((b) => b.active)}
+          barbers={agendaBarbers}
           services={services}
           barberServices={barberServices}
           schedules={schedules}
           businessHours={businessHours}
+          specialHours={specialHours}
           onClose={() => setQuick(null)}
           onDone={async () => {
             setQuick(null);
@@ -582,7 +592,7 @@ function CRM({ ctx }: { ctx: Context }) {
           appointment={selectedAppointment}
           ctx={ctx}
           isAdmin={isAdmin}
-          barbers={barbers.filter((b) => b.active)}
+          barbers={agendaBarbers}
           services={services}
           barberServices={barberServices}
           notify={notify}
