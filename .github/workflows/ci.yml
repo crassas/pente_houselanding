@@ -32,22 +32,23 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -q "Rua da Constituição 656-L/20" index.html
-          grep -q "CEO · RASCAL" index.html
-          grep -q "TABELA DE PREÇOS" index.html
+          grep -q "Rua da Constituição 656, Loja 20" index.html
+          grep -q "Rascal é o CEO" index.html
+          grep -q "ESCOLHE O TEU CORTE" index.html
           grep -q "13,50 €" index.html
-          grep -q "Seg-Sáb 10h-20h" index.html
+          grep -q "Seg–Sex 10–20" index.html
           grep -q "MAIS PEDIDO" index.html
           grep -q "PEDIR RESERVA NO WHATSAPP" index.html
           grep -q "pentehouse-interior.webp" index.html
           grep -q "pentehouse-interior-720.webp" index.html
-          grep -q 'grid-template-columns:1fr;gap:8px' index.html
           grep -q 'aria-expanded="false"' index.html
           grep -q "POR DENTRO DA CASA · PORTO" index.html
-          grep -q "Toca ou faz scroll para entrar" index.html
-          grep -q "PLAYER 01" index.html
-          grep -q "rotateArcadeFocus" index.html
-          grep -q "arcade-title-attract" index.html
+          grep -q "AQUI POMOS TUDO NA LINHA" index.html
+          grep -q "GRENHA" index.html
+          grep -q "RESERVAR O MEU CORTE" index.html
+          grep -q "PRÓXIMOS HORÁRIOS LIVRES" index.html
+          grep -q "QUALQUER BARBEIRO DISPONÍVEL" index.html
+          grep -q "PENTE_AVAILABILITY_API" index.html
           if grep -q "arcade-ticker" index.html; then
             echo "Old ticker arcade treatment still present."
             exit 1
@@ -56,3 +57,21 @@ jobs:
             echo "Old incorrect address still present."
             exit 1
           fi
+
+      - name: Inline JavaScript syntax
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const html = fs.readFileSync('index.html','utf8');
+          const scripts = [...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)]
+            .filter(match => !/application\/ld\+json/i.test(match[1]) && !/\bsrc\s*=/i.test(match[1]))
+            .map(match => match[2])
+            .filter(code => code.trim());
+          if (!scripts.length) throw new Error('No inline script found.');
+          scripts.forEach((code, index) => {
+            const file = `/tmp/pente-inline-${index}.js`;
+            fs.writeFileSync(file, code);
+            require('child_process').execFileSync(process.execPath, ['--check', file], {stdio:'inherit'});
+          });
+          NODE
