@@ -6,13 +6,13 @@
 <meta name="theme-color" content="#06080a">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <title>Galeria Pente House Porto | Cortes e Vídeos Reais</title>
-<meta name="description" content="Galeria da Pente House no Marquês, Porto: 24 fotografias e 16 vídeos reais de cortes, fades, textura, barba e acabamentos da barbearia.">
+<meta name="description" content="Galeria da Pente House no Marquês, Porto: 24 fotografias e 20 vídeos reais de cortes, fades, textura, barba e acabamentos da barbearia.">
 <link rel="canonical" href="https://pentehouse.pt/galeria/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Pentehouse">
 <meta property="og:url" content="https://pentehouse.pt/galeria/">
 <meta property="og:title" content="Galeria · Pente House Barbearia Porto">
-<meta property="og:description" content="24 fotografias e 16 vídeos reais da Pente House no Marquês, Porto.">
+<meta property="og:description" content="24 fotografias e 20 vídeos reais da Pente House no Marquês, Porto.">
 <meta property="og:image" content="https://pentehouse.pt/images/gallery-01.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +40,7 @@
 footer{border-top:1px solid var(--line);padding:24px 0 32px;display:flex;justify-content:space-between;gap:20px;color:#969ba0;font-size:7px;letter-spacing:.08em}
 @media(max-width:820px){.nav a:not(.active){display:none}.section-head{grid-template-columns:1fr}.section-head>p{max-width:560px}.photo-grid{grid-template-columns:repeat(2,1fr)}.video-layout{grid-template-columns:1fr}.video-list{display:flex;overflow-x:auto;overflow-y:hidden;max-height:none}.video-item{flex:0 0 160px}.video-stage{position:relative;top:auto;min-height:500px}.video-stage video{max-height:70vh}.cta h2{font-size:47px}}
 @media(max-width:480px){.topbar{height:64px}.hero{padding:48px 0 28px}h1{font-size:64px}.lead{font-size:12px}.section{padding:28px 0}.section-head h2{font-size:42px}.photo-grid{gap:7px}.video-stage{min-height:430px}.cta h2{font-size:42px}footer{flex-direction:column}}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -57,7 +58,7 @@ footer{border-top:1px solid var(--line);padding:24px 0 32px;display:flex;justify
   <div class="shell">
     <p class="kicker">TRABALHOS REAIS · PENTE HOUSE</p>
     <h1>O NOSSO TRABALHO</h1>
-    <p class="lead">A página principal mostra apenas uma amostra. Descobre <strong>24 fotografias</strong> e <strong>16 vídeos reais</strong> de cortes, barbas e momentos na Pente House.</p>
+    <p class="lead">A página principal mostra apenas uma amostra. Descobre <strong>24 fotografias</strong> e <strong>20 vídeos reais</strong> de cortes, barbas e momentos na Pente House.</p>
     <div class="actions"><a class="btn light" href="/#precos">MARCAR HORÁRIO ›</a><a class="btn" href="/">VOLTAR À PÁGINA PRINCIPAL</a></div>
   </div>
 </section>
@@ -96,13 +97,25 @@ footer{border-top:1px solid var(--line);padding:24px 0 32px;display:flex;justify
 
 <section class="section" id="videos">
   <div class="shell">
-    <div class="section-head"><div><p class="kicker">EM MOVIMENTO · 02</p><h2>VÊ O CORTE A ACONTECER</h2></div><p>16 vídeos reais da Pente House, numa sequência aleatória. Podes escolher qualquer vídeo na lista, pausar ou ativar o som no leitor.</p></div>
+    <div class="section-head"><div><p class="kicker">AQUI POMOS TUDO NA LINHA</p><h2>PENTE HOUSE</h2></div><p>16 vídeos reais da Pente House, numa sequência aleatória. Podes escolher qualquer vídeo na lista, pausar ou ativar o som no leitor.</p></div>
     <div class="video-layout">
       <div class="video-list" id="videoList" aria-label="Vídeos Pente House"></div>
       <div class="video-stage" id="videoStage"><div class="video-empty">ESCOLHE UM VÍDEO<br>PARA VER O TRABALHO</div></div>
     </div>
   </div>
 </section>
+
+<section class="section" id="grenha">
+  <div class="shell">
+    <div class="section-head"><div><p class="kicker">04 TRABALHOS</p><h2>GRENHA</h2></div><p>Processo, resultado, transformação e design. Escolhe o que queres ver ou deixa a sequência continuar.</p></div>
+    <div class="video-layout">
+      <div class="video-list" id="grenhaList" aria-label="Grenha"></div>
+      <div class="video-stage" id="grenhaStage"><div class="video-empty">ESCOLHE UM VÍDEO</div></div>
+    </div>
+  </div>
+</section>
+<!-- Waya stays hidden until his uploaded videos are available. -->
+<section class="section" id="waya" hidden><div class="shell"><h2>WAYA</h2></div></section>
 
 <section class="cta">
   <div class="shell">
@@ -138,6 +151,7 @@ function playVideo(index,{muted=false,automatic=false}={}){
   currentVideoIndex=index;
   videoQueue=videoQueue.filter(i=>i!==index);
   const [code,label]=videos[index];
+  document.querySelector("#grenhaStage video")?.pause();
   stage.querySelector("video")?.pause();
   [...list.children].forEach((el,i)=>{
     el.classList.toggle("active",i===index);
@@ -178,6 +192,45 @@ const videoObserver=new IntersectionObserver(entries=>{
   }
 },{threshold:.25});
 videoObserver.observe(stage);
+
+const grenhaClips=[["DPFGBodDJqU", "Processo"], ["DPHpCGqiIrh", "Resultado"], ["DPUUDg1iFr8", "Transformação"], ["DQklNBaiLWh", "Design"]];
+const grenhaList=document.getElementById("grenhaList"),grenhaStage=document.getElementById("grenhaStage");
+let grenhaQueue=[],grenhaStarted=false;
+function playGrenha(index,{muted=false,automatic=false}={}){
+  grenhaStarted=true;grenhaQueue=grenhaQueue.filter(i=>i!==index);
+  stage.querySelector("video")?.pause();grenhaStage.querySelector("video")?.pause();
+  const [code,label]=grenhaClips[index];
+  [...grenhaList.children].forEach((button,i)=>{button.classList.toggle("active",i===index);button.setAttribute("aria-pressed",String(i===index))});
+  const player=document.createElement("video");
+  player.controls=true;player.playsInline=true;player.muted=muted;player.preload="metadata";
+  player.src="/media/grenha/"+code+".mp4";player.poster="/media/grenha/"+code+".jpg";
+  player.setAttribute("aria-label",label+" — Grenha");
+  player.addEventListener("error",()=>{
+    if(!player.isConnected)return;
+    const message=document.createElement("p");message.className="video-empty";
+    message.textContent="Não foi possível carregar o vídeo. Seleciona-o novamente para tentar outra vez.";
+    grenhaStage.replaceChildren(message);
+  },{once:true});
+  player.addEventListener("ended",()=>{
+    if(!player.isConnected)return;
+    if(!grenhaQueue.length)grenhaQueue=grenhaClips.map((_,i)=>i).filter(i=>i!==index);
+    const next=grenhaQueue.splice(Math.floor(Math.random()*grenhaQueue.length),1)[0];
+    playGrenha(next,{muted:player.muted,automatic:true});
+  },{once:true});
+  grenhaStage.replaceChildren(player);player.play().catch(()=>{});
+  if(!automatic&&window.matchMedia("(max-width:820px)").matches)grenhaStage.scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+grenhaClips.forEach(([,label],index)=>{
+  const button=document.createElement("button");button.type="button";button.className="video-item";button.setAttribute("aria-pressed","false");
+  button.innerHTML="<b>"+String(index+1).padStart(2,"0")+"</b><span>"+label+"</span>";
+  button.addEventListener("click",()=>playGrenha(index));grenhaList.appendChild(button);
+});
+const grenhaObserver=new IntersectionObserver(entries=>{
+  if(entries.some(entry=>entry.isIntersecting)&&!grenhaStarted){
+    playGrenha(Math.floor(Math.random()*grenhaClips.length),{muted:true,automatic:true});grenhaObserver.disconnect();
+  }
+},{threshold:.25});
+grenhaObserver.observe(grenhaStage);
 </script>
 </body>
 </html>
