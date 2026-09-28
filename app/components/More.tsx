@@ -42,7 +42,7 @@ export function More({
       {tab === "Seguimento" ? <FollowUp notify={notify} /> : null}
       {tab === "Estatísticas" ? <Stats notify={notify} /> : null}
       {tab === "Serviços" ? (
-        <ServicesAdmin services={services} barbers={barbers} notify={notify} refresh={refreshBase} />
+        <ServicesAdmin services={services} barbers={barbers} barberServices={barberServices} notify={notify} refresh={refreshBase} />
       ) : null}
       {tab === "Equipa" ? <TeamAdmin barbers={barbers} notify={notify} refresh={refreshBase} /> : null}
       {tab === "Horários" ? (
@@ -258,7 +258,7 @@ function Stats({ notify }: any) {
   );
 }
 
-function ServicesAdmin({ services, barbers, notify, refresh }: any) {
+function ServicesAdmin({ services, barbers, barberServices, notify, refresh }: any) {
   const blank = {
     id: "",
     name: "",
@@ -267,7 +267,7 @@ function ServicesAdmin({ services, barbers, notify, refresh }: any) {
     price: "0",
     active: true,
   };
-  const [form, setForm] = useState<any>(blank);
+  const [form, setForm] = useState<any>(blank);\n  const [serviceBarberId, setServiceBarberId] = useState(barbers[0]?.id || "");
 
   async function save() {
     if (!form.name.trim()) {
@@ -317,6 +317,54 @@ function ServicesAdmin({ services, barbers, notify, refresh }: any) {
     await refresh();
   }
 
+  async function toggleBarberService(serviceId: string) {
+    if (!serviceBarberId) return;
+    const existing = barberServices.find(
+      (row: any) => row.barber_id === serviceBarberId && row.service_id === serviceId
+    );
+    const result = existing
+      ? await supabase
+          .from("barber_services")
+          .update({ active: !existing.active })
+          .eq("barber_id", serviceBarberId)
+          .eq("service_id", serviceId)
+      : await supabase.from("barber_services").insert({
+          barber_id: serviceBarberId,
+          service_id: serviceId,
+          active: true,
+        });
+    if (result.error) {
+      notify(result.error.message, "error");
+      return;
+    }
+    notify("Serviços do barbeiro actualizados.");
+    await refresh();
+  }
+
+  async function setDurationOverride(serviceId: string, value: string) {
+    if (!serviceBarberId) return;
+    const parsed = value ? Number(value) : null;
+    if (parsed !== null && (!Number.isFinite(parsed) || parsed < 5)) {
+      notify("Duração inválida.", "error");
+      return;
+    }
+    const result = await supabase.from("barber_services").upsert(
+      {
+        barber_id: serviceBarberId,
+        service_id: serviceId,
+        active: true,
+        duration_override_minutes: parsed,
+      },
+      { onConflict: "barber_id,service_id" }
+    );
+    if (result.error) {
+      notify(result.error.message, "error");
+      return;
+    }
+    notify("Duração individual actualizada.");
+    await refresh();
+  }
+
   return (
     <div className="grid two">
       <section className="panel">
@@ -359,6 +407,47 @@ function ServicesAdmin({ services, barbers, notify, refresh }: any) {
             <button className="btn small" onClick={() => setForm({ ...s, price: String(s.price) })}>Editar</button>
           </div>
         ))}
+
+        <h3 style={{ marginTop: 22 }}>Serviços por barbeiro</h3>
+        <select
+          className="field"
+          value={serviceBarberId}
+          onChange={(e) => setServiceBarberId(e.target.value)}
+          style={{ marginBottom: 10 }}
+        >
+          {barbers.map((b: any) => <option key={b.id} value={b.id}>{b.name}</option>)}
+        </select>
+        {services.map((s: any) => {
+          const link = barberServices.find(
+            (row: any) => row.barber_id === serviceBarberId && row.service_id === s.id
+          );
+          return (
+            <div className="row" key={"barber-" + s.id}>
+              <div className="rowMain">
+                <b>{s.name}</b>
+                <span>{link?.active ? "executa este serviço" : "não atribuído"} · duração própria opcional</span>
+              </div>
+              <div className="rowActions">
+                <input
+                  className="field"
+                  style={{ width: 92 }}
+                  type="number"
+                  min="5"
+                  placeholder={String(s.duration_minutes)}
+                  defaultValue={link?.duration_override_minutes || ""}
+                  disabled={!link?.active}
+                  onBlur={(e) => setDurationOverride(s.id, e.target.value)}
+                />
+                <button
+                  className={"btn small " + (link?.active ? "ok" : "")}
+                  onClick={() => toggleBarberService(s.id)}
+                >
+                  {link?.active ? "Activo" : "Atribuir"}
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </section>
     </div>
   );
