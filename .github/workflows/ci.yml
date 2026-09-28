@@ -64,9 +64,10 @@ jobs:
           node <<'NODE'
           const fs = require('fs');
           const html = fs.readFileSync('index.html','utf8');
-          const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]
-            .map(match => match[1])
-            .filter(Boolean);
+          const scripts = [...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)]
+            .filter(match => !/application\/ld\+json/i.test(match[1]) && !/\bsrc\s*=/i.test(match[1]))
+            .map(match => match[2])
+            .filter(code => code.trim());
           if (!scripts.length) throw new Error('No inline script found.');
           scripts.forEach((code, index) => {
             const file = `/tmp/pente-inline-${index}.js`;
