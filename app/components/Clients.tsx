@@ -184,6 +184,8 @@ export function ClientModal({
   const [notes, setNotes] = useState<any[]>([]);
   const [payments, setPayments] = useState<any[]>([]);
   const [note, setNote] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [edit, setEdit] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
@@ -209,6 +211,17 @@ export function ClientModal({
     ]);
     if (c.error) notify(c.error.message, "error");
     setClient(c.data || null);
+    if (c.data) {
+      setEdit({
+        name: c.data.name || "",
+        phone: c.data.phone || "",
+        email: c.data.email || "",
+        birth_date: c.data.birth_date || "",
+        instagram: c.data.instagram || "",
+        preferred_barber_id: c.data.preferred_barber_id || "",
+        marketing_consent: Boolean(c.data.marketing_consent),
+      });
+    }
     setHistory(h.data || []);
     setNotes(n.data || []);
     setPayments(p.data || []);
@@ -385,7 +398,11 @@ export function ClientModal({
             </a>
           ) : null}
           {client.instagram ? <span className="btn ghost">{client.instagram}</span> : null}
-          <button className="btn" onClick={() => setEditing(!editing)}>{editing ? "Fechar edição" : "Editar dados"}</button>
+          {isAdmin ? (
+            <button className="btn" onClick={() => setEditing(!editing)}>
+              {editing ? "Fechar edição" : "Editar dados"}
+            </button>
+          ) : null}
           {isAdmin ? <button className="btn" onClick={exportData}>Exportar RGPD</button> : null}
           {isAdmin ? <button className="btn danger" onClick={anonymize}>Anonimizar</button> : null}
           {isAdmin ? <button className="btn danger small" onClick={remove}>Eliminar</button> : null}
