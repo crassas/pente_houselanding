@@ -531,6 +531,8 @@ function CRM({ ctx }: { ctx: Context }) {
             services={services}
             schedules={schedules}
             businessHours={businessHours}
+            specialHours={specialHours}
+            barberServices={barberServices}
             notify={notify}
             refreshBase={loadBase}
             refreshCore={refreshCore}
