@@ -518,6 +518,8 @@ function CRM({ ctx }: { ctx: Context }) {
             barbers={barbers}
             onOpen={openClient}
             onNew={() => setQuick({ date: lisbonToday() })}
+            onChanged={loadClients}
+            notify={notify}
           />
         ) : null}
 
