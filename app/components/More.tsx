@@ -11,6 +11,8 @@ export function More({
   services,
   schedules,
   businessHours,
+  specialHours,
+  barberServices,
   notify,
   refreshBase,
   refreshCore,
@@ -50,6 +52,7 @@ export function More({
           barbers={barbers}
           schedules={schedules}
           businessHours={businessHours}
+          specialHours={specialHours}
           notify={notify}
           refresh={refreshBase}
         />
@@ -267,7 +270,8 @@ function ServicesAdmin({ services, barbers, barberServices, notify, refresh }: a
     price: "0",
     active: true,
   };
-  const [form, setForm] = useState<any>(blank);\n  const [serviceBarberId, setServiceBarberId] = useState(barbers[0]?.id || "");
+  const [form, setForm] = useState<any>(blank);
+  const [serviceBarberId, setServiceBarberId] = useState(barbers[0]?.id || "");
 
   async function save() {
     if (!form.name.trim()) {
@@ -603,7 +607,7 @@ function TeamAdmin({ barbers, notify, refresh }: any) {
   );
 }
 
-function HoursAdmin({ barbers, schedules, businessHours, notify, refresh }: any) {
+function HoursAdmin({ barbers, schedules, businessHours, specialHours, notify, refresh }: any) {
   const [hours, setHours] = useState<any[]>(businessHours.map((h: any) => ({ ...h })));
   const [barberId, setBarberId] = useState(barbers[0]?.id || "");
   const [holidayDate, setHolidayDate] = useState("");
@@ -680,6 +684,18 @@ function HoursAdmin({ barbers, schedules, businessHours, notify, refresh }: any)
     notify("Horário especial guardado.");
     setHolidayDate("");
     setHolidayReason("");
+    await refresh();
+  }
+
+  async function removeHoliday(id: string) {
+    if (!window.confirm("Remover este horário especial?")) return;
+    const result = await supabase.from("special_hours").delete().eq("id", id);
+    if (result.error) {
+      notify(result.error.message, "error");
+      return;
+    }
+    notify("Horário especial removido.");
+    await refresh();
   }
 
   const barberRows = schedules.filter((s: any) => s.barber_id === barberId);
@@ -746,6 +762,23 @@ function HoursAdmin({ barbers, schedules, businessHours, notify, refresh }: any)
           </label>
         </div>
         <button className="btn" style={{ marginTop: 10 }} onClick={addHoliday}>Guardar dia especial</button>
+
+        <div className="list" style={{ marginTop: 16 }}>
+          {(specialHours || []).map((h: any) => (
+            <div className="row" key={h.id}>
+              <div className="rowMain">
+                <b>{formatDate(h.date, true)}</b>
+                <span>
+                  {h.closed
+                    ? "Fechado"
+                    : timeShort(h.open_time) + "–" + timeShort(h.close_time)}
+                  {h.reason ? " · " + h.reason : ""}
+                </span>
+              </div>
+              <button className="btn danger small" onClick={() => removeHoliday(h.id)}>Remover</button>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="panel">
@@ -901,17 +934,30 @@ function Blocks({ ctx, isAdmin, barbers, notify, refresh }: any) {
 function Payments({ notify }: any) {
   const [rows, setRows] = useState<any[]>([]);
 
-  useEffect(() => {
-    supabase
+  const load = useCallback(async () => {
+    const result = await supabase
       .from("payments")
       .select("*, clients(name), appointments(appointment_date,start_time,barber_id)")
       .order("paid_at", { ascending: false })
-      .limit(150)
-      .then(({ data, error }) => {
-        if (error) notify(error.message, "error");
-        else setRows(data || []);
-      });
+      .limit(150);
+    if (result.error) notify(result.error.message, "error");
+    else setRows(result.data || []);
   }, [notify]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  async function refund(id: string) {
+    if (!window.confirm("Marcar este pagamento como reembolsado?")) return;
+    const result = await supabase.rpc("refund_payment", { p_payment_id: id });
+    if (result.error) {
+      notify(result.error.message, "error");
+      return;
+    }
+    notify("Pagamento reembolsado.");
+    await load();
+  }
 
   return (
     <section className="panel">
@@ -919,7 +965,7 @@ function Payments({ notify }: any) {
       <div className="tableWrap">
         <table className="table">
           <thead>
-            <tr><th>Data</th><th>Cliente</th><th>Valor</th><th>Método</th><th>Estado</th><th>Referência</th></tr>
+            <tr><th>Data</th><th>Cliente</th><th>Valor</th><th>Método</th><th>Estado</th><th>Referência</th><th></th></tr>
           </thead>
           <tbody>
             {rows.map((p) => (
@@ -930,6 +976,7 @@ function Payments({ notify }: any) {
                 <td>{p.method}</td>
                 <td>{p.status}</td>
                 <td>{p.reference || "—"}</td>
+                <td>{p.status === "completed" ? <button className="btn danger small" onClick={() => refund(p.id)}>Reembolsar</button> : null}</td>
               </tr>
             ))}
           </tbody>
