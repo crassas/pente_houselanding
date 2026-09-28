@@ -9,13 +9,71 @@ export function Clients({
   barbers,
   onOpen,
   onNew,
+  onChanged,
+  notify,
 }: {
   clients: any[];
   barbers: any[];
   onOpen: (id: string) => void;
   onNew: () => void;
+  onChanged: () => Promise<void>;
+  notify: (text: string, kind?: "ok" | "error") => void;
 }) {
   const [filter, setFilter] = useState("");
+  const [showCreate, setShowCreate] = useState(false);
+  const [newClient, setNewClient] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    instagram: "",
+    preferred_barber_id: "",
+    marketing_consent: false,
+  });
+
+  async function createClient() {
+    if (!newClient.name.trim() || !newClient.phone.trim()) {
+      notify("Nome e telefone são obrigatórios.", "error");
+      return;
+    }
+    const user = await supabase.auth.getUser();
+    const result = await supabase
+      .from("clients")
+      .insert({
+        name: newClient.name.trim(),
+        phone: newClient.phone.trim(),
+        email: newClient.email.trim() || null,
+        instagram: newClient.instagram.trim() || null,
+        preferred_barber_id: newClient.preferred_barber_id || null,
+        marketing_consent: newClient.marketing_consent,
+        marketing_consent_at: newClient.marketing_consent ? new Date().toISOString() : null,
+        created_by: user.data.user?.id || null,
+      })
+      .select("id")
+      .single();
+
+    if (result.error) {
+      notify(
+        result.error.message.includes("clients_store_phone_unique")
+          ? "Já existe um cliente com este número."
+          : result.error.message,
+        "error"
+      );
+      return;
+    }
+
+    notify("Cliente criado.");
+    setShowCreate(false);
+    setNewClient({
+      name: "",
+      phone: "",
+      email: "",
+      instagram: "",
+      preferred_barber_id: "",
+      marketing_consent: false,
+    });
+    await onChanged();
+    onOpen(result.data.id);
+  }
   const q = filter.toLowerCase().trim();
   const rows = clients.filter((c: any) => {
     if (!q) return true;
@@ -31,7 +89,10 @@ export function Clients({
           <h1>Clientes</h1>
           <p>{clients.length} visíveis para a tua conta</p>
         </div>
-        <button className="btn primary" onClick={onNew}>+ Marcação</button>
+        <div className="actions">
+          <button className="btn" onClick={() => setShowCreate(true)}>+ Cliente</button>
+          <button className="btn primary" onClick={onNew}>+ Marcação</button>
+        </div>
       </div>
 
       <div className="toolbar">
@@ -61,6 +122,49 @@ export function Clients({
         ))}
       </div>
       {!rows.length ? <div className="empty">Nenhum cliente encontrado.</div> : null}
+
+      {showCreate ? (
+        <div className="overlay" role="dialog" aria-modal="true">
+          <div className="modal">
+            <div className="modalHead">
+              <div><div className="tiny">Novo registo</div><h2>Novo cliente</h2></div>
+              <button className="close" onClick={() => setShowCreate(false)}>×</button>
+            </div>
+            <div className="formGrid">
+              <div className="full">
+                <label className="label">Nome</label>
+                <input className="field" value={newClient.name} onChange={(e) => setNewClient({ ...newClient, name: e.target.value })} autoFocus />
+              </div>
+              <div>
+                <label className="label">Telefone</label>
+                <input className="field" inputMode="tel" value={newClient.phone} onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })} />
+              </div>
+              <div>
+                <label className="label">Email</label>
+                <input className="field" type="email" value={newClient.email} onChange={(e) => setNewClient({ ...newClient, email: e.target.value })} />
+              </div>
+              <div>
+                <label className="label">Instagram</label>
+                <input className="field" value={newClient.instagram} onChange={(e) => setNewClient({ ...newClient, instagram: e.target.value })} />
+              </div>
+              <div>
+                <label className="label">Barbeiro preferido</label>
+                <select className="field" value={newClient.preferred_barber_id} onChange={(e) => setNewClient({ ...newClient, preferred_barber_id: e.target.value })}>
+                  <option value="">Sem preferência</option>
+                  {barbers.filter((b: any) => b.active).map((b: any) => <option key={b.id} value={b.id}>{b.name}</option>)}
+                </select>
+              </div>
+              <label className="tiny full">
+                <input type="checkbox" checked={newClient.marketing_consent} onChange={(e) => setNewClient({ ...newClient, marketing_consent: e.target.checked })} /> Consentimento para marketing
+              </label>
+            </div>
+            <div className="actions" style={{ justifyContent: "flex-end", marginTop: 14 }}>
+              <button className="btn" onClick={() => setShowCreate(false)}>Cancelar</button>
+              <button className="btn primary" onClick={createClient}>Criar cliente</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
