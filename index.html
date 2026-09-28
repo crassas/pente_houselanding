@@ -1374,19 +1374,19 @@ section{overflow-x:clip}
   position:fixed;inset:0;z-index:1450;display:none;place-items:center;padding:16px;
   background:rgba(3,5,7,.97);backdrop-filter:blur(12px)
 }
-.grenha-modal[open]{display:grid}
+.grenha-modal[open]{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);overflow:hidden}
 .grenha-modal{width:100%;height:100dvh;max-width:none;max-height:none;margin:0;border:0;border-radius:0}
-.grenha-modal-shell{width:min(520px,100%);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;gap:10px}
-.grenha-modal-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.grenha-modal-shell{width:100%;max-width:520px;min-width:0;height:100%;min-height:0;max-height:900px;justify-self:center;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:10px}
+.grenha-modal-top{min-width:0;display:flex;align-items:center;justify-content:space-between;gap:14px}
 .grenha-modal-top h2{margin:0;font:900 32px/.88 "Barlow Condensed",sans-serif}
 .grenha-modal-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .grenha-modal-tabs button{
-  min-height:35px;padding:6px 7px;border:1px solid rgba(255,255,255,.11);border-radius:7px;
-  background:#0d1013;color:#aeb2b7;font-size:6px;font-weight:900;letter-spacing:.08em;cursor:pointer
+  min-width:0;min-height:44px;padding:6px 7px;border:1px solid rgba(255,255,255,.11);border-radius:7px;
+  background:#0d1013;color:#aeb2b7;font-size:14px;font-weight:900;letter-spacing:.08em;cursor:pointer
 }
 .grenha-modal-tabs button.active{color:#fff;border-color:rgba(224,53,69,.62);box-shadow:inset 3px 0 0 #e03545}
 .grenha-modal-stage{
-  width:min(390px,86vw);height:min(690px,calc(100dvh - 150px));aspect-ratio:9/16;align-self:center;
+  width:100%;max-width:390px;min-width:0;height:100%;min-height:0;justify-self:center;
   border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:#050607;
   box-shadow:0 30px 70px rgba(0,0,0,.5)
 }
@@ -1418,12 +1418,8 @@ section{overflow-x:clip}
   .grenha-video-row{grid-template-columns:repeat(4,minmax(128px,1fr))}
   .grenha-video-card{min-height:82px}
   .grenha-modal{padding:10px}
-  .grenha-modal-shell{max-height:calc(100dvh - 20px)}
   .grenha-modal-top h2{font-size:28px}
-  .grenha-modal-tabs{display:flex;overflow-x:auto;gap:5px;scrollbar-width:none}
-  .grenha-modal-tabs::-webkit-scrollbar{display:none}
-  .grenha-modal-tabs button{flex:0 0 105px}
-  .grenha-modal-stage{width:min(300px,84vw);height:min(540px,calc(100dvh - 140px))}
+  .grenha-modal-tabs{gap:5px}
 }
 
 </style>
@@ -1541,14 +1537,13 @@ section{overflow-x:clip}
       <div>
         <p class="kicker">04 TRABALHOS</p>
         <h3>GRENHA</h3>
-        <p>Processo, resultado, transformação e design. Escolhe um e vê sem sair da Pente House.</p>
       </div>
     </div>
     <div class="grenha-video-row">
-      <button class="grenha-video-card" type="button" data-grenha-video="0" aria-label="Ver vídeo Processo do Grenha"><img src="/media/grenha/DPFGBodDJqU.jpg" alt="" loading="lazy" decoding="async"><b>01</b><strong>PROCESSO</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
-      <button class="grenha-video-card" type="button" data-grenha-video="1" aria-label="Ver vídeo Resultado do Grenha"><img src="/media/grenha/DPHpCGqiIrh.jpg" alt="" loading="lazy" decoding="async"><b>02</b><strong>RESULTADO</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
-      <button class="grenha-video-card" type="button" data-grenha-video="2" aria-label="Ver vídeo Transformação do Grenha"><img src="/media/grenha/DPUUDg1iFr8.jpg" alt="" loading="lazy" decoding="async"><b>03</b><strong>TRANSFORMAÇÃO</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
-      <button class="grenha-video-card" type="button" data-grenha-video="3" aria-label="Ver vídeo Design do Grenha"><img src="/media/grenha/DQklNBaiLWh.jpg" alt="" loading="lazy" decoding="async"><b>04</b><strong>DESIGN</strong><span class="grenha-play" aria-hidden="true">▶</span></button>
+      <button class="grenha-video-card" type="button" data-grenha-video="0" aria-label="Ver vídeo Processo do Grenha"><img src="/media/grenha/DPFGBodDJqU.jpg" alt="" loading="lazy" decoding="async"><b>01</b><span class="grenha-play" aria-hidden="true">▶</span></button>
+      <button class="grenha-video-card" type="button" data-grenha-video="1" aria-label="Ver vídeo Resultado do Grenha"><img src="/media/grenha/DPHpCGqiIrh.jpg" alt="" loading="lazy" decoding="async"><b>02</b><span class="grenha-play" aria-hidden="true">▶</span></button>
+      <button class="grenha-video-card" type="button" data-grenha-video="2" aria-label="Ver vídeo Transformação do Grenha"><img src="/media/grenha/DPUUDg1iFr8.jpg" alt="" loading="lazy" decoding="async"><b>03</b><span class="grenha-play" aria-hidden="true">▶</span></button>
+      <button class="grenha-video-card" type="button" data-grenha-video="3" aria-label="Ver vídeo Design do Grenha"><img src="/media/grenha/DQklNBaiLWh.jpg" alt="" loading="lazy" decoding="async"><b>04</b><span class="grenha-play" aria-hidden="true">▶</span></button>
     </div>
   </div>
   <!-- Waya stays hidden until his uploaded videos are available. -->
@@ -1589,10 +1584,10 @@ section{overflow-x:clip}
       <button class="video-close" id="closeGrenhaVideos" type="button" aria-label="Fechar vídeos do Grenha">×</button>
     </div>
     <div class="grenha-modal-tabs" aria-label="Escolher vídeo do Grenha">
-      <button type="button" data-grenha-switch="0">01 · PROCESSO</button>
-      <button type="button" data-grenha-switch="1">02 · RESULTADO</button>
-      <button type="button" data-grenha-switch="2">03 · TRANSFORMAÇÃO</button>
-      <button type="button" data-grenha-switch="3">04 · DESIGN</button>
+      <button type="button" data-grenha-switch="0" aria-label="Vídeo 01 do Grenha">01</button>
+      <button type="button" data-grenha-switch="1" aria-label="Vídeo 02 do Grenha">02</button>
+      <button type="button" data-grenha-switch="2" aria-label="Vídeo 03 do Grenha">03</button>
+      <button type="button" data-grenha-switch="3" aria-label="Vídeo 04 do Grenha">04</button>
     </div>
     <div class="grenha-modal-stage" id="grenhaStage"><div class="grenha-modal-empty">ESCOLHE UM VÍDEO</div></div>
   </div>
