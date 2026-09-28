@@ -30,6 +30,7 @@ export function Agenda({
   barbers,
   schedules,
   businessHours,
+  specialHours,
   appointments,
   blocks,
   onEmpty,
@@ -96,6 +97,7 @@ export function Agenda({
           barbers={visibleBarbers}
           schedules={schedules}
           businessHours={businessHours}
+          specialHours={specialHours}
           appointments={appointments.filter((a: any) => a.appointment_date === actualDate)}
           blocks={blocks}
           onEmpty={onEmpty}
@@ -110,8 +112,11 @@ function DayAgenda({ date, barbers, schedules, businessHours, specialHours, appo
   if (!barbers.length) return <div className="empty">Sem barbeiros activos.</div>;
   const day = isoDow(date);
   const shop = businessHours.find((h: any) => Number(h.weekday) === day);
+  const special = specialHours?.find((h: any) => h.date === date);
 
-  if (shop?.closed || day === 7) return <div className="empty">A Pentehouse está fechada neste dia.</div>;
+  if (special?.closed || (!special && (shop?.closed || day === 7))) {
+    return <div className="empty">A Pentehouse está fechada neste dia.</div>;
+  }
 
   return (
     <div className="agendaColumns" style={barbers.length === 1 ? { gridTemplateColumns: "minmax(0, 600px)" } : undefined}>
@@ -122,7 +127,11 @@ function DayAgenda({ date, barbers, schedules, businessHours, specialHours, appo
           const end = timeShort(row.end_time);
           let t = timeShort(row.start_time);
           while (t < end) {
-            slots.push(t);
+            const withinSpecial =
+              !special ||
+              ((!special.open_time || t >= timeShort(special.open_time)) &&
+                (!special.close_time || t < timeShort(special.close_time)));
+            if (withinSpecial) slots.push(t);
             t = addMinutes(t, 15);
           }
         });
@@ -223,6 +232,7 @@ export function QuickBooking({
   barberServices,
   schedules,
   businessHours,
+  specialHours,
   onClose,
   onDone,
   notify,
@@ -290,11 +300,18 @@ export function QuickBooking({
         timeShort(s.end_time) >= addMinutes(time, duration)
     );
     const shop = businessHours.find((h: any) => Number(h.weekday) === day);
-    if (shop?.closed || !scheduleOK) {
+    const special = specialHours?.find((h: any) => h.date === date);
+    const specialOK =
+      !special ||
+      (!special.closed &&
+        (!special.open_time || time >= timeShort(special.open_time)) &&
+        (!special.close_time || addMinutes(time, duration) <= timeShort(special.close_time)));
+
+    if ((special?.closed || (!special && shop?.closed)) || !scheduleOK || !specialOK) {
       notify("Este horário fica fora do horário disponível.", "error");
       return;
     }
-    if (shop?.last_booking_time && time > timeShort(shop.last_booking_time)) {
+    if (!special && shop?.last_booking_time && time > timeShort(shop.last_booking_time)) {
       notify("A hora escolhida ultrapassa o limite normal de reserva.", "error");
       return;
     }
@@ -433,6 +450,7 @@ export function AppointmentModal({
   const [date, setDate] = useState(appointment.appointment_date);
   const [time, setTime] = useState(timeShort(appointment.start_time));
   const [status, setStatus] = useState(appointment.status);
+  const [notes, setNotes] = useState(appointment.notes || "");
   const [busy, setBusy] = useState(false);
   const [payAmount, setPayAmount] = useState(String(appointment.price || ""));
   const [payMethod, setPayMethod] = useState("cash");
@@ -457,6 +475,7 @@ export function AppointmentModal({
         end_time: addMinutes(time, duration),
         status: nextStatus,
         price,
+        notes: notes.trim() || null,
       })
       .eq("id", appointment.id);
     setBusy(false);
@@ -536,6 +555,15 @@ export function AppointmentModal({
             </select>
           </div>
           <div className="full hint">{duration + " min · " + money(price) + " · termina às " + addMinutes(time, duration)}</div>
+          <div className="full">
+            <label className="label">Notas da marcação</label>
+            <textarea
+              className="field"
+              placeholder="Nota interna opcional"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="actions" style={{ marginTop: 14 }}>
