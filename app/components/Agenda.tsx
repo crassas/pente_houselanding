@@ -106,7 +106,7 @@ export function Agenda({
   );
 }
 
-function DayAgenda({ date, barbers, schedules, businessHours, appointments, blocks, onEmpty, onAppointment }: any) {
+function DayAgenda({ date, barbers, schedules, businessHours, specialHours, appointments, blocks, onEmpty, onAppointment }: any) {
   if (!barbers.length) return <div className="empty">Sem barbeiros activos.</div>;
   const day = isoDow(date);
   const shop = businessHours.find((h: any) => Number(h.weekday) === day);
