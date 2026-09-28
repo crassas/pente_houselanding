@@ -236,7 +236,7 @@ function CRM({ ctx }: { ctx: Context }) {
   const [services, setServices] = useState<any[]>([]);
   const [barberServices, setBarberServices] = useState<any[]>([]);
   const [schedules, setSchedules] = useState<any[]>([]);
-  const [businessHours, setBusinessHours] = useState<any[]>([]);
+  const [businessHours, setBusinessHours] = useState<any[]>([]);\n  const [specialHours, setSpecialHours] = useState<any[]>([]);
   const [appointments, setAppointments] = useState<any[]>([]);
   const [blocks, setBlocks] = useState<any[]>([]);
   const [dashboard, setDashboard] = useState<any>(null);
@@ -262,7 +262,7 @@ function CRM({ ctx }: { ctx: Context }) {
   const loadBase = useCallback(async () => {
     setBaseLoading(true);
 
-    const [b, s, bs, sc, bh] = await Promise.all([
+    const [b, s, bs, sc, bh, sh] = await Promise.all([
       supabase.from("barbers").select("*").order("sort_order"),
       supabase.from("services").select("*").order("sort_order"),
       supabase.from("barber_services").select("*"),
@@ -275,14 +275,14 @@ function CRM({ ctx }: { ctx: Context }) {
       supabase.from("business_hours").select("*").order("weekday"),
     ]);
 
-    const firstError = [b.error, s.error, bs.error, sc.error, bh.error].find(Boolean);
+    const firstError = [b.error, s.error, bs.error, sc.error, bh.error, sh.error].find(Boolean);
     if (firstError) notify(firstError.message, "error");
 
     setBarbers((b.data || []).filter((row: any) => row.active || isAdmin));
     setServices(s.data || []);
     setBarberServices(bs.data || []);
     setSchedules(sc.data || []);
-    setBusinessHours(bh.data || []);
+    setBusinessHours(bh.data || []);\n    setSpecialHours(sh.data || []);
     setBaseLoading(false);
   }, [isAdmin, notify]);
 
