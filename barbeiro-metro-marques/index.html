@@ -37,12 +37,20 @@
         "addressLocality":"Porto",
         "addressCountry":"PT"
       },
-      "openingHoursSpecification":{
-        "@type":"OpeningHoursSpecification",
-        "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-        "opens":"10:00",
-        "closes":"20:00"
-      },
+      "openingHoursSpecification":[
+        {
+          "@type":"OpeningHoursSpecification",
+          "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens":"10:00",
+          "closes":"20:00"
+        },
+        {
+          "@type":"OpeningHoursSpecification",
+          "dayOfWeek":["Saturday"],
+          "opens":"10:00",
+          "closes":"18:00"
+        }
+      ],
       "areaServed":{"@type":"Place","name":"Marquês, Porto"},
       "hasMap":"https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk",
       "identifier":{"@type":"PropertyValue","propertyID":"Google Place ID","value":"ChIJgdPqtldlJA0RcfObBuHD4rk"},
