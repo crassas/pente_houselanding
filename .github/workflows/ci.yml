@@ -46,9 +46,16 @@ jobs:
           grep -q "AQUI POMOS TUDO NA LINHA" index.html
           grep -q "GRENHA" index.html
           grep -q "RESERVAR O MEU CORTE" index.html
-          grep -q "PRÓXIMOS HORÁRIOS LIVRES" index.html
-          grep -q "QUALQUER BARBEIRO DISPONÍVEL" index.html
-          grep -q "PENTE_AVAILABILITY_API" index.html
+          grep -q "PEDIR DISPONIBILIDADE" index.html
+          grep -q "confirmamos se existe disponibilidade" index.html
+          if grep -q "PRÓXIMOS HORÁRIOS LIVRES" index.html; then
+            echo "Live availability UI must remain disabled during the initial booking phase."
+            exit 1
+          fi
+          if grep -q "PENTE_AVAILABILITY_API" index.html; then
+            echo "Live availability API must remain disabled during the initial booking phase."
+            exit 1
+          fi
           if grep -q "arcade-ticker" index.html; then
             echo "Old ticker arcade treatment still present."
             exit 1
