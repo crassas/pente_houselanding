@@ -1,18 +1,6 @@
 -- Pentehouse online booking MVP
 -- Additive migration: reuses clients, appointments, payments, services and barbers.
 
-alter type public.app_role add value if not exists 'technical_admin';
-
-create or replace function public.is_technical_admin()
-returns boolean
-language sql
-stable
-security definer
-set search_path = public
-as $$
-  select public.has_role(auth.uid(), 'technical_admin')
-$$;
-
 create table if not exists public.push_subscriptions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.profiles(id) on delete cascade,
@@ -575,9 +563,7 @@ revoke all on function public.online_service_name(text) from public;
 revoke all on function public.online_booking_availability(text, integer, integer) from public;
 revoke all on function public.create_online_booking(text, text, text, text, date, time) from public;
 revoke all on function public.confirm_online_deposit(uuid, text) from public;
-revoke all on function public.is_technical_admin() from public;
 
 grant execute on function public.online_booking_availability(text, integer, integer) to anon, authenticated, service_role;
 grant execute on function public.create_online_booking(text, text, text, text, date, time) to anon, authenticated, service_role;
 grant execute on function public.confirm_online_deposit(uuid, text) to authenticated, service_role;
-grant execute on function public.is_technical_admin() to authenticated, service_role;
