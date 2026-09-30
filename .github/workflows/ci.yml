@@ -39,6 +39,8 @@ jobs:
           grep -q "Seg–Sex 10–20" index.html
           grep -q "MAIS PEDIDO" index.html
           grep -q "PEDIR RESERVA NO WHATSAPP" index.html
+          grep -q "Pagar o valor total agora" index.html
+          grep -q "Quero pagar os " index.html
           grep -q "pentehouse-interior.webp" index.html
           grep -q "pentehouse-interior-720.webp" index.html
           grep -q 'aria-expanded="false"' index.html
