@@ -452,8 +452,26 @@ export function AppointmentModal({
   const [status, setStatus] = useState(appointment.status);
   const [notes, setNotes] = useState(appointment.notes || "");
   const [busy, setBusy] = useState(false);
+  const [paidTotal, setPaidTotal] = useState(0);
   const [payAmount, setPayAmount] = useState(String(appointment.price || ""));
   const [payMethod, setPayMethod] = useState("cash");
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const result = await supabase
+        .from("payments")
+        .select("amount,status")
+        .eq("appointment_id", appointment.id);
+      if (cancelled || result.error) return;
+      const total = (result.data || [])
+        .filter((p: any) => p.status === "completed")
+        .reduce((sum: number, p: any) => sum + Number(p.amount || 0), 0);
+      setPaidTotal(total);
+      setPayAmount(String(Math.max(Number(appointment.price || 0) - total, 0).toFixed(2)));
+    })();
+    return () => { cancelled = true; };
+  }, [appointment.id, appointment.price]);
 
   const links = barberServices.filter((x: any) => x.barber_id === barberId && x.active);
   const ids = new Set(links.map((x: any) => x.service_id));
@@ -490,6 +508,22 @@ export function AppointmentModal({
     return true;
   }
 
+  async function confirmOnlineDeposit() {
+    setBusy(true);
+    const result = await supabase.rpc("confirm_online_deposit", {
+      p_appointment_id: appointment.id,
+      p_reference: null,
+    });
+    setBusy(false);
+    if (result.error) {
+      notify(result.error.message, "error");
+      return false;
+    }
+    notify("Sinal validado. Reserva confirmada.");
+    await onChanged(true);
+    return true;
+  }
+
   async function pay() {
     const amount = Number(payAmount.replace(",", "."));
     if (!Number.isFinite(amount) || amount <= 0) {
@@ -512,13 +546,14 @@ export function AppointmentModal({
     await onChanged(true);
   }
 
+  const isOnlinePending = appointment.source === "online" && status === "pending";
   const statusActions = [
     ["confirmed", "Confirmar"],
     ["arrived", "Chegou"],
     ["in_progress", "Iniciar"],
-    ["completed", "Concluir"],
+    ["completed", "Terminar serviço · " + money(price)],
     ["no_show", "Falta"],
-    ["cancelled", "Cancelar"],
+    ["cancelled", "Recusar"],
   ];
 
   return (
@@ -536,6 +571,7 @@ export function AppointmentModal({
           <span className={"badge " + (status === "completed" ? "ok" : status === "no_show" || status === "cancelled" ? "danger" : "warn")}>
             {STATUS[status] || status}
           </span>
+          {appointment.source === "online" ? <span className="badge">ONLINE</span> : null}
           {appointment.clients?.id ? <button className="btn small" onClick={() => onClient(appointment.clients.id)}>Abrir cliente</button> : null}
         </div>
 
@@ -573,16 +609,26 @@ export function AppointmentModal({
               key={id}
               className={"btn small " + (id === "completed" ? "ok" : id === "cancelled" || id === "no_show" ? "danger" : "")}
               disabled={busy || status === id}
-              onClick={() => save(id, id !== "completed")}
+              onClick={() => id === "confirmed" && isOnlinePending ? confirmOnlineDeposit() : save(id, id !== "completed")}
             >
               {label}
             </button>
           ))}
         </div>
 
+        {isOnlinePending ? (
+          <section className="panel" style={{ marginTop: 16 }}>
+            <h3>Sinal da reserva online</h3>
+            <p className="tiny">
+              Preço {money(price)} · sinal esperado {money(price * 0.5)}. Usa “Confirmar” apenas depois de validares o sinal.
+            </p>
+          </section>
+        ) : null}
+
         {status === "completed" && appointment.payment_status !== "paid" ? (
           <section className="panel" style={{ marginTop: 16 }}>
             <h3>Registar pagamento</h3>
+            {paidTotal > 0 ? <p className="tiny">Já recebido: {money(paidTotal)} · restante: {money(Math.max(price - paidTotal, 0))}</p> : null}
             <div className="formGrid">
               <div><label className="label">Valor</label><input className="field" inputMode="decimal" value={payAmount} onChange={(e) => setPayAmount(e.target.value)} /></div>
               <div>
