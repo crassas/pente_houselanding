@@ -1673,7 +1673,7 @@ section{overflow-x:clip}
       <p id="availabilityStatus">Escolhe primeiro um serviço para consultar a agenda.</p>
     </div>
     <div class="availability-slots" id="availabilitySlots"></div>
-    <small>Os horários são lidos da agenda da Pente House. A vaga fica confirmada depois da validação final no WhatsApp.</small>
+    <small>Os horários são lidos da agenda da Pente House. A vaga só fica confirmada depois da validação do sinal de 50%.</small>
   </div>
   <div class="any-barber-choice shell reveal">
     <div><p class="kicker">SEM PREFERÊNCIA?</p><strong>QUALQUER BARBEIRO DISPONÍVEL</strong><span>Escolhemos a primeira vaga livre da equipa.</span></div>
@@ -1814,13 +1814,13 @@ section{overflow-x:clip}
       </select>
     </label>
     <div class="booking-time-grid">
-      <label>Data preferida<input id="bookingDate" type="date" autocomplete="off"></label>
-      <label>Hora preferida<select id="bookingTime"><option value="">Sem preferência de hora</option></select></label>
+      <label>Data<input id="bookingDate" type="date" autocomplete="off" required></label>
+      <label>Hora<select id="bookingTime" required><option value="">Escolher hora</option></select></label>
     </div>
-    <p class="booking-time-note">Se escolheste uma vaga da agenda, a data e a hora ficam preenchidas automaticamente. Caso contrário, podes indicar uma preferência.</p>
+    <p class="booking-time-note">Se escolheste uma vaga da agenda, a data e a hora ficam preenchidas automaticamente. A reserva online exige uma hora concreta.</p>
     <label class="terms-check"><input id="bookingTerms" type="checkbox" required><span>Li e aceito as condições do sinal, cancelamento e reagendamento indicadas acima.</span></label>
-    <button class="btn red" id="payBtn" type="button">PEDIR RESERVA NO WHATSAPP <span>›</span></button>
-    <small id="paymentNote">Reserva online: o barbeiro confirma o horário e indica os dados MB WAY para o sinal de 50%. Se vieres directamente à barbearia, podes pagar em dinheiro ou MB WAY. Se quiseres deixar marcada outra hora ou outro dia, podes deixar 50% do sinal em dinheiro na própria barbearia e pagar o restante no atendimento.</small>
+    <button class="btn red" id="payBtn" type="button">CRIAR RESERVA ONLINE <span>›</span></button>
+    <small id="paymentNote">A reserva entra na agenda como pendente. Só passa a confirmada depois de o sinal de 50% ser validado. Os restantes 50% são pagos no atendimento.</small>
   </section>
 </div>
 
@@ -2072,7 +2072,7 @@ const barberContacts={
   "Grenha":"+351 919 779 208",
   "Bruno Waya":"+351 916 605 673"
 };
-const PENTE_AVAILABILITY_API="https://pentehouse-app-qqaasaurha-nw.a.run.app/api/public/availability";
+const PENTE_AVAILABILITY_API="/api/availability";
 let selectedServiceId="";
 let liveAvailabilitySlots=[];
 
@@ -2104,7 +2104,7 @@ function setBookingDateBounds(){
 }
 function populateBookingTimes(){
   const current=bookingTime.value;
-  bookingTime.innerHTML='<option value="">Sem preferência de hora</option>';
+  bookingTime.innerHTML='<option value="">Escolher hora</option>';
   if(!bookingDate.value)return;
   const day=new Date(bookingDate.value+"T12:00:00").getDay();
   if(day===0)return;
@@ -2164,7 +2164,7 @@ function renderAvailabilitySlots(slots){
   availabilitySlots.replaceChildren();
   liveAvailabilitySlots=slots;
   if(!slots.length){
-    availabilityStatus.textContent="Não encontrei vagas livres nos próximos dias. Podes continuar pelo WhatsApp.";
+    availabilityStatus.textContent="Não encontrei vagas livres nos próximos dias.";
     return;
   }
   availabilityStatus.textContent="Horários livres neste momento · toca numa vaga para a preparar.";
@@ -2196,7 +2196,7 @@ async function refreshLiveAvailability(){
   }catch{
     liveAvailabilitySlots=[];
     availabilitySlots.replaceChildren();
-    availabilityStatus.textContent="Não foi possível confirmar a agenda agora. Podes continuar a reserva pelo WhatsApp.";
+    availabilityStatus.textContent="Não foi possível confirmar a agenda agora. Tenta novamente dentro de momentos.";
   }finally{
     availabilityPanel.classList.remove("is-loading");
   }
@@ -2288,7 +2288,7 @@ function markBookingError(el){
   el.addEventListener("change",()=>el.classList.remove("field-error"));
 });
 
-payBtn.addEventListener("click",()=>{
+payBtn.addEventListener("click",async()=>{
   const barber=bookingBarber.value;
   const name=bookingName.value.trim();
   const phone=bookingPhone.value.trim();
@@ -2299,34 +2299,47 @@ payBtn.addEventListener("click",()=>{
   if(!barber){markBookingError(bookingBarber);return}
   if(!name){markBookingError(bookingName);return}
   if(!phone){markBookingError(bookingPhone);return}
-  if(!service){markBookingError(bookingService);return}
+  if(!service||!selectedServiceId){markBookingError(bookingService);return}
+  if(!preferredDate){markBookingError(bookingDate);return}
+  if(!preferredTime){markBookingError(bookingTime);return}
   if(!bookingTerms.checked){markBookingError(bookingTerms);return}
+  if(bookingDialog.dataset.bookingId)return;
 
-  const barberPhone=(barberContacts[barber]||"").replace(/\D/g,"");
-  if(!barberPhone)return;
-
-  const message=[
-    "Olá "+barber+", quero marcar na Pente House.",
-    "",
-    "Nome: "+name,
-    "Telemóvel: "+phone,
-    "Serviço: "+service,
-    ...(preferredDate?["Data preferida: "+preferredDate]:[]),
-    ...(preferredTime?["Hora preferida: "+preferredTime]:[]),
-    "",
-    "Quero confirmar a vaga e fazer o sinal de 50% por MB WAY.",
-    "Li e aceito a política indicada no site: nas marcações de tarde, cancelamento/reagendamento até 6h antes; nas marcações de manhã, aviso até às 20h00 do dia anterior. Depois desse prazo ou em caso de falta, o sinal não é devolvido."
-  ].join("\n");
-
-  const url="https://wa.me/"+barberPhone+"?text="+encodeURIComponent(message);
-  payBtn.disabled=true;
   const previousLabel=payBtn.innerHTML;
-  payBtn.innerHTML='A ABRIR WHATSAPP <span>›</span>';
-  setTimeout(()=>{
+  payBtn.disabled=true;
+  payBtn.innerHTML='A VALIDAR A VAGA <span>›</span>';
+  paymentNote.textContent="A validar serviço, barbeiro, horário e disponibilidade…";
+
+  try{
+    const response=await fetch("/api/book",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({
+        name,
+        phone,
+        serviceId:selectedServiceId,
+        barber,
+        date:preferredDate,
+        time:preferredTime
+      })
+    });
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||"Não foi possível criar a reserva.");
+
+    bookingDialog.dataset.bookingId=data.bookingId||"created";
+    const deposit=Number(data.depositAmount||0).toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
+    const price=Number(data.price||0).toLocaleString("pt-PT",{style:"currency",currency:"EUR"});
+    paymentNote.textContent="Pedido criado para "+data.barberName+" · "+data.date+" às "+data.time+
+      ". Preço: "+price+". Sinal necessário: "+deposit+
+      ". A reserva está pendente até o sinal ser validado; este passo ainda não cobrou qualquer valor.";
+    payBtn.innerHTML='RESERVA PENDENTE <span>✓</span>';
+    void refreshLiveAvailability();
+  }catch(error){
+    paymentNote.textContent=error.message||"Não foi possível criar a reserva. Confirma os dados e tenta novamente.";
     payBtn.disabled=false;
     payBtn.innerHTML=previousLabel;
-  },1800);
-  window.location.href=url;
+    void refreshLiveAvailability();
+  }
 });
 
 function closeBooking(){
