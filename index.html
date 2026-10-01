@@ -74,7 +74,7 @@
   ],
   "priceRange":"€€",
   "currenciesAccepted":"EUR",
-  "paymentAccepted":"Cash, MB WAY",
+  "paymentAccepted":"Cash, MB WAY, Bank transfer",
   "areaServed":[
     {"@type":"Place","name":"Marquês, Porto"},
     {"@type":"Place","name":"Porto"},
@@ -1661,7 +1661,7 @@ section{overflow-x:clip}
 
 <section class="booking" id="marcar">
   <div class="booking-head shell reveal">
-    <div><p class="kicker">MARCAR HORÁRIO · 03</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido é enviado pelo WhatsApp e, depois de receber a mensagem, a Pentehouse confirma se existe disponibilidade.</p><p class="selected-service-line" id="selectedServiceLine">ESCOLHE PRIMEIRO UM SERVIÇO</p><div class="booking-trust"><a href="https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer" aria-label="Ver avaliações da Pente House no Google"><b>★★★★★ 5,0</b><span>20 avaliações no Google ↗</span></a><span>MARQUÊS · DESDE 2018</span></div><p class="booking-policy-inline"><b>SEM RESERVA:</b> podes aparecer e pagar em dinheiro ou MB WAY, sujeito a vaga. <b>COM RESERVA:</b> 50% de sinal. Marcações de tarde: cancelamento/reagendamento até 6h antes; marcações de manhã: aviso até às 20h00 do dia anterior.</p></div>
+    <div><p class="kicker">MARCAR HORÁRIO · 03</p><h2 class="title">ESCOLHE O TEU BARBEIRO</h2><p class="booking-direct">Escolhe o serviço e o barbeiro. O pedido é enviado pelo WhatsApp e, depois de receber a mensagem, a Pentehouse confirma se existe disponibilidade.</p><p class="selected-service-line" id="selectedServiceLine">ESCOLHE PRIMEIRO UM SERVIÇO</p><div class="booking-trust"><a href="https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer" aria-label="Ver avaliações da Pente House no Google"><b>★★★★★ 5,0</b><span>20 avaliações no Google ↗</span></a><span>MARQUÊS · DESDE 2018</span></div><p class="booking-policy-inline"><b>SEM RESERVA:</b> podes aparecer e pagar em dinheiro ou MB WAY, sujeito a vaga. <b>COM RESERVA:</b> 50% de sinal ou 100% do serviço. Marcações de tarde: cancelamento/reagendamento até 6h antes; marcações de manhã: aviso até às 20h00 do dia anterior.</p></div>
     <div class="payment-rule">
       <div><span class="pi">▣</span><span>PEDIDO POR WHATSAPP<br><b>CONFIRMAÇÃO DE DISPONIBILIDADE</b></span></div><i></i>
       <div><span class="pi">▰</span><span>NA BARBEARIA<br><b>DINHEIRO OU MB WAY</b></span></div>
@@ -1727,7 +1727,7 @@ section{overflow-x:clip}
       <a class="faq-link-card" href="/perguntas/#marcacoes-pagamentos" aria-label="Ver respostas sobre marcações e pagamentos">
         <span>02</span>
         <strong>MARCAÇÕES E PAGAMENTOS</strong>
-        <p>Sinal, MB WAY, dinheiro, cancelamentos e reagendamentos.</p>
+        <p>Sinal, MB WAY, transferência bancária, dinheiro, cancelamentos e reagendamentos.</p>
       </a>
       <a class="faq-link-card" href="/perguntas/#nome-pentehouse" aria-label="Ver resposta sobre Pentehouse e Pente House">
         <span>03</span>
@@ -1819,7 +1819,7 @@ section{overflow-x:clip}
     <p class="booking-time-note">Indica a data e a hora que preferes. Depois de receber a mensagem no WhatsApp, a Pentehouse confirma se existe disponibilidade.</p>
     <label class="terms-check"><input id="bookingTerms" type="checkbox" required><span>Li e aceito as condições de reserva e cancelamento.</span></label>
     <button class="btn red" id="payBtn" type="button">PEDIR RESERVA NO WHATSAPP <span>›</span></button>
-    <small id="paymentNote">Só pagas depois da confirmação da vaga por WhatsApp. Reserva por MB WAY. No local: dinheiro ou MB WAY.</small>
+    <small id="paymentNote">Só pagas depois da confirmação da vaga por WhatsApp. Reserva por MB WAY ou transferência bancária. No local: dinheiro ou MB WAY.</small>
   </section>
 </div>
 
@@ -2286,7 +2286,7 @@ payBtn.addEventListener("click",()=>{
     "Pagamento escolhido: "+(paymentMode==="full"?"valor total":"50% de sinal"),
     "",
     paymentPreference,
-    "Quando receberem esta mensagem, confirmem por favor se existe disponibilidade para a data e hora que indiquei. Se houver vaga, indiquem-me os dados MB WAY para fazer o pagamento.",
+    "Quando receberem esta mensagem, confirmem por favor se existe disponibilidade para a data e hora que indiquei. Se houver vaga, indiquem-me os dados para pagar por MB WAY ou transferência bancária.",
     "Li e aceito a política indicada no site: nas marcações de tarde, cancelamento/reagendamento até 6h antes; nas marcações de manhã, aviso até às 20h00 do dia anterior. Depois desse prazo ou em caso de falta, o sinal não é devolvido."
   ].join("\n");
 
