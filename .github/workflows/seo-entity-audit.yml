@@ -1,0 +1,20 @@
+name: Pentehouse SEO Entity Audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  entity-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate canonical local entity
+        run: node scripts/seo-entity-audit.mjs
