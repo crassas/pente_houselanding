@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "node scripts/seo-entity-audit.mjs && vite build",
+    "preview": "vite preview",
+    "seo:audit": "node scripts/seo-entity-audit.mjs"
   },
   "dependencies": {
     "gsap": "^3.12.7"
