@@ -1779,7 +1779,7 @@ section{overflow-x:clip}
     <button class="close" data-close="booking" type="button" aria-label="Fechar reserva">×</button>
     <p class="kicker">MARCAR HORÁRIO</p><h2 id="bookingTitle">RESERVA O TEU CORTE</h2>
     <p>Barbeiro: <b id="selectedBarber">Escolher</b><br><a id="selectedPhone" class="selected-phone" href="#" hidden></a></p>
-    <div class="signal"><span style="font-size:26px">▰</span><div><b>ESCOLHE COMO QUERES PAGAR</b><span>Podes pagar 50% de sinal ou o valor total, depois da confirmação de disponibilidade pelo WhatsApp.</span></div></div>
+    <div class="signal"><span style="font-size:26px">▰</span><div><b>PAGAMENTO DA RESERVA</b><span>Depois de confirmarmos a vaga: 50% de sinal ou 100% do serviço.</span></div></div>
     <div class="booking-policy-box"><b>Cancelamento e reagendamento</b><br>Marcações de tarde: até 6 horas antes. Marcações de manhã: até às 20h00 do dia anterior. Depois desse prazo, ou em caso de falta, o sinal de 50% não é devolvido. Sem reserva, o atendimento depende da vaga disponível.</div>
     <label>Barbeiro
       <select id="bookingBarber" required>
@@ -1807,19 +1807,19 @@ section{overflow-x:clip}
     </label>
     <label>Pagamento
       <select id="bookingPayment" required>
-        <option value="deposit">Pagar 50% de sinal</option>
-        <option value="full">Pagar o valor total agora</option>
+        <option value="deposit">50% de sinal</option>
+        <option value="full">100% do serviço</option>
       </select>
     </label>
-    <p class="booking-time-note" id="paymentChoiceHelp">Escolhe o serviço para veres o valor do sinal e do pagamento total.</p>
+    <p class="booking-time-note" id="paymentChoiceHelp">Escolhe o serviço para veres os valores.</p>
     <div class="booking-time-grid">
       <label>Data preferida<input id="bookingDate" type="date" autocomplete="off"></label>
       <label>Hora preferida<select id="bookingTime"><option value="">Sem preferência de hora</option></select></label>
     </div>
     <p class="booking-time-note">Indica a data e a hora que preferes. Depois de receber a mensagem no WhatsApp, a Pentehouse confirma se existe disponibilidade.</p>
-    <label class="terms-check"><input id="bookingTerms" type="checkbox" required><span>Li e aceito as condições do sinal, cancelamento e reagendamento indicadas acima.</span></label>
+    <label class="terms-check"><input id="bookingTerms" type="checkbox" required><span>Li e aceito as condições de reserva e cancelamento.</span></label>
     <button class="btn red" id="payBtn" type="button">PEDIR RESERVA NO WHATSAPP <span>›</span></button>
-    <small id="paymentNote">O pedido é enviado por WhatsApp. Depois de receber a mensagem, a Pentehouse confirma se existe disponibilidade. Se houver vaga, podes pagar 50% de sinal ou o valor total por MB WAY, conforme a opção escolhida. Se vieres directamente à barbearia, podes pagar em dinheiro ou MB WAY.</small>
+    <small id="paymentNote">Só pagas depois da confirmação da vaga por WhatsApp. Reserva por MB WAY. No local: dinheiro ou MB WAY.</small>
   </section>
 </div>
 
@@ -2131,17 +2131,17 @@ function updatePaymentChoice(){
   const depositOption=bookingPayment.querySelector('option[value="deposit"]');
   const fullOption=bookingPayment.querySelector('option[value="full"]');
   if(!total){
-    depositOption.textContent="Pagar 50% de sinal";
-    fullOption.textContent="Pagar o valor total agora";
-    paymentChoiceHelp.textContent="Escolhe o serviço para veres o valor do sinal e do pagamento total.";
+    depositOption.textContent="50% de sinal";
+    fullOption.textContent="100% do serviço";
+    paymentChoiceHelp.textContent="Escolhe o serviço para veres os valores.";
     return;
   }
   const deposit=total/2;
-  depositOption.textContent="Pagar 50% de sinal — "+formatPaymentAmount(deposit);
-  fullOption.textContent="Pagar o valor total agora — "+formatPaymentAmount(total);
+  depositOption.textContent="50% de sinal — "+formatPaymentAmount(deposit);
+  fullOption.textContent="100% do serviço — "+formatPaymentAmount(total);
   paymentChoiceHelp.textContent=bookingPayment.value==="full"
-    ?"Pagamento total escolhido: "+formatPaymentAmount(total)+"."
-    :"Sinal de 50% escolhido: "+formatPaymentAmount(deposit)+".";
+    ?"A pagar: "+formatPaymentAmount(total)
+    :"Sinal: "+formatPaymentAmount(deposit)+" · Restante no atendimento: "+formatPaymentAmount(total-deposit);
 }
 
 function openBookingDialog(name,{date="",time=""}={}){
