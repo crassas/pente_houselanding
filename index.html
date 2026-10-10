@@ -1489,6 +1489,24 @@ section{overflow-x:clip}
   .mobile-booking-sticky a{flex:0 0 auto;min-height:40px;padding:0 14px;border-radius:6px;background:#e03545;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:7.5px;font-weight:900;letter-spacing:.09em}
   html.booking-open .mobile-booking-sticky{display:none}
 }
+
+/* Direct WhatsApp availability check — alongside the full booking flow. */
+.instant-contact{display:flex;align-items:center;gap:12px;max-width:510px;margin-top:13px;padding:13px 14px;background:linear-gradient(125deg,rgba(7,10,13,.96),rgba(30,35,40,.95));border:1px solid rgba(235,239,243,.23);border-left:3px solid #e03545;border-radius:7px;box-shadow:0 10px 25px rgba(0,0,0,.23)}
+.instant-contact-text{min-width:0;flex:1 1 auto}
+.instant-contact-text b{display:block;color:#f6f6f7;font:900 17px/1.05 "Barlow Condensed",sans-serif;letter-spacing:.035em}
+.instant-contact-text span{display:block;margin-top:5px;color:#bec3c8;font-size:10px;line-height:1.45}
+.instant-contact-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;max-width:180px;flex:0 0 auto;padding:9px 12px;background:#e03545;color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:5px;font-size:10px;line-height:1.25;font-weight:900;letter-spacing:.045em;text-align:center;text-decoration:none;transition:background-color .2s ease,transform .2s ease}
+.instant-contact-link:hover,.instant-contact-link:focus-visible{background:#b82536;transform:translateY(-1px)}
+@media(max-width:760px){
+  .instant-contact{max-width:100%;align-items:stretch;flex-direction:column;gap:10px;padding:12px}
+  .instant-contact-text b{font-size:19px}
+  .instant-contact-text span{font-size:11px}
+  .instant-contact-link{width:100%;max-width:none;min-height:42px;font-size:11px}
+  .mobile-booking-sticky>span{display:none}
+  .mobile-booking-sticky>a{min-width:0;flex:1 1 0;padding:0 9px;font-size:10px;text-align:center}
+  .mobile-booking-sticky>.instant-whatsapp-sticky{background:#171c21;color:#fff;border:1px solid rgba(255,255,255,.32)}
+  .mobile-booking-sticky>.instant-whatsapp-sticky:hover,.mobile-booking-sticky>.instant-whatsapp-sticky:focus-visible{border-color:#e03545}
+}
 </style>
 </head>
 <body>
@@ -1517,6 +1535,10 @@ section{overflow-x:clip}
       <p class="stay">STAY CLEAN.</p>
       <span class="arcade-status" aria-label="Pente House no Marquês, Porto"><i aria-hidden="true"></i> MARQUÊS · PORTO · EST. 2018</span>
       <a class="btn light" href="#precos" style="margin-top:12px">▣ RESERVAR O MEU CORTE <span>›</span></a>
+      <div class="instant-contact" aria-label="Contactar a Pente House pelo WhatsApp">
+        <div class="instant-contact-text"><b>VAGAS PARA CORTE</b><span>Queres cortar o cabelo? Pergunta diretamente à equipa, sem preencher o formulário.</span></div>
+        <a class="instant-contact-link" href="https://wa.me/351916605673?text=Ol%C3%A1!%20Vi%20o%20vosso%20site%20da%20Pente%20House%20e%20queria%20saber%20se%20t%C3%AAm%20alguma%20vaga%20para%20cortar%20o%20cabelo.%20Se%20n%C3%A3o%20houver%20hoje%2C%20qual%20%C3%A9%20a%20pr%C3%B3xima%20dispon%C3%ADvel%3F%20Obrigado." target="_blank" rel="noopener noreferrer">PERGUNTAR POR VAGAS ↗</a>
+      </div>
       <div class="hero-conversion-bar" aria-label="Horário e avaliações da Pente House">
         <span class="hero-hours"><b>HORÁRIO</b> · Seg–Sex 10–20 · Sáb 10–18 · Dom fechado</span>
         <a class="hero-rating" href="https://www.google.com/maps/search/?api=1&query=Pentehouse%20Porto&query_place_id=ChIJgdPqtldlJA0RcfObBuHD4rk" target="_blank" rel="noopener noreferrer" aria-label="Ver avaliações da Pente House no Google"><b>★★★★★ 5,0</b><span>21 avaliações no Google ↗</span></a>
@@ -1763,6 +1785,7 @@ section{overflow-x:clip}
 
 <div class="mobile-booking-sticky" aria-label="Reservar corte na Pente House">
   <span><b>PENTE HOUSE</b><small>Seg–Sex 10–20 · Sáb 10–18</small></span>
+  <a class="instant-whatsapp-sticky" href="https://wa.me/351916605673?text=Ol%C3%A1!%20Vi%20o%20vosso%20site%20da%20Pente%20House%20e%20queria%20saber%20se%20t%C3%AAm%20alguma%20vaga%20para%20cortar%20o%20cabelo.%20Se%20n%C3%A3o%20houver%20hoje%2C%20qual%20%C3%A9%20a%20pr%C3%B3xima%20dispon%C3%ADvel%3F%20Obrigado." target="_blank" rel="noopener noreferrer">VAGAS? WHATSAPP</a>
   <a href="#precos">RESERVAR CORTE</a>
 </div>
 
