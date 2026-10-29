@@ -1507,6 +1507,16 @@ section{overflow-x:clip}
   .mobile-booking-sticky>.instant-whatsapp-sticky{background:#171c21;color:#fff;border:1px solid rgba(255,255,255,.32)}
   .mobile-booking-sticky>.instant-whatsapp-sticky:hover,.mobile-booking-sticky>.instant-whatsapp-sticky:focus-visible{border-color:#e03545}
 }
+
+/* Keep the animated hero background inside its section on wide screens. */
+@media (min-width:761px){
+  .hero{overflow:hidden;overflow:clip}
+  .about-photo{border-color:rgba(255,255,255,.14)}
+}
+@media (min-width:1101px){
+  .hero{height:auto}
+  .hero-main{height:auto;min-height:337px;padding-block:24px}
+}
 </style>
 </head>
 <body>
