@@ -1,4 +1,17 @@
 User-agent: *
 Allow: /
 
+# Pesquisa com IA (ChatGPT, Perplexity, Claude, Gemini)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://pentehouse.pt/sitemap.xml
