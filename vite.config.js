@@ -13,7 +13,8 @@ export default defineConfig({
         english: resolve(__dirname, "en/index.html"),
         penthouseOuPentehouse: resolve(__dirname, "penthouse-ou-pentehouse-porto/index.html"),
         perguntas: resolve(__dirname, "perguntas/index.html"),
-        galeria: resolve(__dirname, "galeria/index.html")
+        galeria: resolve(__dirname, "galeria/index.html"),
+        privacidade: resolve(__dirname, "privacidade/index.html")
       }
     }
   }
