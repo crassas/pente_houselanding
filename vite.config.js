@@ -14,7 +14,8 @@ export default defineConfig({
         penthouseOuPentehouse: resolve(__dirname, "penthouse-ou-pentehouse-porto/index.html"),
         perguntas: resolve(__dirname, "perguntas/index.html"),
         galeria: resolve(__dirname, "galeria/index.html"),
-        privacidade: resolve(__dirname, "privacidade/index.html")
+        privacidade: resolve(__dirname, "privacidade/index.html"),
+        termos: resolve(__dirname, "termos/index.html")
       }
     }
   }
