@@ -329,7 +329,12 @@ img{max-width:100%}
 .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;z-index:-4;filter:saturate(1.13) contrast(1.11) brightness(.84)}
 .hero-overlay{position:absolute;inset:0;z-index:-3;background:linear-gradient(90deg,rgba(3,5,7,.94) 0%,rgba(3,5,7,.71) 27%,rgba(3,5,7,.18) 63%,rgba(3,5,7,.55) 100%),linear-gradient(0deg,rgba(3,5,7,.61),transparent 54%)}
 .hero-tint{position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 73% 22%,rgba(26,68,150,.21),transparent 39%),radial-gradient(circle at 6% 41%,rgba(156,21,38,.13),transparent 30%);mix-blend-mode:screen}
-.topbar{height:67px;display:grid;grid-template-columns:210px 1fr 195px;align-items:center;gap:20px}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:1200;height:67px;display:grid;grid-template-columns:210px 1fr auto;align-items:center;gap:20px;background:rgba(7,9,11,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.11)}
+body{padding-top:67px}
+.top-actions{justify-self:end;display:flex;align-items:center;gap:8px}
+.top-actions .btn{height:40px;min-width:0;padding:0 16px}
+.top-wa{background:#171c21;border-color:rgba(255,255,255,.32)}
+.top-wa:hover,.top-wa:focus-visible{border-color:#e03545}
 .wordmark{display:flex;flex-direction:column}
 .wordmark b{font:800 27px/.88 "Barlow Condensed",sans-serif;letter-spacing:.04em}
 .wordmark span{margin-top:4px;font-size:6.8px;letter-spacing:.34em;color:#d3d5d8}
@@ -674,10 +679,10 @@ html.booking-open,html.booking-open body{overflow:hidden}
 
 @media(max-width:900px){
   :root{--shell:calc(100vw - 34px)}
-  .topbar{grid-template-columns:1fr auto;height:72px}
-  .nav,.top-cta{display:none}
+  .topbar{grid-template-columns:1fr auto auto;height:72px}
+  .nav{display:none}
   .menu{display:flex;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.22);align-items:center;justify-content:center;font-size:21px}
-  .mobile-nav{position:absolute;left:17px;right:17px;top:66px;z-index:30;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(-8px) scale(.985);transform-origin:top right;transition:.18s ease;background:#0c0f12;border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:7px;box-shadow:0 18px 48px rgba(0,0,0,.48)}
+  .mobile-nav{position:fixed;left:17px;right:17px;top:66px;z-index:30;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateY(-8px) scale(.985);transform-origin:top right;transition:.18s ease;background:#0c0f12;border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:7px;box-shadow:0 18px 48px rgba(0,0,0,.48)}
   .mobile-nav.open{opacity:1;pointer-events:auto;transform:none}
   .mobile-nav a{min-height:44px;display:flex;align-items:center;padding:0 14px;font-size:9px;letter-spacing:.14em;border-bottom:1px solid rgba(255,255,255,.07)}
   .mobile-nav a:last-child{border-bottom:0}
@@ -1007,15 +1012,18 @@ section{overflow-x:clip}
 /* Compact layout also covers browsers using a wide mobile/desktop viewport */
 @media(max-width:1100px){
   :root{--shell:calc(100% - 40px)}
-  .topbar{height:70px;grid-template-columns:minmax(0,1fr) auto;gap:16px}
-  .nav,.top-cta{display:none}
+  .topbar{height:70px;grid-template-columns:minmax(0,1fr) auto auto;gap:16px}
+  body{padding-top:70px}
+  .top-actions .btn{padding:0 12px}
+  .top-actions .top-cta{display:none}
+  .nav{display:none}
   .menu{
     display:flex;width:42px;height:42px;border-radius:50%;
     border:1px solid var(--steel-mid);background:rgba(5,7,9,.58);
     align-items:center;justify-content:center;font-size:21px
   }
   .mobile-nav{
-    position:absolute;left:20px;right:20px;top:66px;z-index:40;
+    position:fixed;left:20px;right:20px;top:66px;z-index:40;
     display:flex;flex-direction:column;opacity:0;pointer-events:none;
     transform:translateY(-8px) scale(.985);transform-origin:top right;
     transition:.18s ease;background:#0c0f12;border:1px solid rgba(255,255,255,.16);
@@ -1425,6 +1433,10 @@ section{overflow-x:clip}
   .grenha-modal{padding:10px}
   .grenha-modal-top h2{font-size:28px}
   .grenha-modal-tabs{gap:5px}
+  body{padding-top:64px}
+  .topbar{gap:10px}
+  .top-actions{gap:6px}
+  .top-actions .btn{padding:0 8px;font-size:9px}
 }
 
 /* Instagram links for the house and its team. */
@@ -1506,6 +1518,7 @@ section{overflow-x:clip}
   .mobile-booking-sticky>a{min-width:0;flex:1 1 0;padding:0 9px;font-size:10px;text-align:center}
   .mobile-booking-sticky>.instant-whatsapp-sticky{background:#171c21;color:#fff;border:1px solid rgba(255,255,255,.32)}
   .mobile-booking-sticky>.instant-whatsapp-sticky:hover,.mobile-booking-sticky>.instant-whatsapp-sticky:focus-visible{border-color:#e03545}
+  .mobile-booking-sticky>.instant-call-sticky{background:#171c21;color:#fff;border:1px solid rgba(255,255,255,.32)}
 }
 </style>
 <script type="application/ld+json">
@@ -1533,18 +1546,22 @@ section{overflow-x:clip}
 </div>
 
 <main>
-<section class="hero" id="inicio">
-  <img class="hero-photo" src="/images/pentehouse-interior.webp" srcset="/images/pentehouse-interior-720.webp 720w, /images/pentehouse-interior.webp 1400w" sizes="100vw" alt="Interior of Pente House barbershop" fetchpriority="high" decoding="async">
-  <div class="hero-overlay"></div><div class="hero-tint"></div>
   <header class="topbar shell">
     <a href="#inicio" class="wordmark"><b>PENTE HOUSE</b><span>BARBERSHOP · MARQUÊS · PORTO</span></a>
     <nav class="nav">
       <a class="active" href="#inicio">HOME</a><a href="#sobre">ABOUT</a><a href="#precos">PRICES</a><a href="#galeria">GALLERY</a><a href="#faq">QUESTIONS</a><a href="/" lang="pt-PT">PT</a>
     </nav>
-    <a class="btn top-cta" href="#precos">▣ BOOK A CUT</a>
+    <div class="top-actions">
+      <a class="btn top-call" href="tel:+351916605673">☎ CALL</a>
+      <a class="btn top-wa" href="https://wa.me/351916605673?text=Hello!%20I%20found%20your%20Pente%20House%20website.%20Do%20you%20have%20an%20opening%20for%20a%20haircut%20today%3F%20If%20not%2C%20when%20is%20your%20next%20available%20slot%3F%20Thank%20you." target="_blank" rel="noopener noreferrer">WHATSAPP</a>
+      <a class="btn top-cta" href="#precos">▣ BOOK A CUT</a>
+    </div>
     <button class="menu" id="menu" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">☰</button>
   </header>
-  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">HOME</a><a href="#sobre">ABOUT</a><a href="#precos">PRICES</a><a href="#galeria">GALLERY</a><a href="#faq">QUESTIONS</a><a href="#contactos">CONTACT</a><a href="#precos">BOOK</a><a href="/" lang="pt-PT">PORTUGUÊS · PT</a></nav>
+  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">HOME</a><a href="#sobre">ABOUT</a><a href="#precos">PRICES</a><a href="#galeria">GALLERY</a><a href="#faq">QUESTIONS</a><a href="#contactos">CONTACT</a><a href="#precos">BOOK</a><a href="/" lang="pt-PT">PORTUGUÊS · PT</a><a href="tel:+351916605673">CALL · 916 605 673</a></nav>
+<section class="hero" id="inicio">
+  <img class="hero-photo" src="/images/pentehouse-interior.webp" srcset="/images/pentehouse-interior-720.webp 720w, /images/pentehouse-interior.webp 1400w" sizes="100vw" alt="Interior of Pente House barbershop" fetchpriority="high" decoding="async">
+  <div class="hero-overlay"></div><div class="hero-tint"></div>
   <div class="hero-main shell">
     <div class="hero-copy">
       <div class="arcade-title is-message" aria-hidden="true"><span class="arcade-line">ATTITUDE</span><span class="arcade-line"></span></div>
@@ -1751,7 +1768,7 @@ section{overflow-x:clip}
     <div>
       <p class="kicker">ADDRESS · HOURS · CONTACT</p>
       <h3>THE ESSENTIALS, RIGHT HERE</h3>
-      <p><strong>Pente House · Rua da Constituição 656, Loja 20 · 4200-194 Porto.</strong> Marquês area, near the square and Marquês Metro. Mon–Fri 10:00–20:00 · Sat 10:00–18:00 · Sunday closed · +351 916 605 673.</p>
+      <p><strong>Pente House · Rua da Constituição 656, Loja 20 · 4200-194 Porto.</strong> Marquês area, near the square and Marquês Metro. Mon–Fri 10:00–20:00 · Sat 10:00–18:00 · Sunday closed · <a href="tel:+351916605673">+351 916 605 673</a>.</p>
     </div>
     <a class="btn" href="/visiting-porto/">OPEN LOCAL GUIDE <span>›</span></a>
   </div>
@@ -1813,6 +1830,7 @@ section{overflow-x:clip}
 <div class="mobile-booking-sticky" aria-label="Book a haircut at Pente House">
   <span><b>PENTE HOUSE</b><small>Mon–Fri 10–20 · Sat 10–18</small></span>
   <a class="instant-whatsapp-sticky" href="https://wa.me/351916605673?text=Hello!%20I%20found%20your%20Pente%20House%20website.%20Do%20you%20have%20an%20opening%20for%20a%20haircut%20today%3F%20If%20not%2C%20when%20is%20your%20next%20available%20slot%3F%20Thank%20you." target="_blank" rel="noopener noreferrer">ASK ON WHATSAPP</a>
+  <a class="instant-call-sticky" href="tel:+351916605673">CALL</a>
   <a href="#precos">BOOK A CUT</a>
 </div>
 
