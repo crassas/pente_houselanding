@@ -1503,6 +1503,8 @@ section{overflow-x:clip}
 }
 
 /* Direct WhatsApp availability check — alongside the full booking flow. */
+.hero-booking-actions{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin-top:12px}
+.hero-prices-link{display:inline-flex;align-items:center;min-height:44px;color:inherit;font-size:12px;font-weight:900;text-decoration:underline;text-underline-offset:4px}
 .instant-contact{display:flex;align-items:center;gap:12px;max-width:510px;margin-top:13px;padding:13px 14px;background:linear-gradient(125deg,rgba(7,10,13,.96),rgba(30,35,40,.95));border:1px solid rgba(235,239,243,.23);border-left:3px solid #e03545;border-radius:7px;box-shadow:0 10px 25px rgba(0,0,0,.23)}
 .instant-contact-text{min-width:0;flex:1 1 auto}
 .instant-contact-text b{display:block;color:#f6f6f7;font:900 17px/1.05 "Barlow Condensed",sans-serif;letter-spacing:.035em}
@@ -1546,11 +1548,11 @@ section{overflow-x:clip}
     <div class="top-actions">
       <a class="btn top-call" href="tel:+351916605673">☎ LIGAR</a>
       <a class="btn top-wa" href="https://wa.me/351916605673?text=Ol%C3%A1!%20Vi%20o%20vosso%20site%20da%20Pente%20House%20e%20queria%20saber%20se%20t%C3%AAm%20alguma%20vaga%20para%20cortar%20o%20cabelo.%20Se%20n%C3%A3o%20houver%20hoje%2C%20qual%20%C3%A9%20a%20pr%C3%B3xima%20dispon%C3%ADvel%3F%20Obrigado." target="_blank" rel="noopener noreferrer">WHATSAPP</a>
-      <a class="btn top-cta" href="#precos">▣ RESERVAR CORTE</a>
+      <a class="btn top-cta start-booking" href="#precos">▣ RESERVAR CORTE</a>
     </div>
     <button class="menu" id="menu" aria-label="Abrir menu" aria-controls="mobileNav" aria-expanded="false">☰</button>
   </header>
-  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="/galeria/">GALERIA</a><a href="/perguntas/">PERGUNTAS</a><a href="#contactos">CONTACTOS</a><a href="#precos">RESERVAR</a><a href="/en/" lang="en">ENGLISH · EN</a><a href="tel:+351916605673">LIGAR · 916 605 673</a></nav>
+  <nav class="mobile-nav" id="mobileNav"><a href="#inicio">INÍCIO</a><a href="#sobre">SOBRE</a><a href="#precos">PREÇOS</a><a href="/galeria/">GALERIA</a><a href="/perguntas/">PERGUNTAS</a><a href="#contactos">CONTACTOS</a><a class="start-booking" href="#precos">RESERVAR</a><a href="/en/" lang="en">ENGLISH · EN</a><a href="tel:+351916605673">LIGAR · 916 605 673</a></nav>
 <section class="hero" id="inicio">
   <img class="hero-photo" src="/images/pentehouse-interior.webp" srcset="/images/pentehouse-interior-720.webp 720w, /images/pentehouse-interior.webp 1400w" sizes="100vw" alt="Interior da Pente House" fetchpriority="high" decoding="async">
   <div class="hero-overlay"></div><div class="hero-tint"></div>
@@ -1561,7 +1563,10 @@ section{overflow-x:clip}
       <p class="body">Barbearia no Porto junto ao Marquês. Corte, barba e estética masculina numa casa liderada por <b>Rascal</b>.</p>
       <p class="stay">STAY CLEAN.</p>
       <span class="arcade-status" aria-label="Pente House no Marquês, Porto"><i aria-hidden="true"></i> MARQUÊS · PORTO · EST. 2018</span>
-      <a class="btn light" href="#precos" style="margin-top:12px">▣ RESERVAR O MEU CORTE <span>›</span></a>
+      <div class="hero-booking-actions">
+        <a class="btn light start-booking" href="#precos">▣ RESERVAR O MEU CORTE <span>›</span></a>
+        <a class="hero-prices-link" href="#precos">VER PREÇOS</a>
+      </div>
       <div class="instant-contact" aria-label="Contactar a Pente House pelo WhatsApp">
         <div class="instant-contact-text"><b>VAGAS PARA CORTE</b><span>Queres cortar o cabelo? Pergunta diretamente à equipa, sem preencher o formulário.</span></div>
         <a class="instant-contact-link" href="https://wa.me/351916605673?text=Ol%C3%A1!%20Vi%20o%20vosso%20site%20da%20Pente%20House%20e%20queria%20saber%20se%20t%C3%AAm%20alguma%20vaga%20para%20cortar%20o%20cabelo.%20Se%20n%C3%A3o%20houver%20hoje%2C%20qual%20%C3%A9%20a%20pr%C3%B3xima%20dispon%C3%ADvel%3F%20Obrigado." target="_blank" rel="noopener noreferrer">PERGUNTAR POR VAGAS ↗</a>
@@ -1816,7 +1821,7 @@ section{overflow-x:clip}
   <span><b>PENTE HOUSE</b><small>Seg–Sex 10–20 · Sáb 10–18</small></span>
   <a class="instant-whatsapp-sticky" href="https://wa.me/351916605673?text=Ol%C3%A1!%20Vi%20o%20vosso%20site%20da%20Pente%20House%20e%20queria%20saber%20se%20t%C3%AAm%20alguma%20vaga%20para%20cortar%20o%20cabelo.%20Se%20n%C3%A3o%20houver%20hoje%2C%20qual%20%C3%A9%20a%20pr%C3%B3xima%20dispon%C3%ADvel%3F%20Obrigado." target="_blank" rel="noopener noreferrer">VAGAS? WHATSAPP</a>
   <a class="instant-call-sticky" href="tel:+351916605673">LIGAR</a>
-  <a href="#precos">RESERVAR CORTE</a>
+  <a class="start-booking" href="#precos">RESERVAR CORTE</a>
 </div>
 
 <dialog class="gallery-dialog" id="galleryDialog">
@@ -2271,17 +2276,10 @@ bookingService.addEventListener("change",()=>{
 });
 bookingPayment.addEventListener("change",updatePaymentChoice);
 
-document.querySelectorAll(".start-booking").forEach(btn=>btn.addEventListener("click",()=>{
-  const firstService=document.querySelector(".service-choice");
-  (firstService||document.getElementById("precos")).scrollIntoView({
-    behavior:reduceMotion?"auto":"smooth",
-    block:"center",
-    inline:"nearest"
-  });
-  setFlowStage("service");
-  if(firstService&&!reduceMotion){
-    gsap.fromTo(firstService,{scale:.985},{scale:1,duration:.38,ease:"back.out(1.5)"});
-  }
+document.querySelectorAll(".start-booking").forEach(control=>control.addEventListener("click",event=>{
+  if(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();
+  openBookingDialog("Qualquer barbeiro");
 }));
 
 document.querySelectorAll(".book").forEach(btn=>btn.addEventListener("click",()=>{
