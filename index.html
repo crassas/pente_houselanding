@@ -1727,7 +1727,7 @@ section{overflow-x:clip}
   </div>
   <div class="barbers shell reveal">
     <article class="barber"><img class="profile-photo" src="/images/rascal-profile.webp" alt="Rascal"><div><h3>RASCAL</h3><p>CEO · BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351910079539">+351 910 079 539</a></p><a class="barber-instagram" href="https://www.instagram.com/rascal_na/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Rascal (abre num novo separador)">Instagram · @rascal_na <span aria-hidden="true">↗</span></a><button type="button" class="btn light book" data-barber="Rascal" data-phone="+351 910 079 539">ESCOLHER RASCAL <span>›</span></button></div></article>
-    <article class="barber"><img class="profile-photo" src="/images/grenha-profile.webp" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><a class="barber-instagram" href="https://www.instagram.com/filip3grenha/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Grenha (abre num novo separador)">Instagram · @filip3grenha <span aria-hidden="true">↗</span></a><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">ESCOLHER GRENHA <span>›</span></button></div></article>
+    <article class="barber"><img class="profile-photo" src="/images/grenha-profile.webp" alt="Grenha"><div><h3>GRENHA</h3><p>BARBEIRO PENTE HOUSE · FOLGA À TERÇA-FEIRA<br><a class="barber-phone" href="tel:+351919779208">+351 919 779 208</a></p><a class="barber-instagram" href="https://www.instagram.com/filip3grenha/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Grenha (abre num novo separador)">Instagram · @filip3grenha <span aria-hidden="true">↗</span></a><button type="button" class="btn light book" data-barber="Grenha" data-phone="+351 919 779 208">ESCOLHER GRENHA <span>›</span></button></div></article>
     <article class="barber"><img class="profile-photo" src="/images/bruno-waya-profile.webp" alt="Bruno Waya"><div><h3>BRUNO WAYA</h3><p>BARBEIRO PENTE HOUSE<br><a class="barber-phone" href="tel:+351916605673">+351 916 605 673</a></p><a class="barber-instagram" href="https://www.instagram.com/wayawaya_99/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Bruno Waya (abre num novo separador)">Instagram · @wayawaya_99 <span aria-hidden="true">↗</span></a><button type="button" class="btn light book" data-barber="Bruno Waya" data-phone="+351 916 605 673">ESCOLHER BRUNO <span>›</span></button></div></article>
   </div>
   <div class="review-bridge shell reveal">
@@ -2143,7 +2143,7 @@ function syncSelectedBarber(name){
   }
 }
 
-bookingBarber.addEventListener("change",()=>syncSelectedBarber(bookingBarber.value));
+bookingBarber.addEventListener("change",()=>{syncSelectedBarber(bookingBarber.value);populateBookingTimes();});
 
 function lisbonDateISO(offsetDays=0){
   const now=new Date(Date.now()+offsetDays*86400000);
@@ -2155,12 +2155,15 @@ function setBookingDateBounds(){
   bookingDate.min=lisbonDateISO(0);
   bookingDate.max=lisbonDateISO(180);
 }
+function grenhaTuesdayOff(){
+  return bookingBarber.value==="Grenha" && !!bookingDate.value && new Date(bookingDate.value+"T12:00:00").getDay()===2;
+}
 function populateBookingTimes(){
   const current=bookingTime.value;
   bookingTime.innerHTML='<option value="">Sem preferência de hora</option>';
   if(!bookingDate.value)return;
   const day=new Date(bookingDate.value+"T12:00:00").getDay();
-  if(day===0)return;
+  if(day===0||grenhaTuesdayOff())return;
   const close=day===6?18:20;
   for(let h=10;h<close;h++){
     for(const m of [0,30]){
@@ -2171,7 +2174,7 @@ function populateBookingTimes(){
   if([...bookingTime.options].some(o=>o.value===current))bookingTime.value=current;
 }
 setBookingDateBounds();
-bookingDate.addEventListener("change",populateBookingTimes);
+bookingDate.addEventListener("change",()=>{bookingDate.setCustomValidity("");populateBookingTimes();});
 
 const serviceChoices=[...document.querySelectorAll(".service-choice")];
 const selectedServiceLine=document.getElementById("selectedServiceLine");
@@ -2319,6 +2322,13 @@ payBtn.addEventListener("click",()=>{
   const preferredTime=bookingTime.value;
 
   if(!barber){markBookingError(bookingBarber);return}
+  if(grenhaTuesdayOff()){
+    bookingDate.setCustomValidity("O Grenha está de folga à terça-feira. Escolhe outra data ou outro barbeiro.");
+    bookingDate.reportValidity();
+    markBookingError(bookingDate);
+    return;
+  }
+  bookingDate.setCustomValidity("");
   if(!name){markBookingError(bookingName);return}
   if(!phone){markBookingError(bookingPhone);return}
   if(!service){markBookingError(bookingService);return}
