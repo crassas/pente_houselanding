@@ -2143,7 +2143,7 @@ function syncSelectedBarber(name){
   }
 }
 
-bookingBarber.addEventListener("change",()=>{syncSelectedBarber(bookingBarber.value);populateBookingTimes();});
+bookingBarber.addEventListener("change",()=>{bookingDate.setCustomValidity("");syncSelectedBarber(bookingBarber.value);populateBookingTimes();});
 
 function lisbonDateISO(offsetDays=0){
   const now=new Date(Date.now()+offsetDays*86400000);
